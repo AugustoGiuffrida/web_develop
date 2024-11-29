@@ -1,0 +1,58 @@
+body {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Degradado */
+    font-family: 'Inika', serif;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1E1E1E;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.loan-card {
+    display: flex;
+    align-items: flex-start; /* Align items at the start */
+    border: 1px solid #ddd; /* Add border to the card */
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden; /* Ensure content stays within rounded corners */
+    background: #fff; /* White background for the card */
+    padding: 10px; /* Add padding to the card */
+}
+
+.book-image {
+    width: 150px; /* Fixed width for image */
+    height: 200px; /* Fixed height for image */
+    object-fit: cover; /* Cover image */
+    border-radius: 8px; /* Rounded corners for the image */
+    border: 1px solid #ddd; /* Border around image */
+}
+
+button[type="submit"] {
+    background: linear-gradient(135deg, #1E1E1E, #343a40);
+    color: #ffffff;
+    border-radius: 15px;
+    width: 126px;
+    height: 39px;
+    font-size: 14px;
+    margin: 0 auto;
+    display: block;
+    border: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #343a40, #1E1E1E);
+    transform: scale(1.05);
+}
+
+button[type="submit"]:active {
+    background: linear-gradient(135deg, #343a40, #1E1E1E);
+    transform: scale(0.98);
+}

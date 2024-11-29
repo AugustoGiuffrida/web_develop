@@ -1,0 +1,63 @@
+<div class="container d-flex justify-content-center align-items-start pt-5">
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
+    <app-header></app-header>
+    <h3 class="fw-bold mb-4 text-center">Usuarios</h3>
+
+    <!-- Filtros -->
+    <div class="filter-section mb-4 p-3 bg-light rounded-3 shadow-sm">
+      <h5 class="fw-bold">Filtros</h5>
+      <div class="row g-3 align-items-center">
+        
+        <!-- Filtro por rol -->
+        <div class="col-md-4">
+          <label for="role" class="form-label"><i class="fas fa-users"></i> Rol</label>
+          <select id="role" class="form-select" [(ngModel)]="selectedRole" (change)="loadUsers()">
+            <option value="Todos">Todos</option>
+            <option value="user">Usuario</option>
+            <option value="bibliotecario">Bibliotecario</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <!-- Filtro por nombre -->
+        <div class="col-md-4">
+          <label for="nombre" class="form-label"><i class="fas fa-user"></i> Nombre</label>
+          <input id="nombre" type="text" class="form-control" [(ngModel)]="selectedNombre" placeholder="Buscar por nombre" (input)="loadUsers()">
+        </div>
+
+        <!-- Filtro por apellido -->
+        <div class="col-md-4">
+          <label for="apellido" class="form-label"><i class="fas fa-user"></i> Apellido</label>
+          <input id="apellido" type="text" class="form-control" [(ngModel)]="selectedApellido" placeholder="Buscar por apellido" (input)="loadUsers()">
+        </div>
+
+        <!-- Filtro por número de préstamos -->
+        <div class="col-md-4">
+          <label for="nrPrestamos" class="form-label"><i class="fas fa-book"></i> Nº de Préstamos</label>
+          <input id="nrPrestamos" type="number" class="form-control" [(ngModel)]="selectedNrPrestamos" placeholder="0" (input)="loadUsers()">
+        </div>
+      </div>
+    </div>
+
+  <!-- Lista de usuarios filtrados -->
+  <div class="users-list mb-3"> 
+    <div *ngFor="let user of usuarios" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white shadow-sm">
+      <app-see-user 
+        [id]="user.usuarioID"
+        [nombre]="user.usuario_nombre"
+        [apellido]="user.usuario_apellido"
+        [email]="user.usuario_email"
+        [telefono]="user.usuario_telefono"
+        [rol]="user.rol">
+      </app-see-user>
+    </div>
+  </div>
+
+    <!-- Componente de paginación -->
+    <app-paginate 
+      [(page)]="page"
+      [pages]="pages"
+      (pageChange)="onPageChange($event)">
+    </app-paginate>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+/* Estilos para la pestaña lateral */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-header h5 {
+    margin: 0;
+  }
+  
+  .sidebar-form {
+    display: flex;
+    flex-direction: column;
+  }
+  

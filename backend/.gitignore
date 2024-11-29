@@ -1,0 +1,9 @@
+/Scripts
+/include
+/Lib
+/Lib64
+pyvenv.cfg
+.env
+/boot.bat
+/install.bat.venv
+*.venv

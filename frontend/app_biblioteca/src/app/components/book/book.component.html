@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="book-header">
+    <!-- Configuración de la URL de la imagen -->
+    <img src="cover/{{ image }}" alt="Book image" class="book-image" [alt]="title">
+    <div class="book-info">
+      <strong class="d-inline-block mb-2 text-primary-emphasis">{{ gender }}</strong>
+      <h4 class="mb-0 shortened-title">{{ title }}</h4>
+      <div class="mb-1 text-body-secondary shortened-title">{{ authors || 'Desconocido' }}</div>
+      <app-star [rating]="rating"></app-star>
+    </div>
+  </div>
+
+@if (isAdmin || isLibrarian) {
+  <div class="card-body">
+    <div class="button-group">
+      <button class="btn btn-outline-danger" (click)="onDeleteBook()">
+        <i class="bi bi-trash-fill"></i>
+      </button>
+      <button class="btn btn-outline-primary" (click)="onEditBook()">
+        <i class="bi bi-pencil-fill"></i>
+      </button>
+    </div>
+
+    <div *ngIf="isEditing">
+      <h5>Editar Libro</h5>
+      <form (ngSubmit)="updateBook()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Título</label>
+          <input type="text" class="form-control" [(ngModel)]="updatedTitle" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="author" class="form-label">Autor</label>
+          <input type="text" class="form-control" [(ngModel)]="updatedAuthor" name="author" required>
+        </div>
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Cantidad</label>
+          <input type="number" class="form-control" [(ngModel)]="updatedQuantity" name="quantity" required>
+        </div>
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <button type="button" class="btn btn-secondary" (click)="isEditing = false">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  }
+
+    <!-- Contenedor para los botones Pedir e Información -->
+    <div class="button-group-actions">
+      @if (isUser) {
+      <button class="btn btn-success" (click)="onRentBook()">
+        <i class="bi bi-cart-plus-fill"></i> Pedir
+      </button>
+      }
+      <button class="btn btn-info" (click)="navigateToBookDetails()">
+        <i class="bi bi-info-circle-fill"></i> Información
+      </button>
+    </div>

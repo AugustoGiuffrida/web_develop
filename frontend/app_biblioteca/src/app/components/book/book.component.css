@@ -1,0 +1,150 @@
+/* Contenedor de la tarjeta */
+.card {
+    position: relative; /* Asegura que los elementos internos se posicionen en relación a esta tarjeta */
+    background-color: #ffffff; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+/* Efecto hover para aumentar la escala */
+.card:hover {
+    transform: scale(1.02);
+}
+
+/* Estilo para la imagen del libro */
+.book-image {
+    max-width: 100px;               /* Ajusta el tamaño de la imagen */
+    height: auto;                    /* Mantiene la proporción de la imagen */
+    margin-right: 15px;             /* Espaciado entre la imagen y el texto */
+    border: 1px solid #ddd;         /* Borde gris claro */
+    border-radius: 5px;             /* Bordes redondeados */
+}
+
+/* Estilo para el encabezado del libro */
+.book-header {
+    display: flex;                   /* Usar flexbox */
+    align-items: center;            /* Alinear verticalmente al centro */
+}
+
+/* Estilo para la información del libro */
+.book-info {
+    display: flex;                  /* Usar flexbox para el título y género */
+    flex-direction: column;         /* Colocar el título sobre el género */
+    justify-content: flex-start;    /* Alinear los elementos al inicio */
+}
+
+/* Ajustar el espaciado del texto en .book-info */
+.book-info h4 {
+    margin-bottom: 5px;             /* Espacio entre el título y el género */
+}
+
+/* Estilo para los detalles del libro */
+.book-details {
+    background-color: #f8f9fa;      /* Color de fondo suave */
+    border: 1px solid #ddd;         /* Borde gris claro */
+    border-radius: 5px;             /* Bordes redondeados */
+    padding: 15px;                  /* Espacio interno */
+    margin-top: 15px;               /* Espacio superior */
+}
+
+/* Estilo base para todos los botones */
+.btn {
+    font-size: 1.2rem;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 15px; /* Bordes redondeados para los botones */
+    transition: background 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+/* Botones de acción (eliminar, editar, etc.) */
+.btn-outline-danger {
+    color: #ffffff; /* Texto blanco */
+    background-color: #dc3545; /* Fondo rojo */
+    border: none; /* Sin borde */
+}
+
+.btn-outline-danger:hover {
+    background-color: #c82333; /* Fondo rojo oscuro al hacer hover */
+    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+}
+
+.btn-outline-primary {
+    color: #ffffff; /* Texto blanco */
+    background-color: #007bff; /* Fondo azul */
+    border: none; /* Sin borde */
+}
+
+.btn-outline-primary:hover {
+    background-color: #0056b3; /* Fondo azul oscuro al hacer hover */
+    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+}
+
+.btn-success {
+    background-color: #28a745; /* Color verde para pedir */
+    border: none; /* Sin borde */
+    color: #ffffff; /* Texto blanco */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Fondo verde oscuro al hacer hover */
+    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+}
+
+.btn-info {
+    background-color: #17a2b8; /* Color cian para información */
+    border: none; /* Sin borde */
+    color: #ffffff; /* Texto blanco */
+}
+
+.btn-info:hover {
+    background-color: #138496; /* Fondo cian oscuro al hacer hover */
+    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+}
+
+/* Espaciado adicional para el cuerpo de la tarjeta */
+.card-body {
+    padding: 15px; /* Añadir padding al cuerpo de la tarjeta */
+}
+
+
+/* Contenedor de botones en la esquina superior derecha */
+.button-group {
+    position: absolute;  /* Posiciona los botones de manera absoluta */
+    top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
+    right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
+    display: flex;       /* Usar Flexbox para alinear los botones en fila */
+    gap: 10px;           /* Espacio entre los botones */
+}
+
+/* Estilo base para los botones */
+.button-group .btn {
+    width: auto;
+    flex: 1;
+    margin-top: 0;
+}
+
+
+/* Estilo base para la mini pestaña */
+.info-tab {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    background-color: #f8f9fa; /* Fondo suave */
+    border: 1px solid #ddd; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 0 15px; /* Sin padding por defecto */
+    margin-top: 10px;
+    opacity: 0;
+  }
+  
+  /* Estilo para cuando la pestaña está abierta */
+  .info-tab.open {
+    max-height: 150px; /* Ajusta según la cantidad de información */
+    padding: 15px; /* Añadir padding cuando está abierto */
+    opacity: 1;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out, opacity 0.3s;
+  }
+  
+

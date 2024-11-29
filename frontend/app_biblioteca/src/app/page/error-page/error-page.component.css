@@ -1,0 +1,53 @@
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    text-align: center;
+    background-color: #3d3d3d; /* Color de fondo similar al de la barra de navegación */
+    color: #CCCCCC; /* Color de texto */
+    padding: 20px;
+}
+
+.error-title {
+    font-family: 'Inika', serif;
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    color: white;
+}
+
+.error-message {
+    font-family: 'Inika', serif;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+.error-code {
+    font-weight: bold;
+    margin-bottom: 1.5em;
+    color: #CCCCCC; /* Mismo color que los autores */
+}
+
+.btn {
+    background: linear-gradient(135deg, #1E1E1E, #343a40);
+    color: #ffffff;
+    border-radius: 15px;
+    width: 250px;
+    height: 60px;
+    font-size: 17px;
+    margin: 0 auto;
+    display: block;
+    border: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #343a40, #1E1E1E);
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}

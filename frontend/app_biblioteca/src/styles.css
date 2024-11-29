@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #ffffff; /* Color de fondo */
+    color: white; /* Color de texto por defecto */
+    font-family: 'Inika', serif; /* Fuente personalizada */
+    margin: 0; /* Eliminar márgenes por defecto */
+    height: 100vh; /* Asegurarte de que cubra toda la altura de la ventana */
+}

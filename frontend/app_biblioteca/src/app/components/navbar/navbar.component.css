@@ -1,0 +1,36 @@
+.navbar {
+    background: linear-gradient(135deg, #ffffff, #f1f1f1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  
+.btn-outline-dark {
+    border-color: #1E1E1E;
+    color: #1E1E1E;
+    transition: background-color 0.3s ease;
+  }
+
+
+.btn-outline-dark:hover {
+    background-color: #343a40;
+    color: #fff;
+  }
+
+  
+.btn i {
+    vertical-align: middle;
+  }
+
+
+.btn:hover i {
+    transform: scale(1.2);
+  }
+
+
+
+  
+
+
+  
+
+  

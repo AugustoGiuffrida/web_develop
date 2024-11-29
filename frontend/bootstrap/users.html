@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Incluye Iconos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Degradado */
+        font-family: 'Inika', serif;
+    }
+    .logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #1E1E1E;
+        transition: transform 0.3s ease;
+    }
+    .logo:hover {
+        transform: scale(1.1);
+    }
+
+
+</style>
+
+<body class="bg-light text-dark" style="font-family: 'Inika', serif;">
+
+<div class="container d-flex justify-content-center align-items-start pt-5">
+    <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="index.html" class="text-dark d-flex align-items-center" style="font-weight: bold;">
+                <i class="bi bi-arrow-left me-2"></i> Volver a inicio
+            </a>
+            <img src="Ellipse 1.png" alt="Logo" class="rounded-circle" style="width: 50px; height: 50px;">
+        </div>
+
+        <!-- Page Title -->
+        <h3 class="page-title mb-4 fw-bold">Users</h3>
+
+        <!-- Filter Buttons -->
+        <div class="mb-4">
+            <button class="btn btn-light filter-button fw-bold" onclick="filterUsers('all')">All</button>
+            <button class="btn btn-light filter-button fw-bold" onclick="filterUsers('user')">Users</button>
+            <button class="btn btn-light filter-button fw-bold" onclick="filterUsers('librarian')">Librarians</button>
+            <button class="btn btn-light filter-button fw-bold" onclick="filterUsers('admin')">Admins</button>
+        </div>
+
+        <!-- Users List with Scrollbar -->
+        <div id="users-list" style="max-height: 600px; overflow-y: auto;"> <!-- Add max-height and overflow-y -->
+            <!-- Example User Card -->
+            <div class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+                <img src="descarga (1).png" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <div class="user-info">
+                    <strong>John Doe</strong><br>
+                    <span>johndoe@example.com</span><br>
+                    <span class="user-role text-secondary">User</span>
+                </div>
+            </div>
+            <div class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+                <img src="descarga (1).png" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <div class="user-info">
+                    <strong>Jane Smith</strong><br>
+                    <span>janesmith@example.com</span><br>
+                    <span class="user-role text-secondary">Librarian</span>
+                </div>
+            </div>
+            <!-- Additional User Cards -->
+            <div class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+                <img src="descarga (1).png" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <div class="user-info">
+                    <strong>Admin User</strong><br>
+                    <span>adminuser@example.com</span><br>
+                    <span class="user-role text-secondary">Admin</span>
+                </div>
+            </div>
+            <div class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+                <img src="descarga (1).png" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <div class="user-info">
+                    <strong>Admin User</strong><br>
+                    <span>adminuser@example.com</span><br>
+                    <span class="user-role text-secondary">Admin</span>
+                </div>
+            </div>
+            <div class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+                <img src="descarga (1).png" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <div class="user-info">
+                    <strong>Admin User</strong><br>
+                    <span>adminuser@example.com</span><br>
+                    <span class="user-role text-secondary">Admin</span>
+                </div>
+            </div>
+            <div class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white">
+                <img src="descarga (1).png" alt="User Photo" class="user-image rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                <div class="user-info">
+                    <strong>Admin User</strong><br>
+                    <span>adminuser@example.com</span><br>
+                    <span class="user-role text-secondary">Admin</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Barra de navegación inferior -->
+<nav class="navbar navbar-dark fixed-bottom" style="background-color: #222222; height: 40px;">
+    <div class="container d-flex justify-content-around align-items-center" style="height: 100%;">
+        <a href="index.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-house-fill"></i></a>
+        <a href="notificacions.html" class="text-white" style="font-size: 1.2rem;"><i class="bi-bell-fill"></i></a>
+        <a href="rents.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-basket-fill"></i></a>
+        <a href="configuration.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-gear"></i></a>
+        <a href="profile.html" class="text-white" style="font-size: 1.2rem;"><i class="bi bi-person-fill"></i></a>
+    </div>
+</nav>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script>
+    function filterUsers(role) {
+        console.log('Filter users by:', role);
+    }
+</script>
+</body>
+</html>

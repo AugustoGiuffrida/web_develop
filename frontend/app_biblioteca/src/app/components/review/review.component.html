@@ -1,0 +1,18 @@
+<div class="row">
+
+    <div class="col">
+      <div class="card-body">
+        <h5 class="card-title mb-1 text-truncate" style="max-width: 220px;">{{ user?.usuario_nombre }} {{ user?.usuario_apellido }}</h5>
+        <app-star [rating]="valoration"></app-star>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <div class="card-body">
+        <p class="card-text">{{comment}}</p>
+      </div>
+    </div>
+  </div>
+

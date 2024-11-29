@@ -1,0 +1,99 @@
+
+<body>
+<div class="container-form register">
+    <div class="information">
+        <div class="info-childs">
+            <h2>Bienvenido</h2>
+            <p>Para unirte a nuestra comunidad por favor Inicia Sesión con tus datos</p>
+            <input type="button" value="Iniciar Sesión" routerLink="/login">
+        </div>
+    </div>
+
+    <!-- Formulario de Registro -->
+    <div class="form-information">
+        <div class="form-information-childs">
+            <h2>Crear una Cuenta</h2>
+            <div class="icons">
+                <i class='bx bxl-google'></i>
+                <i class='bx bxl-github'></i>
+                <i class='bx bxl-linkedin'></i>
+            </div>
+            <p>o usa tu email para registrarte</p>
+
+            <form [formGroup]="registerForm" class="form form-register" (ngSubmit)="submit()">
+                <div>
+                    <label for="nombre">
+                        <i class="bi bi-person form-control-icon"></i>
+                        <input type="text" formControlName="usuario_nombre" id="nombre" placeholder="Nombre" required>
+                    </label>
+                    <div *ngIf="registerForm.get('usuario_nombre')?.touched && registerForm.get('usuario_nombre')?.invalid" class="invalid-feedback">
+                        <small *ngIf="registerForm.get('usuario_nombre')?.errors?.['required']">El nombre es requerido.</small>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="apellido">
+                        <i class="bi bi-person form-control-icon"></i>
+                        <input type="text" formControlName="usuario_apellido" id="apellido" placeholder="Apellido" required>
+                    </label>
+                    <div *ngIf="registerForm.get('usuario_apellido')?.touched && registerForm.get('usuario_apellido')?.invalid" class="invalid-feedback">
+                        <small *ngIf="registerForm.get('usuario_apellido')?.errors?.['required']">El apellido es requerido.</small>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email">
+                        <i class="bi bi-envelope form-control-icon"></i>
+                        <input type="email" formControlName="usuario_email" id="email" placeholder="Correo electrónico" required>
+                    </label>
+                    <div *ngIf="registerForm.get('usuario_email')?.touched && registerForm.get('usuario_email')?.invalid" class="invalid-feedback">
+                        <small *ngIf="registerForm.get('usuario_email')?.errors?.['required']">El correo electrónico es requerido.</small>
+                        <small *ngIf="registerForm.get('usuario_email')?.errors?.['email']">El formato del correo electrónico no es válido.</small>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password">
+                        <i class="bi bi-lock form-control-icon"></i>
+                        <input type="password" formControlName="usuario_contraseña" id="password" placeholder="Contraseña" required>
+                    </label>
+                    <div *ngIf="registerForm.get('usuario_contraseña')?.touched && registerForm.get('usuario_contraseña')?.invalid" class="invalid-feedback">
+                        <small *ngIf="registerForm.get('usuario_contraseña')?.errors?.['required']">La contraseña es requerida.</small>
+                        <small *ngIf="registerForm.get('usuario_contraseña')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="confirm-password">
+                        <i class="bi bi-lock form-control-icon"></i>
+                        <input type="password" formControlName="confirmPassword" id="confirm-password" placeholder="Confirma tu contraseña" required>
+                    </label>
+                    <div *ngIf="registerForm.hasError('mismatch') && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)" class="invalid-feedback">
+                        Las contraseñas no coinciden.
+                    </div>
+                </div>
+
+                <div>
+                    <label for="phone">
+                        <i class="bi bi-phone form-control-icon"></i>
+                        <input type="text" formControlName="usuario_telefono" id="phone" placeholder="Teléfono" required>
+                    </label>
+                    <div *ngIf="registerForm.get('usuario_telefono')?.touched && registerForm.get('usuario_telefono')?.invalid" class="invalid-feedback">
+                        <small *ngIf="registerForm.get('usuario_telefono')?.errors?.['required']">El teléfono es requerido.</small>
+                        <small *ngIf="registerForm.get('usuario_telefono')?.errors?.['pattern']">El teléfono debe ser numérico.</small>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" [disabled]="isSubmitting" value="Registrarse">
+                        <span *ngIf="isSubmitting">Enviando...</span>
+                    
+                </div>
+                
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>

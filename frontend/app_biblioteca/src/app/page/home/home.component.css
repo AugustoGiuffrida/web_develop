@@ -1,0 +1,160 @@
+/* src/styles.css */
+
+.scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden; /* Oculta la barra de desplazamiento vertical */
+    white-space: nowrap; /* Evita que los elementos se salten a la siguiente línea */
+    padding-bottom: 10px; /* Espacio para la barra de desplazamiento */
+    border-bottom: 2px solid #CCCCCC; /* Barra en la parte inferior */
+    margin-bottom: 10px; /* Espacio debajo del contenedor de libros */
+    max-width: 100%; /* Asegura que el contenedor ocupe el ancho disponible */
+}
+
+.scroll-container::-webkit-scrollbar {
+    height: 10px; /* Altura de la barra de desplazamiento horizontal */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: #E0E0E0; /* Fondo claro para la pista del scrollbar */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #B0B0B0; /* Color para el pulgar del scrollbar */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo para el contenedor de libros */
+.book-container {
+    display: flex;
+    flex-wrap: nowrap; /* Asegura que los libros no se muevan a la siguiente línea */
+    align-items: flex-start; /* Alinea los libros en la parte superior para evitar solapamientos */
+    gap: 1rem; 
+   
+    border-radius: 1%;
+    width: 100%; /* O la medida que necesites */
+    height: auto; /* O un valor fijo como 300px */
+    padding: 10px; /* Espacio interno */
+}
+
+/* Estilo para cada libro */
+.book-item {
+    flex: 0 0 auto; /* Asegura que los ítems no se expandan ni se contraigan */
+    width: 150px;
+    margin-right: 50px; /* Espacio entre los libros */
+    text-align: center; /* Centra el texto dentro del contenedor del libro */
+    display: inline-block; /* Asegura que los libros se alineen horizontalmente */
+    background-color: #ffffff; /* Color de fondo del contenedor */
+    padding: 20px; /* Espacio interno del contenedor */
+    border-radius: 10px; /* Bordes redondeados (opcional) */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+/* Estilo para los títulos de los libros */
+.book-title {
+    font-family: 'Inika', serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333; /* Cambiado a un gris oscuro */
+    margin: 0; /* Elimina el margen por defecto para centrar */
+}
+
+/* Estilo para los autores de los libros */
+.book-author {
+    font-family: 'Inika', serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #555555; /* Cambiado a un gris más claro */
+    margin: 0; /* Elimina el margen por defecto para centrar */
+}
+
+/* Estilo para la cantidad de libros restantes */
+.books-remaining {
+    font-family: 'Inika', serif;
+    font-size: 11px;
+    color: #df4416; /* Cambiado a un gris más claro */
+    margin-top: 5px; /* Espacio entre el autor y la cantidad de libros restantes */
+}
+
+/* Estilo adicional para asegurar separación */
+.book-item div {
+    margin-top: 5px;
+}
+.col{
+    color: #000000;
+    
+}
+.btn-outline-light {
+    color: #4E4E4E; /* Color gris oscuro para el texto */
+    border-color: #4E4E4E; /* Color del borde gris oscuro */
+}
+/* Estilos para el campo de búsqueda */
+.search-bar {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #CCCCCC; /* Borde gris claro */
+    color: #333333; /* Texto gris oscuro */
+    border-radius: 20px;
+    padding: 12px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    outline: none;
+    border: 1px solid #007BFF; /* Borde azul al enfocar */
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.2); /* Sombra azul al enfocar */
+}
+
+/* Estilo específico para la barra de navegación inferior */
+.navbar-bottom {
+    background-color: #7c0e0e; /* Fondo blanco */
+    height: 10px; 
+    border-top: 1px solid #CCCCCC; /* Añadir un borde superior sutil */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadir sombra sutil */
+}
+
+.navbar-bottom .container {
+    height: 100%;
+}
+
+.navbar-bottom a {
+    color: #007BFF; /* Enlace azul */
+    font-size: 1.2rem;
+    transition: color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+.navbar-bottom a:hover {
+    transform: scale(1.1); /* Aumentar tamaño en hover */
+}
+
+/* Estilo para el botón Pedir */
+.btn-pedir {
+    background: linear-gradient(135deg, #1E1E1E, #343a40);
+    transition: background 0.3s ease, transform 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    color: #ffffff;
+    padding: 10px 20px;
+    width: 100%;
+    margin-top: 20px;
+    
+}
+
+.btn-pedir:hover {
+    background: linear-gradient(135deg, #343a40, #1E1E1E);
+}
+
+
+.input-group-text {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #6c757d; /* Borde gris oscuro */
+    border-right: none; /* Sin borde a la derecha */
+    border-radius: 20px 0 0 20px; /* Redondeado solo en la esquina izquierda */
+  }
+  
+  .form-control.search-bar {
+    border: 1px solid #6c757d; /* Borde gris oscuro */
+    border-left: none; /* Sin borde a la izquierda */
+    border-radius: 0 20px 20px 0; /* Redondeado solo en la esquina derecha */
+  }
+  
+  

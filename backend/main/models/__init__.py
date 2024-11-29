@@ -1,0 +1,10 @@
+from .libro import Libro as LibroModel
+#from .libro import libros_prestamos  as libros_prestamosModel
+from .notificacion import Notificacion as NotificacionModel
+from .prestamo import Prestamo as PrestamoModel
+from .reseña import Reseña as ReseñaModel
+from .usuario import Usuario as UsuarioModel
+from .configuracion import Configuracion as ConfiguracionModel
+from .autor import Autor as AutorModel
+from .autor import libros_autores as libros_autoresModel
+from .notificacion import notificaciones_usuarios as notificaciones_usuariosModel

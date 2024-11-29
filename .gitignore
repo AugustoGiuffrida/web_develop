@@ -1,0 +1,10 @@
+/Scripts
+/include
+/Lib
+/Lib64
+pyvenv.cfg
+.env
+/boot.bat
+/install.bat
+*__pycache__*
+*db.log*
