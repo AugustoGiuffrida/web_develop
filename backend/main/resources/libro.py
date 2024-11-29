@@ -3,15 +3,12 @@ from flask import request, jsonify
 from .. import db
 from main.models import LibroModel, AutorModel, PrestamoModel
 from sqlalchemy import func, desc, asc
-
-#Datos de prueba en JSON
-LIBROS = {
-    1: {'nombre':'Rey leon', 'categoria':'Drama'},
-    2: {'nombre':'El principito', 'categoria':'Misterio'}
-}
+from main.auth.decorators import role_required
+from flask_jwt_extended import jwt_required
 
 class Libros(Resource): 
     #obtener lista de los libros
+    @jwt_required(optional=True)
     def get(self):
         #Página inicial por defecto
         page = 1

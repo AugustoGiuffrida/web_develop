@@ -4,12 +4,7 @@ from .. import db
 from main.models import PrestamoModel
 from flask import jsonify
 from datetime import datetime
-
-
-PRESTAMOS = {
-    1: {'fecha_alquilado':'20/03/2024', 'fecha_limite':'30/03/2024'},
-    2: {'fecha_alquilado':'10/4/2024', 'fecha_limite':'20/04/2024'}
-}
+from main.auth.decorators import role_required
 
 class Prestamos(Resource):
 

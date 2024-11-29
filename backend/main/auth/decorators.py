@@ -3,8 +3,6 @@ from flask import jsonify
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
 from functools import wraps
 
-#Decorador: funcion que toma como argumento a una funcion agregandole funcionalidades sin modificar su codigo fuente
-
 #Decorador para restringir el acceso a usuarios/usuarioes por rol
 def role_required(roles):
     def decorator(fn):
