@@ -7,3 +7,4 @@ pyvenv.cfg
 /boot.bat
 /install.bat.venv
 *.venv
+*.db
