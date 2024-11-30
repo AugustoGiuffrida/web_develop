@@ -17,7 +17,7 @@ body {
   display: flex;
   border-radius: 20px;
   box-shadow: 0 5px 7px rgba(0, 0, 0, .2); /* Ajustado para coincidir con el shadow del home */
-  height: 610px;
+  height: 670px;
   max-width: 900px;
   transition: all 1s ease;
   margin: 10px;

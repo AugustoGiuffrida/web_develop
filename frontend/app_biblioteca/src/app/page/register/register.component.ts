@@ -1,62 +1,73 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
-[x: string]: any;
+export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  isSubmitting = false; // Indicador de carga
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) {
-    this.registerForm = this.formBuilder.group({
-      usuario_nombre: ['', Validators.required],
-      usuario_apellido: ['', Validators.required],
-      usuario_email: ['', [Validators.required, Validators.email]], 
-      usuario_contraseña: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)]],
-      confirmPassword: ['', Validators.required],
-      usuario_telefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]], 
-    }, { validator: this.passwordMatchValidator });
+  ) {}
+
+  ngOnInit(): void {
+    this.registerForm = this.formBuilder.group(
+      {
+        usuario_nombre: ['',[Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z ]*$')],],
+        usuario_apellido: ['',[Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-Z ]*$')],],
+        usuario_email: ['', [Validators.required, Validators.email]],
+        usuario_contraseña: ['',[Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/),],],
+        confirmPassword: ['', Validators.required],
+        usuario_telefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]], 
+      },
+      { validators: this.passwordsMatchValidator }
+    );
   }
 
-  // Validador para verificar que las contraseñas coincidan
-  passwordMatchValidator(form: FormGroup) {
-    return form.get('usuario_contraseña')?.value === form.get('confirmPassword')?.value
-      ? null : { mismatch: true };
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.registerForm.get(fieldName);
+    return !!(field?.touched && field.invalid); 
   }
 
-  submit() {
-    if (this.registerForm.valid) {
-      this.isSubmitting = true; // Activar el indicador de carga
-      this.registerUser(this.registerForm.value);
-    } else {
-      alert('Todos los campos son obligatorios y deben ser válidos!');
+  getFieldError(fieldName: string): string | null {
+    const field = this.registerForm.get(fieldName);
+    if (field?.hasError('required')) return 'Este campo es obligatorio';
+    if (field?.hasError('minlength')) return `Debe tener al menos ${field.errors?.['minlength'].requiredLength} caracteres`;
+    if (field?.hasError('email')) return 'Ingrese un correo electrónico válido';
+    if (field?.hasError('pattern')) return 'Formato inválido';
+    return null;
+  }
+
+  passwordsMatchValidator(group: AbstractControl): { mismatch: boolean } | null {
+    const password = group.get('usuario_contraseña')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  submit(): void {
+    if (this.registerForm.invalid) {
+      return;
     }
-  }
 
-  registerUser(registerData: any) {
-    this.authService.register(registerData).subscribe({
-      next: (response: any) => {
-        this.isSubmitting = false; // Desactivar el indicador de carga
-        alert('¡Registro exitoso!');
-        this.router.navigateByUrl('/login'); // Redirigir a una página post-registro
+    this.isLoading = true;
+    const formData = this.registerForm.value;
+    this.authService.register(formData).subscribe(
+      () => {
+        this.isLoading = false;
+        this.router.navigate(['/login']);
       },
-      error: (error: any) => {
-        this.isSubmitting = false; // Desactivar el indicador de carga
-        alert('Falló el registro');
-        console.error('Error:', error);
-      },
-    });
+      (error) => {
+        this.isLoading = false;
+        console.error('Error al registrar:', error);
+      }
+    );
   }
 }
