@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<div class="book-content">
+  <!-- Portada del libro -->
+    <div class="book-image-container">
+      <img src="cover/{{ image }}" alt="Book Img" class="book-image">
+    </div>
+
+  <div class="book-info" [formGroup]="editBookForm">
+    <!-- Título -->
+    <label for="titleInput" class="form-label"><strong>Título:</strong></label>
+    <input 
+      id="titleInput" 
+      formControlName="title" 
+      class="form-control" 
+      type="text" 
+      placeholder="Nuevo Título" 
+      [value]="title" 
+    />
+
+    <!-- Descripción -->
+    <label for="descriptionInput" class="form-label"><strong>Descripción:</strong></label>
+    <textarea 
+      id="descriptionInput" 
+      formControlName="description" 
+      class="form-control" 
+      placeholder="Nueva descripción" 
+      rows="4">
+    </textarea>
+
+    <!-- Autores -->
+    <label for="authorInput" class="form-label"><strong>Autores:</strong></label>
+    <div class="input-group mb-3">
+      <input 
+        id="authorInput" 
+        formControlName="author" 
+        type="text" 
+        class="form-control" 
+        list="authorsList" 
+        placeholder="Buscar Autor" 
+        (input)="getAuthors()" 
+      />
+      <button class="btn btn-outline-success" type="button" (click)="addAuthor()">
+        <i class="bi bi-check-circle-fill"></i>
+      </button>
+    </div>
+    <datalist id="authorsList">
+      <option *ngFor="let author of authors" value="author.autor_nombre + ' ' + author.autor_apellido"></option>
+    </datalist>
+    <p>{{ book_authors || 'Desconocido' }}</p>
+
+    <!-- Género -->
+    <label for="genreSelect" class="form-label"><strong>Género:</strong></label>
+    <select 
+      id="genreSelect" 
+      formControlName="genre" 
+      class="form-select"
+    >
+      <option *ngFor="let g of genres" [selected]="g === genre" [value]="g">{{ g }}</option>
+    </select>
+
+    <!-- Subir imagen -->
+    <label for="uploadImage" class="form-label"><strong>Portada del libro:</strong></label>
+    <div class="input-group mb-3">
+      <input 
+        id="uploadImage" 
+        type="file" 
+        class="form-control" 
+        accept=".jpg" 
+        (change)="uploadImage($event)" 
+      />
+      <button class="btn btn-outline-secondary" type="button" (click)="uploadImage($event)">Subir</button>
+    </div>
+    <p class="text-muted">Seleccionar una nueva imagen sobreescribe la actual.</p>
+
+    <!-- Botón Guardar -->
+    <!-- <div class="text-center mt-4">
+      <button 
+        class="btn btn-save w-100 rounded-3" 
+        (click)="saveBook()" 
+      >
+        <i class="bi bi-floppy-fill"></i> Guardar
+      </button>
+    </div> -->
+  </div>
+</div>
+

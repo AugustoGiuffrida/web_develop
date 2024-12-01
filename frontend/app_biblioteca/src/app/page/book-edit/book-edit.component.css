@@ -1,0 +1,107 @@
+/* Estilos generales */
+.book-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 900px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.book-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.book-image {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-info {
+  text-align: center;
+  width: 100%;
+}
+
+.book-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.btn-save {
+  background-color: #17a2b8; /* Color cian para información */
+  border: none; /* Sin borde */
+  color: #ffffff; /* Texto blanco */
+}
+
+.btn-save:hover {
+  background-color: #138496; /* Fondo cian oscuro al hacer hover */
+  transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+}
+
+/* Estilos del formulario */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #17a2b8;
+}
+
+button {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+button:hover {
+  background-color: #138496;
+  border-color: #117a8b;
+}
+
+button:disabled {
+  background-color: #b8d8db;
+}
+
+/* Mensajes de error */
+.text-red-500 {
+  color: #e53e3e;
+}
+
+p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .book-content {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 30px;
+  }
+
+  .book-image-container {
+    margin-bottom: 0;
+    margin-right: 30px;
+  }
+
+  .book-info {
+    text-align: left;
+  }
+}

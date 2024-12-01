@@ -47,15 +47,19 @@ export class BookComponent {
     }
     return authors;
   }
-
+  
   // Método para navegar a la página de detalles del libro
   navigateToBookDetails() {
     this.router.navigate([`/book`, this.id]); 
   }
 
+  navigateToBookEdit() {
+    this.router.navigate([`/book-edit`, this.id]); 
+  }
+
   onDeleteBook() {
     this.bookService.deleteBook(this.id).subscribe(() => {
-      console.log('Libro eliminado');
+      window.location.reload();
     });
   }
 

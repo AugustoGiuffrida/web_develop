@@ -32,6 +32,7 @@ class Usuarios(Resource):
             per_page = int(request.args.get('per_page'))
         
         params = request.args
+        
         ### FILTROS ###
         # Filtrar por nombre 
         if request.args.get('nombre'):
