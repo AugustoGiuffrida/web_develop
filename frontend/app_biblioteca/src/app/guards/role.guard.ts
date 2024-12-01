@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 export const roleGuard: CanActivateFn = (route, state) => {
   const router: Router = inject(Router);
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   if (token) {
     try {

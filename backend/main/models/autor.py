@@ -51,7 +51,6 @@ class Autor(db.Model):
         autorID = autor_json.get('autorID')
         autor_nombre = autor_json.get('autor_nombre')
         autor_apellido = autor_json.get('autor_apellido')
-        print(autorID, autor_nombre, autor_apellido)
         return Autor(autorID=autorID,
                     autor_nombre=autor_nombre, 
                     autor_apellido=autor_apellido

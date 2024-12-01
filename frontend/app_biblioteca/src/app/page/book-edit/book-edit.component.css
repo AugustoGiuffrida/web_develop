@@ -1,4 +1,12 @@
 /* Estilos generales */
+.book-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
 .book-content {
   display: flex;
   flex-direction: column;
@@ -9,9 +17,9 @@
   padding: 20px;
   max-width: 900px;
   width: 100%;
-  margin: 20px auto;
 }
 
+/* Imagen del libro */
 .book-image-container {
   display: flex;
   justify-content: center;
@@ -24,69 +32,64 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Información del libro */
 .book-info {
   text-align: center;
-  width: 100%;
 }
 
 .book-title {
   font-size: 2em;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: #333;
 }
 
+.book-author,
+.book-editorial,
+.book-description,
+.book-cantidad,
+.book-genero {
+  font-size: 1.1em;
+  margin: 8px 0;
+  color: #555;
+}
+
+.book-edit {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 900px;
+  width: 100%;
+  text-align: left;
+}
+
+
+/* Botón Success */
+.btn-success {
+  background-color: transparent; /* Fondo transparente */
+  border: 2px solid #0e912c; /* Borde verde */
+  color: #0e912c; /* Texto verde */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+.btn-success:hover {
+  background-color: #0e912c; /* Fondo verde al hacer hover */
+  color: #ffffff; /* Texto blanco al hacer hover */
+}
+
+/* Botón Save */
 .btn-save {
-  background-color: #17a2b8; /* Color cian para información */
-  border: none; /* Sin borde */
-  color: #ffffff; /* Texto blanco */
+  background-color: transparent; /* Fondo transparente */
+  border: 2px solid #17a2b8; /* Borde cian */
+  color: #17a2b8; /* Texto cian */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
 }
 
 .btn-save:hover {
-  background-color: #138496; /* Fondo cian oscuro al hacer hover */
-  transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+  background-color: #17a2b8; /* Fondo cian al hacer hover */
+  color: #ffffff; /* Texto blanco al hacer hover */
 }
 
-/* Estilos del formulario */
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-bottom: 15px;
-  transition: border-color 0.3s;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #17a2b8;
-}
-
-button {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
-}
-
-button:hover {
-  background-color: #138496;
-  border-color: #117a8b;
-}
-
-button:disabled {
-  background-color: #b8d8db;
-}
-
-/* Mensajes de error */
-.text-red-500 {
-  color: #e53e3e;
-}
-
-p {
-  font-size: 14px;
-  color: #555;
-}
 
 /* Responsive */
 @media (min-width: 768px) {
@@ -104,4 +107,5 @@ p {
   .book-info {
     text-align: left;
   }
+
 }

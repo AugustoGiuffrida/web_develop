@@ -13,24 +13,24 @@ import { BookService } from '../../services/book.service';
 export class BookEditComponent implements OnInit {
 
   bookId: number | null = null; 
-  title: string = '';
+  titulo: string = '';
   image: string = ''; 
-  genre: string = '';
-  publisher: string = '';
-  book_authors: string = "";
-  authors: string = '';
+  editorial: string = '';
+  genero: string = '';
+  autores: string = '';
+  libros_autores: string = "";
   new_authors: any[] = [];
   isLoading = false;
   errors: any = {};
 
-  genres = ['Fiction', 'Non-fiction', 'Mystery', 'Science Fiction', 'Fantasy'];
 
+  generos = ['Fiction', 'Non-fiction', 'Mystery', 'Science Fiction', 'Fantasy'];
   editBookForm = new FormGroup({
     title: new FormControl(''),
     description: new FormControl(''),
     author: new FormControl(''),
-    genre: new FormControl(''),
-    publisher: new FormControl(''),
+    editorial: new FormControl(''),
+    genero: new FormControl(''),
   })
 
   constructor(
@@ -50,9 +50,9 @@ export class BookEditComponent implements OnInit {
 
   parseAuthors(authors: any): string {
     let result = "";
-    for (let i = 0; i < this.authors.length; i++) {
+    for (let i = 0; i < this.autores.length; i++) {
       result += authors[i].autor_nombre + " " + authors[i].autor_apellido;
-      if (i < this.authors.length - 1) {
+      if (i < this.autores.length - 1) {
         result += ", ";
       }   
     }
@@ -71,16 +71,16 @@ export class BookEditComponent implements OnInit {
   addAuthor() {
     console.log(this.new_authors);
     const input = this.editBookForm.controls['author'].value;
-    const name: string = input?.split(' ')[0] || '';
-    const lastname: string = input?.split(' ')[1] || '';
-    if (!name || !lastname) {
+    const autor_nombre: string = input?.split(' ')[0] || '';
+    const autor_apellido: string = input?.split(' ')[1] || '';
+    if (!autor_nombre || !autor_apellido) {
       return;
     } else {
-      this.AuthorsService.getAuthor_by_fullname(name, lastname).subscribe((answer:any) => {
-        const id = answer.authors[0].id;
+      this.AuthorsService.getAuthor_by_fullname(autor_nombre, autor_apellido).subscribe((answer:any) => {
+        const id = answer.autores[0].id;
         if (id && !(this.repeatedAuthor(id))) {
           this.new_authors.push(id);
-          this.book_authors += ', ' + answer.authors[0].autor_nombre + ' ' + answer.authors[0].autor_apellido;
+          this.libros_autores += ', ' + answer.autores[0].autor_nombre + ' ' + answer.autores[0].autor_apellido;
           this.editBookForm.controls['author'].setValue('');
           console.log(this.new_authors);
         }
@@ -92,11 +92,11 @@ export class BookEditComponent implements OnInit {
     const query = this.editBookForm.controls['author'].value
     if (typeof query === 'string') {
       this.AuthorsService.getAuthors_by_name_or_lastname(query).subscribe((answer:any) => {
-        this.authors = answer.authors;
+        this.autores = answer.autores;
       })
     } else {
       this.AuthorsService.getAuthors_by_name_or_lastname('').subscribe((answer:any) => {
-        this.authors = answer.authors;
+        this.autores = answer.autores;
       })
     }
   }
@@ -104,19 +104,24 @@ export class BookEditComponent implements OnInit {
   
   getBook(id: number) {
     this.bookService.getBook(id).subscribe((data: any) => {
-      this.title = data.title;
+      console.log(data); 
+      this.titulo = data.titulo;
       this.image = data.image;
-      this.publisher = data.publisher;
-      this.genre = data.genre;
-      if (data.authors.length > 0) {
-        this.book_authors = this.parseAuthors(data.authors)
+      this.editorial = data.editorial;
+      
+      this.genero = data.genero;
+      if (Array.isArray(data.authors) && data.authors.length > 0) {
+        this.libros_autores = this.parseAuthors(data.authors);
         for (let author of data.authors) {
           this.new_authors.push(author.id);
         }
+      } else {
+        this.libros_autores = '';
       }
-    })
+    });
   }
-
+  
+  
 
 
   uploadImage(event: any): void {
