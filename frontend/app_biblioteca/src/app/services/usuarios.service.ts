@@ -26,8 +26,12 @@ export class UsuariosService {
   }
 
   updateUser(usuarioID: number, userData: any): Observable<any> {
-    return this.httpClient.put(`${this.url}/usuario/${usuarioID}`, userData);
+    console.log('Datos enviados al backend:', userData);
+    return this.httpClient.put(`${this.url}/usuario/${usuarioID}`, userData, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
+  
 
   // Método para eliminar un usuario
   deleteUser(usuarioID: number): Observable<void> {

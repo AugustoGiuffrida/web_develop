@@ -12,9 +12,7 @@ import { ProfileComponent } from './page/profile/profile.component';
 import { RegisterComponent } from './page/register/register.component';
 import { UsersComponent } from './page/users/users.component';
 import { LibrarianRentsComponent } from './page/librarian-rents/librarian-rents.component';
-import { ConfigurationComponent } from './page/configuration/configuration.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
-import { HeaderComponent } from './components/header/header.component';
 import { SeeUserComponent } from './components/user/see-user/see-user.component';
 import { SeeRentsComponent } from './components/rents/see-rents/see-rents.component';
 import { BookComponent } from './components/book/book.component';
@@ -40,9 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     UsersComponent,
     LibrarianRentsComponent,
-    ConfigurationComponent,
     ForgotPasswordComponent,
-    HeaderComponent,
     SeeUserComponent,
     SeeRentsComponent,
     PaginateComponent,

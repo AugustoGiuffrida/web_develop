@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
 import { AuthService } from '../../services/auth.service';
@@ -9,12 +9,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  usuarioID: number = 0;
-  usuario_nombre: string = '';
-  usuario_apellido: string = '';
-  usuario_email: string = '';
-  usuario_telefono: string = '0';
-  rol: string = '';
+  @Input() usuarioID: number = 0;
+  @Input() usuario_nombre: string = '';
+  @Input() usuario_apellido: string = '';
+  @Input() usuario_email: string = '';
+  @Input() usuario_telefono: string = '0';
+  @Input() rol: string = '';
   editForm!: FormGroup;
   isModalOpen = false;
 
@@ -37,20 +37,19 @@ export class ProfileComponent implements OnInit {
           this.rol = data.rol;
   
           // Inicializa el formulario con los datos obtenidos
-          this.initForm();
+          this.initForm(data);
         },
       });
     }
   }
   
   
-  initForm(): void {
+  initForm(data: any): void {
     // Inicializa el formulario con los valores actuales
     this.editForm = this.fb.group({
       usuario_nombre: [this.usuario_nombre, [
         Validators.required, 
         Validators.minLength(4), 
-        Validators.pattern('^[a-zA-Z ]*$')
       ]],
       usuario_apellido: [this.usuario_apellido, [
         Validators.required, 
@@ -82,19 +81,11 @@ export class ProfileComponent implements OnInit {
 
 
   openEditModal(): void {
-    this.editForm.patchValue({
-      usuario_nombre: this.usuario_nombre,
-      usuario_apellido: this.usuario_apellido,
-      usuario_email: this.usuario_email,
-      usuario_telefono: this.usuario_telefono
-    });
     this.isModalOpen = true;
   }
-  
 
   closeModal(): void {
     this.isModalOpen = false;
-    window.location.reload();
   }
 
   submitEdit(): void {
@@ -105,17 +96,21 @@ export class ProfileComponent implements OnInit {
         usuario_email: this.editForm.value.usuario_email,
         usuario_telefono: this.editForm.value.usuario_telefono
       };
-  
-      this.usuariosService.updateUser(this.usuarioID, updatedData).subscribe(() => {
-        // Actualizar los datos locales con los nuevos valores
-        this.usuario_nombre = updatedData.usuario_nombre;
-        this.usuario_apellido = updatedData.usuario_apellido;
-        this.usuario_email = updatedData.usuario_email;
-        this.usuario_telefono = updatedData.usuario_telefono;
-        
-        this.closeModal(); // Cerrar el modal después de actualizar
+      this.usuariosService.updateUser(this.usuarioID, updatedData).subscribe({
+        next: (response) => {
+          console.log('Respuesta del backend:', response);
+          this.usuario_nombre = response.usuario_nombre;
+          this.usuario_apellido = response.usuario_apellido;
+          this.usuario_email = response.usuario_email;
+          this.usuario_telefono = response.usuario_telefono;
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error('Error al actualizar el usuario:', err);
+        }
       });
-    }
+      
   }
   
+  }
 }

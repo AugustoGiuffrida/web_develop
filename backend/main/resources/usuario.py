@@ -135,7 +135,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             setattr(usuario, key, value)
         try:
             db.session.commit()  # Commit the changes
-            return jsonify(usuario.to_json()), 200
+            return usuario.to_json(), 200
         except:
             db.session.rollback()
             return {"message": "Error al agregar al usuario"}, 400

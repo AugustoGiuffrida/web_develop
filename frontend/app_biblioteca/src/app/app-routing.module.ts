@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './page/home/home.component';
 import { ErrorPageComponent } from './page/error-page/error-page.component';
-import { ConfigurationComponent } from './page/configuration/configuration.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { LibrarianRentsComponent } from './page/librarian-rents/librarian-rents.component';
 import { NotificationsComponent } from './page/notifications/notifications.component';
@@ -17,7 +16,6 @@ import { BookEditComponent } from './page/book-edit/book-edit.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'configuration', component: ConfigurationComponent, canActivate: [authsessionGuard]},
   {path: 'error_page', component: ErrorPageComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'home', component: HomeComponent},
