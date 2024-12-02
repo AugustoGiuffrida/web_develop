@@ -12,8 +12,7 @@ export class UsersComponent implements OnInit {
   selectedRole: string = 'Todos'; 
   selectedNombre: string = ''; 
   selectedApellido: string = '';
-  selectedNrPrestamos: number | undefined = undefined; // Cambiar tipo a "number | undefined"
-  
+  selectedNrPrestamos: number | undefined = undefined;
   constructor(private usuariosService: UsuariosService) {}
 
   ngOnInit() {

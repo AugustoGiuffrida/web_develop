@@ -11,7 +11,7 @@ class Usuario(db.Model):
     usuario_contraseña = db.Column(db.String(100), nullable=False)
     usuario_email = db.Column(db.String(100), nullable=False, unique=True)
     usuario_telefono = db.Column(db.Integer, nullable=False)
-    rol = db.Column(db.String(10), nullable=False, server_default="pending")  # Aquí está la propiedad rol
+    rol = db.Column(db.String(10), nullable=False, server_default="pending")
 
     # Relaciones con otros modelos
     configuraciones = db.relationship("Configuracion", uselist=False, back_populates="usuario", cascade="all, delete-orphan")
