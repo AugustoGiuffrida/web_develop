@@ -1,45 +1,80 @@
 <app-navbar></app-navbar>
 
-<div class="profile-container">
-    <div class="profile-card">
-      <h2>Mi Perfil</h2>
-      <div class="profile-details">
-        <p><strong>Nombre:</strong> {{ user.usuario_nombre }}</p>
-        <p><strong>Apellido:</strong> {{ user.usuario_apellido }}</p>
-        <p><strong>Email:</strong> {{ user.usuario_email }}</p>
-        <p><strong>Teléfono:</strong> {{ user.usuario_telefono }}</p>
-        <p><strong>Rol:</strong> {{ user.rol }}</p>
-      </div>
-      <button class="btn btn-primary" (click)="openEditModal()">Editar Datos</button>
-    </div>
-  
-    <!-- Modal para editar datos -->
-    <div class="modal" [class.show]="isModalOpen">
-      <div class="modal-content">
-        <h3>Editar Perfil</h3>
-        <form [formGroup]="editForm" (ngSubmit)="submitEdit()">
-          <div>
-            <label for="usuario_nombre">Nombre</label>
-            <input type="text" id="usuario_nombre" formControlName="usuario_nombre" />
-          </div>
-          <div>
-            <label for="usuario_apellido">Apellido</label>
-            <input type="text" id="usuario_apellido" formControlName="usuario_apellido" />
-          </div>
-          <div>
-            <label for="usuario_email">Email</label>
-            <input type="email" id="usuario_email" formControlName="usuario_email" />
-          </div>
-          <div>
-            <label for="usuario_telefono">Teléfono</label>
-            <input type="number" id="usuario_telefono" formControlName="usuario_telefono" />
-          </div>
-          <div class="modal-actions">
-            <button type="submit" class="btn btn-success">Guardar</button>
-            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
-          </div>
-        </form>
-      </div>
-    </div>
+<div class="container-form">
+<!-- Barra superior azul -->
+<div class="information-top">
+  <div class="info-childs">
+    <h2>Mi Perfil</h2>
   </div>
+</div>
+  <div class="profile-container">
+    
+      <!-- Imagen del libro -->
+      <div class="profile-image">
+        <img src="user.png" alt="Book Img" class="book-image">
+      </div>
+
+      <!-- Contenedor principal -->
+      <div class="form-information">
+        <div class="form-information-childs">
+          <div class="profile-details">
+            <p class="perfil-nombre" ><strong>Nombre:</strong> {{ usuario_nombre }}</p>
+            <p class="perfil-apellido" ><strong>Apellido:</strong> {{ usuario_apellido }}</p>
+            <p class="perfil-email" ><strong>Email:</strong> {{ usuario_email }}</p>
+            <p class="perfil-telefono" ><strong>Teléfono:</strong> {{ usuario_telefono }}</p>
+            <p class="perfil-rol" ><strong>Rol:</strong> {{ rol }}</p>
+          </div>
+          <button class="btn btn-primary" (click)="openEditModal()">Editar Datos</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<!-- Modal para editar datos -->
+<div class="modal" [class.show]="isModalOpen">
+<div class="modal-content">
+  <h3>Editar Perfil</h3>
+  <form [formGroup]="editForm" (ngSubmit)="submitEdit()">
+
+    <div>
+      <label for="usuario_nombre">Nombre</label>
+      <input type="text" id="usuario_nombre" formControlName="usuario_nombre" />
+      <div *ngIf="isFieldInvalid('usuario_nombre')">
+        <div>{{ getFieldError('usuario_nombre') }}</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="usuario_apellido">Apellido</label>
+      <input type="text" id="usuario_apellido" formControlName="usuario_apellido" />
+      <div *ngIf="isFieldInvalid('usuario_apellido')">
+        <div>{{ getFieldError('usuario_apellido') }}</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="usuario_email">Email</label>
+      <input type="email" id="usuario_email" formControlName="usuario_email" />
+      <div *ngIf="isFieldInvalid('usuario_email')">
+        <div>{{ getFieldError('usuario_email') }}</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="usuario_telefono">Teléfono</label>
+      <input type="number" id="usuario_telefono" formControlName="usuario_telefono" />
+      <div *ngIf="isFieldInvalid('usuario_telefono')">
+        <div>{{ getFieldError('usuario_telefono') }}</div>
+      </div>
+      
+    </div>
+    <div class="modal-actions">
+      <button type="submit" class="btn btn-success">Guardar</button>
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+    </div>
+
+  </form>
   
+</div>
+</div>

@@ -21,7 +21,7 @@
                             <input type="text" formControlName="usuario_nombre" id="nombre" placeholder="Nombre" required>
                         </label>
                         <div *ngIf="isFieldInvalid('usuario_nombre')" >
-                            El nombre de usuario debe tener al menos 4 caracteres y contener solo letras.
+                            <div>{{ getFieldError('usuario_nombre') }}</div>
                         </div>
                     </div>
     
@@ -31,7 +31,7 @@
                             <input type="text" formControlName="usuario_apellido" id="apellido" placeholder="Apellido" required>
                         </label>
                         <div *ngIf="isFieldInvalid('usuario_apellido')">
-                            El apellido de usuario debe tener al menos 3 caracteres y contener solo letras.
+                            <div>{{ getFieldError('usuario_apellido') }}</div>
                         </div>
                     </div>
     
@@ -41,7 +41,7 @@
                             <input type="email" formControlName="usuario_email" id="email" placeholder="Correo electrónico" required>
                         </label>
                     <div *ngIf="isFieldInvalid('usuario_email')">
-                        El formato del correo electrónico no es válido
+                        <div>{{ getFieldError('usuario_email') }}</div>
                     </div>
                     </div>
     
@@ -51,7 +51,7 @@
                             <input type="password" formControlName="usuario_contraseña" id="password" placeholder="Contraseña" required>
                         </label>
                         <div *ngIf="isFieldInvalid('usuario_contraseña')">
-                            La contraseña debe tener al menos 8 caracteres, contener una mayúscula, un dígito y un carácter especial.
+                            <div>{{ getFieldError('usuario_contraseña') }}</div>
                         </div>
                     </div>
     
@@ -61,7 +61,7 @@
                             <input type="password" formControlName="confirmPassword" id="confirm-password" placeholder="Confirma tu contraseña" required>
                         </label>
                         <div *ngIf="registerForm.hasError('mismatch')">
-                            Las contraseñas no coinciden.
+                            <div>{{ getFieldError('usuario_contraseña') }}</div>
                         </div>
                     </div>
     
@@ -71,7 +71,7 @@
                             <input type="text" formControlName="usuario_telefono" id="phone" placeholder="Teléfono" required>
                         </label>
                         <div *ngIf="isFieldInvalid('usuario_telefono')">
-                            El teléfono debe ser numérico
+                            <div>{{ getFieldError('usuario_telefono') }}</div>
                         </div>
                     </div>
     
