@@ -39,7 +39,7 @@
 
     <div>
       <label for="usuario_nombre">Nombre</label>
-      <input type="text" id="usuario_nombre" formControlName="usuario_nombre" />
+      <input type="text" id="usuario_nombre" formControlName="usuario_nombre">
       <div *ngIf="isFieldInvalid('usuario_nombre')">
         <div>{{ getFieldError('usuario_nombre') }}</div>
       </div>
@@ -47,7 +47,7 @@
 
     <div>
       <label for="usuario_apellido">Apellido</label>
-      <input type="text" id="usuario_apellido" formControlName="usuario_apellido" />
+      <input type="text" id="usuario_apellido" formControlName="usuario_apellido">
       <div *ngIf="isFieldInvalid('usuario_apellido')">
         <div>{{ getFieldError('usuario_apellido') }}</div>
       </div>
@@ -55,7 +55,7 @@
 
     <div>
       <label for="usuario_email">Email</label>
-      <input type="email" id="usuario_email" formControlName="usuario_email" />
+      <input type="email" id="usuario_email" formControlName="usuario_email">
       <div *ngIf="isFieldInvalid('usuario_email')">
         <div>{{ getFieldError('usuario_email') }}</div>
       </div>
@@ -63,7 +63,7 @@
 
     <div>
       <label for="usuario_telefono">Teléfono</label>
-      <input type="number" id="usuario_telefono" formControlName="usuario_telefono" />
+      <input type="number" id="usuario_telefono" formControlName="usuario_telefono">
       <div *ngIf="isFieldInvalid('usuario_telefono')">
         <div>{{ getFieldError('usuario_telefono') }}</div>
       </div>
