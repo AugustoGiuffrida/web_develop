@@ -32,11 +32,15 @@
     <div class="book-list-scroll mb-3">
       <div *ngFor="let rent of rents">
         <app-see-rents
-          title="{{ rent.libro.titulo || 'Libro no disponible'}}"
-          user="{{rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido}}"
-          [daysLeft]="rent.daysLeft"
-          image="{{ rent.libro.image }}">
-        </app-see-rents>
+        *ngFor="let rent of rents"
+        [title]="rent.libro.titulo || 'Libro no disponible'"
+        [user]="rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido"
+        [fecha_entrega]="rent.fecha_entrega"
+        [fecha_devolucion]="rent.fecha_devolucion"
+        image="{{ rent.libro.image }}"
+        [daysLeft]="rent.days_left">
+      </app-see-rents>
+      
       </div>
     </div>
 

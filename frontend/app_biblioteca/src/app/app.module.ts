@@ -26,6 +26,8 @@ import {BookEditComponent} from './page/book-edit/book-edit.component';
 import { StarComponent } from './components/star/star.component';
 import { ReviewComponent } from './components/review/review.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RentsComponent } from './page/rents/rents.component';
+
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     StarComponent,
     ReviewComponent,
     BookEditComponent,
+    RentsComponent,
   ],
   imports: [
     BrowserModule,

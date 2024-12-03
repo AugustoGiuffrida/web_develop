@@ -11,6 +11,7 @@ export class LibrarianRentsComponent implements OnInit {
   searchQuery: string = '';
   page: number = 1;
   pages: number = 0;
+  days_left: number = 0;
   filters: any = {
     fecha_entrega: '',
     fecha_devolucion: '',

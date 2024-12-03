@@ -11,9 +11,8 @@ export class RentsService {
 
   constructor(private httpClient: HttpClient) {}
 
-  // Obtener préstamos y calcular días restantes
+
   getRents(page: number, filters: any): Observable<any> {
-    // Crear los parámetros de filtrado y paginación para la URL
     let params = `?page=${page}`;
     for (const key in filters) {
       if (filters[key]) {
@@ -22,22 +21,15 @@ export class RentsService {
     }
 
     return this.httpClient.get(`${this.url}/prestamos${params}`).pipe(
-      map((data: any) => {
-        // Calcular días restantes para cada préstamo en la respuesta
-        data.prestamos.forEach((prestamo: any) => {
-          const fechaDevolucion = new Date(prestamo.fecha_devolucion);
-          const hoy = new Date();
-          const diff = fechaDevolucion.getTime() - hoy.getTime();
-          prestamo.daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-        });
-        return data;
-      }),
+      map((response: any) => response), // Asegurarse de que los días restantes estén en la respuesta
       catchError((error) => {
         console.error('Error fetching rents:', error);
         return throwError(error);
       })
     );
   }
+
+
 
   // Renovar préstamo
   renewLoan(loanId: number): Observable<any> {

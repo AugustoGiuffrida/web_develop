@@ -15,6 +15,12 @@ class Prestamo(db.Model):
     #relacion N:M(Libro es padre)
     libro = db.relationship("Libro", back_populates="prestamos")
     
+    @property
+    def days_left(self):
+        today = datetime.now()
+        days_left = (self.fecha_devolucion - today).days
+        return days_left if days_left >= 0 else 0
+
 
     def __repr__(self):
         return '<Prestamo: %r >' % (self.prestamoID)
@@ -38,6 +44,7 @@ class Prestamo(db.Model):
             "libro": libro,
             "fecha_entrega": self.fecha_entrega.strftime("%Y-%m-%d"),
             "fecha_devolucion": self.fecha_devolucion.strftime("%Y-%m-%d"),
+            "days_left": self.days_left
         }
         return prestamo_json
 

@@ -109,19 +109,28 @@ with open(log_file, 'w') as log:
 
 
     # Generar datos para la tabla "prestamos"
+    # Filtrar IDs de usuarios con rol 'user'
+    usuarios_user = [usuario[0] for usuario in datos_usuarios if usuario[6] == 'user']
+
+    # Generar datos para la tabla "prestamos" asignando múltiples préstamos por usuario
     datos_prestamos = []
-    for i in range(1, 31):
-        prestamoID = i
-        usuarioID = i
-        libroID = 1000 + i
-        fecha_entrega = fake.date_between(start_date='-1y', end_date='today')
-        fecha_devolucion = fecha_entrega + timedelta(days=fake.random_int(min=7, max=30))
-        datos_prestamos.append((prestamoID, usuarioID, libroID, fecha_entrega, fecha_devolucion))
+    prestamoID = 1  # Contador único para préstamoID
+    for usuarioID in usuarios_user:
+        num_prestamos = random.randint(1, 5)  # Número de préstamos por usuario
+        for _ in range(num_prestamos):
+            libroID = 1000 + random.randint(1, 30)  # Elegir un libro aleatorio
+            # Fecha de entrega entre enero de 2025 y marzo de 2025
+            fecha_entrega = fake.date_between(start_date=datetime(2025, 1, 1), end_date=datetime(2025, 3, 31))
+            fecha_devolucion = fecha_entrega + timedelta(days=fake.random_int(min=7, max=90))  # Plazo de devolución mayor
+            datos_prestamos.append((prestamoID, usuarioID, libroID, fecha_entrega, fecha_devolucion))
+            prestamoID += 1  # Incrementar el ID del préstamo
+
 
     # Insertar datos en la tabla "prestamos"
     cur.executemany('''
         INSERT INTO prestamos (prestamoID, usuarioID, libroID, fecha_entrega, fecha_devolucion) VALUES (?, ?, ?, ?, ?)
     ''', datos_prestamos)
+
 
     # Generar datos para la tabla "notificaciones"
     datos_notificaciones = []
