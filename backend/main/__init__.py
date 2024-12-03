@@ -61,6 +61,11 @@ def create_app():
     api.add_resource(resources.AutoresResources, '/autores')
     api.add_resource(resources.AutorResources, '/autor/<id>')
 
+    api.add_resource(resources.LibrosCopiasResources, '/libros_copias')
+    api.add_resource(resources.LibroCopiaResources, '/libro_copia/<id>')
+
+
+    migrate.init_app(app, db)
     api.init_app(app)
     
 #Cargar clave secreta

@@ -51,17 +51,28 @@ with open(log_file, 'w') as log:
     for i in range(1, 31):
         libroID = 1000 + i
         titulo = fake.sentence(nb_words=3)
-        cantidad = fake.random_int(min=1, max=20)
         editorial = fake.company()
         genero = fake.word()
         image = f'image{random.randint(0, 8)}.jpg'
-        datos_libros.append((libroID, titulo, cantidad, editorial, genero, image))
-
+        datos_libros.append((libroID, titulo, editorial, genero, image))
 
     # Insertar datos en la tabla "libros"
     cur.executemany('''
-        INSERT INTO libros (libroID, titulo, cantidad, editorial, genero, image) VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO libros (libroID, titulo, editorial, genero, image) VALUES (?, ?, ?, ?, ?)
     ''', datos_libros)
+
+    # Generar datos para la tabla "libros_copias"
+    datos_copias = []
+    for libro in datos_libros:
+        libroID = libro[0]  # Obtener libroID
+        num_copias = random.randint(1, 5)  # Número aleatorio de copias por libro
+        for _ in range(num_copias):
+            datos_copias.append((libroID,))
+
+    # Insertar datos en la tabla "libros_copias"
+    cur.executemany('''
+        INSERT INTO libros_copias (libroID) VALUES (?)
+    ''', datos_copias)
 
     # Generar datos para la tabla "autores"
     datos_autores = []
@@ -112,24 +123,32 @@ with open(log_file, 'w') as log:
     # Filtrar IDs de usuarios con rol 'user'
     usuarios_user = [usuario[0] for usuario in datos_usuarios if usuario[6] == 'user']
 
-    # Generar datos para la tabla "prestamos" asignando múltiples préstamos por usuario
+    # Obtener IDs de todas las copias generadas
+    cur.execute('SELECT copiaID FROM libros_copias')
+    copias_disponibles = [row[0] for row in cur.fetchall()]
+
+    # Generar datos de préstamos asignando copias específicas
     datos_prestamos = []
     prestamoID = 1  # Contador único para préstamoID
+
     for usuarioID in usuarios_user:
         num_prestamos = random.randint(1, 5)  # Número de préstamos por usuario
         for _ in range(num_prestamos):
-            libroID = 1000 + random.randint(1, 30)  # Elegir un libro aleatorio
-            # Fecha de entrega entre enero de 2025 y marzo de 2025
-            fecha_entrega = fake.date_between(start_date=datetime(2025, 1, 1), end_date=datetime(2025, 3, 31))
-            fecha_devolucion = fecha_entrega + timedelta(days=fake.random_int(min=7, max=90))  # Plazo de devolución mayor
-            datos_prestamos.append((prestamoID, usuarioID, libroID, fecha_entrega, fecha_devolucion))
-            prestamoID += 1  # Incrementar el ID del préstamo
+            if not copias_disponibles:
+                break  # Detenerse si no quedan copias disponibles
 
+            copiaID = copias_disponibles.pop(0)  # Obtener y remover la primera copia disponible
+            fecha_entrega = fake.date_between(start_date=datetime(2025, 1, 1), end_date=datetime(2025, 3, 31))
+            fecha_devolucion = fecha_entrega + timedelta(days=fake.random_int(min=7, max=90))  # Plazo de devolución
+
+            datos_prestamos.append((prestamoID, usuarioID, copiaID, fecha_entrega, fecha_devolucion))
+            prestamoID += 1
 
     # Insertar datos en la tabla "prestamos"
     cur.executemany('''
-        INSERT INTO prestamos (prestamoID, usuarioID, libroID, fecha_entrega, fecha_devolucion) VALUES (?, ?, ?, ?, ?)
+        INSERT INTO prestamos (prestamoID, usuarioID, copiaID, fecha_entrega, fecha_devolucion) VALUES (?, ?, ?, ?, ?)
     ''', datos_prestamos)
+
 
 
     # Generar datos para la tabla "notificaciones"

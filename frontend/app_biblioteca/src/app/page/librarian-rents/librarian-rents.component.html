@@ -37,7 +37,7 @@
         [user]="rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido"
         [fecha_entrega]="rent.fecha_entrega"
         [fecha_devolucion]="rent.fecha_devolucion"
-        image="{{ rent.libro.image }}"
+        [image]= " rent.libro.image " 
         [daysLeft]="rent.days_left">
       </app-see-rents>
       

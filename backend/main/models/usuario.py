@@ -40,7 +40,7 @@ class Usuario(db.Model):
             "usuario_apellido": self.usuario_apellido,
             "usuario_email": self.usuario_email,
             "usuario_telefono": self.usuario_telefono,
-            "rol": self.rol  # Añade el rol aquí
+            "rol": self.rol  
         }
         return usuario_json
 
@@ -60,7 +60,7 @@ class Usuario(db.Model):
             "usuario_apellido": self.usuario_apellido,
             "usuario_email": self.usuario_email,
             "usuario_telefono": self.usuario_telefono,
-            "rol": self.rol,  # Añade el rol aquí también si es necesario
+            "rol": self.rol, 
             "reseña": reseña,
             "notificaciones": notificaciones_info,
             'prestamo': prestamo
@@ -72,7 +72,7 @@ class Usuario(db.Model):
             "usuarioID": self.usuarioID,
             "usuario_nombre": self.usuario_nombre,
             "usuario_apellido": self.usuario_apellido,
-            "rol": self.rol  # Añade el rol aquí si es necesario
+            "rol": self.rol  
         }
         return Usuario_json
 
