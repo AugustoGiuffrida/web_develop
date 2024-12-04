@@ -18,12 +18,12 @@
           <input type="date" id="fechaDevolucion" class="form-control" [(ngModel)]="filters.fecha_devolucion" (change)="filterRents()">
         </div>
         <div class="col-lg-3 col-md-6 mb-2">
-          <label for="libroID" class="form-label">ID del Libro</label>
-          <input type="text" id="libroID" class="form-control" placeholder="Ej. 123" [(ngModel)]="filters.libroID" (input)="filterRents()">
+          <label for="copiaID" class="form-label">ID de la copia</label>
+          <input type="text" id="copiaID" class="form-control" placeholder="Ej. 1, 2, 3" [(ngModel)]="filters.copiaID" (input)="filterRents()">
         </div>
         <div class="col-lg-3 col-md-6 mb-2">
           <label for="usuarioID" class="form-label">ID del Usuario</label>
-          <input type="text" id="usuarioID" class="form-control" placeholder="Ej. 456" [(ngModel)]="filters.usuarioID" (input)="filterRents()">
+          <input type="text" id="usuarioID" class="form-control" placeholder="Ej. 1001" [(ngModel)]="filters.usuarioID" (input)="filterRents()">
         </div>
       </div>
     </div>
@@ -31,16 +31,14 @@
     <!-- Lista de libros alquilados -->
     <div class="book-list-scroll mb-3">
       <div *ngFor="let rent of rents">
-        <app-see-rents
-        *ngFor="let rent of rents"
-        [title]="rent.libro.titulo || 'Libro no disponible'"
-        [user]="rent.usuario.usuario_nombre + ' ' + rent.usuario.usuario_apellido"
-        [fecha_entrega]="rent.fecha_entrega"
-        [fecha_devolucion]="rent.fecha_devolucion"
-        [image]= " rent.libro.image " 
-        [daysLeft]="rent.days_left">
-      </app-see-rents>
-      
+          <app-see-rents
+            [title]="rent.copias?.titulo || 'Libro no disponible'"
+            [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
+            [fecha_entrega]="rent.fecha_entrega"
+            [fecha_devolucion]="rent.fecha_devolucion"
+            [image]="rent.copias.image"
+            [daysLeft]="rent.days_left || 0">
+          </app-see-rents>
       </div>
     </div>
 

@@ -13,7 +13,19 @@ export class NavbarComponent {
 
   // Verificar si el token está presente usando el servicio AuthService
   get isToken() {
-    return this.authService.isAuthenticated();  // Verifica si el token está en sessionStorage
+    return this.authService.isAuthenticated();  
+  }
+
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  get isLibrarian(): boolean {
+    return this.authService.isLibrarian();
+  }
+
+  get isUser(): boolean {
+    return this.authService.isUser();
   }
 
   cerrarSesion() {

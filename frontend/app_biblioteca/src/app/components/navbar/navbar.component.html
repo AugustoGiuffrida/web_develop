@@ -1,8 +1,9 @@
 <nav class="navbar navbar-light bg-light px-3">
-  <!-- Left section: Biblioteca title -->
+  <!-- Biblioteca title -->
   <a class="navbar-brand font-weight-bold text-black" href="#">Biblioteca</a>
 
-  <!-- Right next to the title: Usuarios and Préstamos buttons -->
+  <!-- Usuarios and Préstamos buttons -->
+  @if (isAdmin || isLibrarian) {
   <div class="d-flex align-items-center me-auto">
     <a routerLink="/users" href="#" *ngIf="isToken" class="btn btn-outline-dark me-2" style="border-radius: 15px;">
       <i class="bi bi-people-fill"></i> Usuarios
@@ -11,6 +12,7 @@
       <i class="bi bi-journal-bookmark-fill"></i> Préstamos
     </a>
   </div>
+}
 
   <!-- Right section: Login, Register, Dropdown Menu, and Logout -->
   <div class="d-flex ms-auto">
@@ -28,7 +30,9 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-end" [ngClass]="{'show': isDropdownOpen}" aria-labelledby="userMenu" style="min-width: 200px;">
         <li><a class="dropdown-item" routerLink="/notifications"><i class="bi-bell-fill me-2"></i> Notificaciones</a></li>
-        <li><a class="dropdown-item" routerLink="/rents"><i class="bi bi-basket-fill me-2"></i> Alquileres</a></li>
+        @if (isUser) {
+        <li><a class="dropdown-item" routerLink="/rents"><i class="bi bi-basket-fill me-2"></i> Alquileres</a></li>  
+        }
         <li><a class="dropdown-item" routerLink="/profile"><i class="bi bi-person-fill me-2"></i> Perfil</a></li>
       </ul>
     </div>

@@ -27,6 +27,7 @@ class LibrosCopias(db.Model):
             "copiaID": self.copiaID,
             "libroID": self.libroID,
             "titulo": self.libro.titulo,
+            "image": self.libro.image
         }
         return libros_copias_json
 
@@ -36,6 +37,7 @@ class LibrosCopias(db.Model):
             "copiaID": self.copiaID,
             "libroID": self.libroID,
             "titulo": self.libro.titulo,
+            "libro": self.libro.to_json_short(),
             "estado": self.estado
         }
         return libros_copias_json

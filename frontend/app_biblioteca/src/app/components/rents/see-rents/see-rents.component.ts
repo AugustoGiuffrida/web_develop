@@ -39,17 +39,6 @@ export class SeeRentsComponent {
     this.renewLoanModal = new window.bootstrap.Modal(document.getElementById('renewLoanModal'));
   }
 
-  // Función para calcular los días restantes
-  calculateDaysLeft() {
-    if (this.fecha_devolucion) {
-      const fechaDevolucion = new Date(this.fecha_devolucion);
-      const hoy = new Date();
-      const diff = fechaDevolucion.getTime() - hoy.getTime();
-      this.daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    } else {
-      this.daysLeft = 0;
-    }
-  }
 
   // Abre el modal de renovación y carga la información del préstamo seleccionado
   openRenewModal(loan: any) {

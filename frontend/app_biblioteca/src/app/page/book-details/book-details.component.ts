@@ -40,6 +40,10 @@ export class BookDetailsComponent implements OnInit {
     this.getBook(this.bookId);
 
   }
+  
+  get isToken() {
+    return this.authService.isAuthenticated();  
+  }
 
   setRating(rating: number) {
     this.userRating = rating;
