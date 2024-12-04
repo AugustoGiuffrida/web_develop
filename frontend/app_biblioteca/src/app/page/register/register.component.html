@@ -1,90 +1,77 @@
-
 <body>
-    <div class="container-form register">
-        <div class="information">
-            <div class="info-childs">
-                <h2>Bienvenido</h2>
-                <p>Para unirte a nuestra comunidad por favor Registrate con tus datos</p>
-                <input type="button" value="Iniciar Sesión" routerLink="/login">
-            </div>
-        </div>
-    
-        <!-- Formulario de Registro -->
-        <div class="form-information">
-            <div class="form-information-childs">
-                <h2>Crear una Cuenta</h2>
-    
-                <form [formGroup]="registerForm" class="form form-register" (ngSubmit)="submit()">
-                    <div>
-                        <label for="nombre">
-                            <i class="bi bi-person form-control-icon"></i>
-                            <input type="text" formControlName="usuario_nombre" id="nombre" placeholder="Nombre" required>
-                        </label>
-                        <div *ngIf="isFieldInvalid('usuario_nombre')" >
-                            <div>{{ getFieldError('usuario_nombre') }}</div>
-                        </div>
-                    </div>
-    
-                    <div>
-                        <label for="apellido">
-                            <i class="bi bi-person form-control-icon"></i>
-                            <input type="text" formControlName="usuario_apellido" id="apellido" placeholder="Apellido" required>
-                        </label>
-                        <div *ngIf="isFieldInvalid('usuario_apellido')">
-                            <div>{{ getFieldError('usuario_apellido') }}</div>
-                        </div>
-                    </div>
-    
-                    <div>
-                        <label for="email">
-                            <i class="bi bi-envelope form-control-icon"></i>
-                            <input type="email" formControlName="usuario_email" id="email" placeholder="Correo electrónico" required>
-                        </label>
-                    <div *ngIf="isFieldInvalid('usuario_email')">
-                        <div>{{ getFieldError('usuario_email') }}</div>
-                    </div>
-                    </div>
-    
-                    <div>
-                        <label for="password">
-                            <i class="bi bi-lock form-control-icon"></i>
-                            <input type="password" formControlName="usuario_contraseña" id="password" placeholder="Contraseña" required>
-                        </label>
-                        <div *ngIf="isFieldInvalid('usuario_contraseña')">
-                            <div>{{ getFieldError('usuario_contraseña') }}</div>
-                        </div>
-                    </div>
-    
-                    <div>
-                        <label for="confirm-password">
-                            <i class="bi bi-lock form-control-icon"></i>
-                            <input type="password" formControlName="confirmPassword" id="confirm-password" placeholder="Confirma tu contraseña" required>
-                        </label>
-                        <div *ngIf="registerForm.hasError('mismatch')">
-                            <div>{{ getFieldError('usuario_contraseña') }}</div>
-                        </div>
-                    </div>
-    
-                    <div>
-                        <label for="phone">
-                            <i class="bi bi-phone form-control-icon"></i>
-                            <input type="text" formControlName="usuario_telefono" id="phone" placeholder="Teléfono" required>
-                        </label>
-                        <div *ngIf="isFieldInvalid('usuario_telefono')">
-                            <div>{{ getFieldError('usuario_telefono') }}</div>
-                        </div>
-                    </div>
-    
-                    <div class="text-center">
-                        <input type="submit" [disabled]="isLoading" value="Registrarse">
-                            <span *ngIf="isLoading">Enviando...</span>
-                        
-                    </div>
-                    
-    
-                </form>
-            </div>
-        </div>
+  <div class="container-form register">
+    <div class="information">
+      <div class="info-childs">
+        <h2>Bienvenido</h2>
+        <p>Para unirte a nuestra comunidad por favor Registrate con tus datos</p>
+        <input type="button" value="Iniciar Sesión" routerLink="/login">
+      </div>
     </div>
-    
-    </body>
+    <!-- Formulario de Registro -->
+    <div class="form-information">
+      <div class="form-information-childs">
+        <h2>Crear una Cuenta</h2>
+        <form [formGroup]="registerForm" class="form form-register" (ngSubmit)="submit()">
+          <div>
+            <label class="" for="nombre">
+              <i class="bi bi-person form-control-icon"></i>
+              <input type="text" formControlName="usuario_nombre" id="nombre" placeholder="Nombre" required>
+            </label>
+            <div *ngIf="isFieldInvalid('usuario_nombre')" >
+              <div>{{ getFieldError('usuario_nombre') }}</div>
+            </div>
+          </div>
+          <div>
+            <label for="apellido">
+              <i class="bi bi-person form-control-icon"></i>
+              <input type="text" formControlName="usuario_apellido" id="apellido" placeholder="Apellido" required>
+            </label>
+            <div *ngIf="isFieldInvalid('usuario_apellido')">
+              <div>{{ getFieldError('usuario_apellido') }}</div>
+            </div>
+          </div>
+          <div>
+            <label for="email">
+              <i class="bi bi-envelope form-control-icon"></i>
+              <input type="email" formControlName="usuario_email" id="email" placeholder="Correo electrónico" required>
+            </label>
+            <div *ngIf="isFieldInvalid('usuario_email')">
+              <div>{{ getFieldError('usuario_email') }}</div>
+            </div>
+          </div>
+          <div>
+            <label for="password">
+              <i class="bi bi-lock form-control-icon"></i>
+              <input type="password" formControlName="usuario_contraseña" id="password" placeholder="Contraseña" required>
+            </label>
+              <div *ngIf="isFieldInvalid('usuario_contraseña')">
+                <div>{{ getFieldError('usuario_contraseña') }}</div>
+              </div>
+          </div>
+          <div>
+            <label for="confirm-password">
+              <i class="bi bi-lock form-control-icon"></i>
+              <input type="password" formControlName="confirmPassword" id="confirm-password" placeholder="Confirma tu contraseña" required>
+            </label>
+            <div *ngIf="registerForm.hasError('mismatch')">
+              <div>{{ getFieldError('usuario_contraseña') }}</div>
+            </div>
+          </div>
+          <div>
+            <label for="phone">
+              <i class="bi bi-phone form-control-icon"></i>
+              <input type="text" formControlName="usuario_telefono" id="phone" placeholder="Teléfono" required>
+            </label>
+            <div *ngIf="isFieldInvalid('usuario_telefono')">
+              <div>{{ getFieldError('usuario_telefono') }}</div>
+            </div>
+          </div>
+          <div class="text-center">
+            <input type="submit" [disabled]="isLoading" value="Registrarse">
+            <span *ngIf="isLoading">Enviando...</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
