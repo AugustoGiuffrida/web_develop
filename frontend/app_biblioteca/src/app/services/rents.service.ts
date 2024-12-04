@@ -21,7 +21,7 @@ export class RentsService {
     }
 
     return this.httpClient.get(`${this.url}/prestamos${params}`).pipe(
-      map((response: any) => response), // Asegurarse de que los días restantes estén en la respuesta
+      map((response: any) => response), 
       catchError((error) => {
         console.error('Error fetching rents:', error);
         return throwError(error);

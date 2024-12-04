@@ -1,47 +1,67 @@
-body {
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Degradado */
-    font-family: 'Inika', serif;
-}
-.logo {
-    width: 50px;
-    height: 50px;
+.container-form {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.2);
+    max-width: 750px;
+    margin: 10px auto;
+  }
+  
+  .information-top {
+    width: 100%;
+    background-color: #007bff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  
+  .information-top h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+  }
+  
+  .profile-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  .profile-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .profile-image img {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #1E1E1E;
-    transition: transform 0.3s ease;
-}
-.logo:hover {
-    transform: scale(1.1);
-}
-.book-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-information {
+    flex: 2;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: flex-start;
-    border: 1px solid #ccc; /* Suaviza el borde */
-    border-radius: 15px;
-    background: #fff;
-    padding: 15px; /* Más espaciado */
-    transition: box-shadow 0.5s ease;
-}
-.book-card:hover {
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Sombra en hover */
-}
-.book-image {
-    width: 150px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-.renew-button {
-    align-self: flex-end;
-    color: #fff;
-    background-color: #d9534f;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.renew-button:hover {
-    background-color: #c9302c;
-}
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    gap: 10px;
+  }
+  
+  #Book-list {
+    width: 100%;
+  }
+  
+  .text-muted {
+    color: #aaa;
+  }
+  

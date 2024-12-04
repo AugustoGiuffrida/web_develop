@@ -12,8 +12,8 @@ body {
     padding: 5px; /* Add padding to the card */
 }
 .book-image {
-    width: 100px; /* Fixed width for image */
-    height: 150px; /* Fixed height for image */
+    width: 125px; /* Fixed width for image */
+    height: 175px; /* Fixed height for image */
     object-fit: cover; /* Cover image */
     border-radius: 8px; /* Rounded corners for the image */
     border: 1px solid #ddd; /* Border around image */

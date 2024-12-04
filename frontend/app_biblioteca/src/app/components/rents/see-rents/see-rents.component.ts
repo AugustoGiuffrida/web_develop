@@ -13,8 +13,8 @@ export class SeeRentsComponent {
   @Input() id: number = 0;
   @Input() title: string = 'Default title';
   @Input() user: string = 'Default user';
-  @Input() fecha_entrega: string = ''; // Cambiar a string para parsear fechas
-  @Input() fecha_devolucion: string = '';
+  @Input() fecha_entrega:  Date = new Date(2024, 0, 1); 
+  @Input() fecha_devolucion:  Date = new Date(2024, 0, 1);
   @Input() image: string = 'media/default-book-cover.jpg';
 
   @Input() daysLeft: number = 0; // Mover esta propiedad fuera del Input

@@ -1,53 +1,53 @@
 <app-navbar></app-navbar>
 
-<div class="container d-flex justify-content-center ">
-  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
-  
-    <h3 class="fw-bold mb-4 text-center">Prestamos</h3>
-
-    <!-- Filtros -->
-    <div class="filter-section mb-4 p-3 rounded shadow-sm">
-      <h5 class="fw-bold mb-3">Filtros</h5>
-      <div class="row g-2">
-        <div class="col-lg-3 col-md-6 mb-2">
-          <label for="fechaEntrega" class="form-label">Fecha de Entrega</label>
-          <input type="date" id="fechaEntrega" class="form-control" [(ngModel)]="filters.fecha_entrega" (change)="filterRents()">
-        </div>
-        <div class="col-lg-3 col-md-6 mb-2">
-          <label for="fechaDevolucion" class="form-label">Fecha de Devolución</label>
-          <input type="date" id="fechaDevolucion" class="form-control" [(ngModel)]="filters.fecha_devolucion" (change)="filterRents()">
-        </div>
-        <div class="col-lg-3 col-md-6 mb-2">
-          <label for="copiaID" class="form-label">ID de la copia</label>
-          <input type="text" id="copiaID" class="form-control" placeholder="Ej. 1, 2, 3" [(ngModel)]="filters.copiaID" (input)="filterRents()">
-        </div>
-        <div class="col-lg-3 col-md-6 mb-2">
-          <label for="usuarioID" class="form-label">ID del Usuario</label>
-          <input type="text" id="usuarioID" class="form-control" placeholder="Ej. 1001" [(ngModel)]="filters.usuarioID" (input)="filterRents()">
-        </div>
-      </div>
-    </div>
-
-    <!-- Lista de libros alquilados -->
-    <div class="book-list-scroll mb-3">
-      <div *ngFor="let rent of rents">
-          <app-see-rents
-            [title]="rent.copias?.titulo || 'Libro no disponible'"
-            [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
-            [fecha_entrega]="rent.fecha_entrega"
-            [fecha_devolucion]="rent.fecha_devolucion"
-            [image]="rent.copias.image"
-            [daysLeft]="rent.days_left || 0">
-          </app-see-rents>
-      </div>
-    </div>
-
-    <!-- Mensaje si no se encuentran libros -->
-    <div *ngIf="rents.length === 0" class="alert alert-warning" role="alert">
-      No rented books found.
-    </div>
-
-    <!-- Paginación -->
-    <app-paginate [page]="page" [pages]="pages" (pageChange)="getRents($event)"></app-paginate>
+<div class="container-form">
+  <!-- Barra superior azul -->
+  <div class="information-top">
+    <h2>Prestamos</h2>
   </div>
+
+  <!-- Filtros -->
+  <div class="filter-section mb-4 p-3 rounded shadow-sm">
+    <h5 class="fw-bold mb-3">Filtros</h5>
+    <div class="row g-2">
+      <div class="col-lg-3 col-md-6 mb-2">
+        <label for="fechaEntrega" class="form-label">Fecha de Entrega</label>
+        <input type="date" id="fechaEntrega" class="form-control" [(ngModel)]="filters.fecha_entrega" (change)="filterRents()">
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <label for="fechaDevolucion" class="form-label">Fecha de Devolución</label>
+        <input type="date" id="fechaDevolucion" class="form-control" [(ngModel)]="filters.fecha_devolucion" (change)="filterRents()">
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <label for="copiaID" class="form-label">ID de la copia</label>
+        <input type="text" id="copiaID" class="form-control" placeholder="Ej. 1, 2, 3" [(ngModel)]="filters.copiaID" (input)="filterRents()">
+      </div>
+      <div class="col-lg-3 col-md-6 mb-2">
+        <label for="usuarioID" class="form-label">ID del Usuario</label>
+        <input type="text" id="usuarioID" class="form-control" placeholder="Ej. 1001" [(ngModel)]="filters.usuarioID" (input)="filterRents()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de libros alquilados -->
+  <div class="book-list-scroll">
+    <div *ngFor="let rent of rents">
+      <app-see-rents
+        [title]="rent.copias?.titulo || 'Libro no disponible'"
+        [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
+        [fecha_entrega]="rent.fecha_entrega"
+        [fecha_devolucion]="rent.fecha_devolucion"
+        [image]="rent.copias.image"
+        [daysLeft]="rent.days_left || 0">
+      </app-see-rents>
+    </div>
+  </div>
+
+  <!-- Mensaje si no se encuentran libros -->
+  <div *ngIf="rents.length === 0" class="alert alert-warning">
+    No rented books found.
+  </div>
+
+  <!-- Paginación -->
+  <app-paginate [page]="page" [pages]="pages" (pageChange)="getRents($event)"></app-paginate>
 </div>
