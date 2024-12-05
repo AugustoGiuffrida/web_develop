@@ -32,21 +32,20 @@ export class RentsService {
 
 
   // Renovar préstamo
-  renewLoan(loanId: number): Observable<any> {
-
-    return this.httpClient.put(`${this.url}/prestamos/${loanId}/renew`, {}).pipe(
-      take(1),
+  renewLoan(loanId: number, updatedData: any): Observable<any> {
+    return this.httpClient.put(`${this.url}/prestamo/${loanId}`, updatedData).pipe(
       catchError((error) => {
-        console.error('Error renewing loan:', error);
+        console.error('Error updating loan:', error);
         return throwError(error);
       })
     );
   }
+  
 
   // Eliminar préstamo
   deleteLoan(loanId: number): Observable<any> {
 
-    return this.httpClient.delete(`${this.url}/prestamos/${loanId}`).pipe(
+    return this.httpClient.delete(`${this.url}/prestamo/${loanId}`).pipe(
       take(1),
       catchError((error) => {
         console.error('Error deleting loan:', error);

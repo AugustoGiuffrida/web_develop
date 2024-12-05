@@ -8,11 +8,6 @@ from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from main.auth.decorators import role_required
 
-#Datos de prueba en JSON
-USUARIOS = {
-    1: {'nombre':'Sebastián', 'apellido':'Fernández'},
-    2: {'nombre':'Augusto', 'apellido':'Giuffrida'}
-}
 
 class Usuarios(Resource):
     @jwt_required()
@@ -126,6 +121,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             db.session.rollback()
             logger.error(f"Error al borrar al usuario con ID {id}: {str(e)}")
             return jsonify({"message": "Error al borrar al usuario", "error": str(e)}), 500
+            
     #Modificar el recurso usuario
     @jwt_required()
     def put(self, id):
@@ -134,7 +130,7 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
         for key, value in data.items():
             setattr(usuario, key, value)
         try:
-            db.session.commit()  # Commit the changes
+            db.session.commit()  
             return usuario.to_json(), 200
         except:
             db.session.rollback()

@@ -8,12 +8,12 @@
           <div class="book-info ms-3">
             <h5 class="fw-bold mb-2">{{ title }}</h5>
             <p><span class="badge bg-primary">Días restantes: {{ daysLeft }}</span></p>
-            @if (isAdmin || isLibrarian) {
+            <div *ngIf="isAdmin || isLibrarian">
               <p class="text-muted">Alquilado por: {{ user }}</p>
-            }
+            </div>
             <ul class="loan-details">
-              <li><strong>Entrega:</strong> {{ fecha_entrega }}</li>
-              <li><strong>Devolución:</strong> {{ fecha_devolucion }}</li>
+              <li><strong>Entrega:</strong> {{ fecha_entrega | date: 'yyyy-MM-dd' }}</li>
+              <li><strong>Devolución:</strong> {{ fecha_devolucion | date: 'yyyy-MM-dd' }}</li>
             </ul>
           </div>
         </div>
@@ -24,39 +24,36 @@
         </div>
 
         <!-- Botones de acción -->
-        @if (isAdmin || isLibrarian) {
-          <div class="button-group mt-3">
-            <button class="btn btn-danger">
-              <i class="bi bi-trash"></i>
-            </button>
-            <button class="btn btn-primary" (click)="openRenewModal(selectedLoan)">
-              <i class="bi bi-pencil"></i>
-            </button>
-          </div>
-        }
+        <div *ngIf="isAdmin || isLibrarian" class="button-group mt-3">
+          <button class="btn btn-danger" (click)="deleteLoan()">
+            <i class="bi bi-trash"></i>
+          </button>
+          <button class="btn btn-primary" (click)="openModal()">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<!-- Modal para renovar préstamo -->
-<div class="modal fade" id="renewLoanModal" tabindex="-1" aria-labelledby="renewLoanModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="renewLoanModalLabel">Renovar Préstamo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal para editar fechas -->
+<div class="modal" [class.show]="isModalOpen">
+  <div class="modal-content">
+    <h3>Editar Fechas del Préstamo</h3>
+    <form (ngSubmit)="updateLoan()">
+      <div>
+        <label for="fechaEntrega">Fecha de Entrega</label>
+        <input type="date" id="fechaEntrega" [(ngModel)]="editedFechaEntrega" name="fechaEntrega" required />
       </div>
-      <div class="modal-body">
-        <form *ngIf="selectedLoan" (ngSubmit)="renewLoan()">
-          <div class="mb-3">
-            <label for="daysLeft" class="form-label">Días restantes</label>
-            <input type="number" class="form-control" id="daysLeft" [(ngModel)]="daysLeft" name="daysLeft" required min="1">
-          </div>
-          <button type="submit" class="btn btn-primary">Confirmar</button>
-        </form>
+      <div>
+        <label for="fechaDevolucion">Fecha de Devolución</label>
+        <input type="date" id="fechaDevolucion" [(ngModel)]="editedFechaDevolucion" name="fechaDevolucion" required />
       </div>
-    </div>
+      <div class="modal-actions">
+        <button type="submit" class="btn-success">Guardar </button>
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+      </div>
+    </form>
   </div>
 </div>

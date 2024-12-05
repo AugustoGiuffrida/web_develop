@@ -1,28 +1,29 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RentsService } from '../../../services/rents.service';
 import { AuthService } from '../../../services/auth.service';
-
-declare var window: any; // Para usar Bootstrap Modal con JavaScript
 
 @Component({
   selector: 'app-see-rents',
   templateUrl: './see-rents.component.html',
-  styleUrls: ['./see-rents.component.css']
+  styleUrls: ['./see-rents.component.css'],
 })
 export class SeeRentsComponent {
   @Input() id: number = 0;
   @Input() title: string = 'Default title';
   @Input() user: string = 'Default user';
-  @Input() fecha_entrega:  Date = new Date(2024, 0, 1); 
-  @Input() fecha_devolucion:  Date = new Date(2024, 0, 1);
+  @Input() fecha_entrega: Date = new Date(2024, 0, 1);
+  @Input() fecha_devolucion: Date = new Date(2024, 0, 1);
   @Input() image: string = 'media/default-book-cover.jpg';
 
-  @Input() daysLeft: number = 0; // Mover esta propiedad fuera del Input
-  selectedLoan: any; // Para almacenar el préstamo seleccionado en el modal
-  renewLoanModal: any;
+  @Input() daysLeft: number = 0;
 
-  constructor(private cdr: ChangeDetectorRef, private authService: AuthService, private rentsService: RentsService) {}
+  isModalOpen: boolean = false;
+  editedFechaEntrega: string = '';
+  editedFechaDevolucion: string = '';
 
+  constructor(private rentsService: RentsService, private authService: AuthService) {}
+
+  
   get isAdmin(): boolean {
     return this.authService.isAdmin();
   }
@@ -31,37 +32,53 @@ export class SeeRentsComponent {
     return this.authService.isLibrarian();
   }
 
-  get isUser(): boolean {
-    return this.authService.isUser();
-  }
-
-  ngOnInit() {
-    this.renewLoanModal = new window.bootstrap.Modal(document.getElementById('renewLoanModal'));
-  }
-
-
-  // Abre el modal de renovación y carga la información del préstamo seleccionado
-  openRenewModal(loan: any) {
-    this.selectedLoan = loan;
-    this.renewLoanModal.show();
-  }
-
-  // Función para renovar el préstamo
-  renewLoan() {
-    if (this.selectedLoan) {
-      this.rentsService.renewLoan(this.selectedLoan.id).subscribe(
-        (response) => {
-          console.log(`Préstamo renovado para: ${this.selectedLoan.title}`, response);
-          this.renewLoanModal.hide();
-        },
-        (error) => {
-          console.error('Error al renovar el préstamo:', error);
-        }
-      );
-    }
-  }
-
   get expirationReport() {
     return this.daysLeft <= 1;
+  }
+
+  deleteLoan() {
+    this.rentsService.deleteLoan(this.id).subscribe(() => {
+      window.location.reload();
+    });
+  }  
+
+  openModal(): void {
+    // Convertir las fechas a instancias de Date si no lo son
+    if (!(this.fecha_entrega instanceof Date)) {
+      this.fecha_entrega = new Date(this.fecha_entrega);
+    }
+    if (!(this.fecha_devolucion instanceof Date)) {
+      this.fecha_devolucion = new Date(this.fecha_devolucion);
+    }
+  
+    this.isModalOpen = true;
+  
+    // Convertimos las fechas a formato ISO para los inputs
+    this.editedFechaEntrega = this.fecha_entrega.toISOString().split('T')[0];
+    this.editedFechaDevolucion = this.fecha_devolucion.toISOString().split('T')[0];
+  }
+  
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    window.location.reload();
+  }
+
+  updateLoan(): void {
+    const updatedData = {
+      fecha_entrega: this.editedFechaEntrega,
+      fecha_devolucion: this.editedFechaDevolucion,
+    };
+
+    this.rentsService.renewLoan(this.id, updatedData).subscribe(
+      () => {
+        this.fecha_entrega = new Date(this.editedFechaEntrega);
+        this.fecha_devolucion = new Date(this.editedFechaDevolucion);
+        this.closeModal();
+      },
+      (error) => {
+        console.error('Error al actualizar el préstamo:', error);
+      }
+    );
   }
 }

@@ -33,6 +33,7 @@
   <div class="book-list-scroll">
     <div *ngFor="let rent of rents">
       <app-see-rents
+        [id]="rent.prestamoID"
         [title]="rent.copias?.titulo || 'Libro no disponible'"
         [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
         [fecha_entrega]="rent.fecha_entrega"

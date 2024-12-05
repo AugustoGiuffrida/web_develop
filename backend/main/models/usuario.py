@@ -40,9 +40,10 @@ class Usuario(db.Model):
             "usuario_apellido": self.usuario_apellido,
             "usuario_email": self.usuario_email,
             "usuario_telefono": self.usuario_telefono,
-            "rol": self.rol  
+            "rol": self.rol
         }
         return usuario_json
+
 
     def to_json_complete(self):
         notificaciones_info = [notificacion.to_json() for notificacion in self.notificaciones]

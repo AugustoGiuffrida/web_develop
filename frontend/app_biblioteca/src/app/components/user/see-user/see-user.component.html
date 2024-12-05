@@ -5,41 +5,36 @@
     <span class="user-phone">Teléfono: {{ telefono }}</span>
     <span class="user-role">{{ rol }}</span>
     <div class="button-group">
-      <button class="btn delete-button"(click)="deleteUser(id)">
+      <button class="btn delete-button" (click)="deleteUser()">
         <i class="bi bi-trash">Eliminar</i>
       </button>
-      <button class="btn edit-button" (click)="onEditUser()">
+      <button class="btn edit-button" (click)="openModal()">
         <i class="bi bi-pencil">Editar</i>
       </button>
     </div>
   </div>
-</div>  
-  
-  <!-- Pestaña lateral para editar usuario -->
-  <div class="sidebar" *ngIf="isEditing">
-    <div class="sidebar-header">
-      <h5>Editar Usuario</h5>
-      <button (click)="closeEdit()">X</button>
-    </div>
-    <form (ngSubmit)="updateUser()" class="sidebar-form">
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" [(ngModel)]="updatedNombre" name="nombre" required>
+</div>
+
+<!-- Modal -->
+<div class="modal" [class.show]="isModalOpen">
+  <div class="modal-content">
+    <h3>Editar Rol</h3>
+    <form (ngSubmit)="updateUserRole()">
+      <div>
+        <label for="rol">Nuevo Rol</label>
+        <select id="rol" [(ngModel)]="editedRole" name="rol" required class="form-select">
+          <option *ngFor="let role of roles" [value]="role">
+            {{ role }}
+          </option>
+        </select>
       </div>
-      <div class="mb-3">
-        <label for="apellido" class="form-label">Apellido</label>
-        <input type="text" class="form-control" [(ngModel)]="updatedApellido" name="apellido" required>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Cancelar
+        </button>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="updatedEmail" name="email" required>
-      </div>
-      <div class="mb-3">
-        <label for="telefono" class="form-label">Teléfono</label>
-        <input type="text" class="form-control" [(ngModel)]="updatedTelefono" name="telefono">
-      </div>
-      <button type="submit" class="btn btn-success">Actualizar</button>
-      <button type="button" class="btn btn-secondary" (click)="closeEdit()">Cancelar</button>
     </form>
   </div>
-  
+</div>
+

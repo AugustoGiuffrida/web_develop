@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +34,12 @@ export class UsuariosService {
   
 
   // Método para eliminar un usuario
-  deleteUser(usuarioID: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.url}/usuario/${usuarioID}`);
+  deleteUser(usuarioID: number): Observable<any> {
+    return this.httpClient.delete(`${this.url}/usuario/${usuarioID}`).pipe(
+      take(1)
+    );
   }
+
 
   getUserName(usuarioID: Number): Observable<any> {
     return this.httpClient.get(this.url+`/usuario/${usuarioID}`);
