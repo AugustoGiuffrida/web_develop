@@ -3,13 +3,9 @@ from flask import request
 from .. import db
 from main.models import PrestamoModel
 from flask import jsonify
+from sqlalchemy import cast, Date
 from datetime import datetime
 
-
-PRESTAMOS = {
-    1: {'fecha_alquilado':'20/03/2024', 'fecha_limite':'30/03/2024'},
-    2: {'fecha_alquilado':'10/4/2024', 'fecha_limite':'20/04/2024'}
-}
 
 class Prestamos(Resource):
 
@@ -29,21 +25,23 @@ class Prestamos(Resource):
         
         ### FILTROS ###
 
+
         # Filtrar por fecha de entrega
-        if request.args.get('fecha_entrega'):#verifica si el parámetro está en los argumentos de la solicitud
+        if fecha_entrega := request.args.get('fecha_entrega'):
             try:
-                fecha_entrega = datetime.strptime(request.args.get('fecha_entrega'), "%Y-%m-%d") #convertir el texto que representa la fecha alquilado en un objeto datetime. 
-                prestamos = prestamos.filter(PrestamoModel.fecha_entrega == fecha_entrega) #selecciona los préstamos cuya fecha alquilado coincida con la fecha ingresada.
-            except:# error al intentar convertir la cadena en un objeto datetime
-                return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400 #se devuelve un mensaje de error pidiendo el formato correcto. 
-           
-        # Filtrar por fecha límite
-        if request.args.get('fecha_devolucion'):
+                fecha_entrega = datetime.strptime(fecha_entrega, "%Y-%m-%d").date()
+                prestamos = prestamos.filter(PrestamoModel.fecha_entrega == fecha_entrega)
+            except ValueError:
+                return {"message": "Formato de fecha incorrecto. Use 'YYYY-MM-DD'."}, 400
+
+        # Filtrar por fecha de devolución
+        if fecha_devolucion := request.args.get('fecha_devolucion'):
             try:
-                fecha_devolucion = datetime.strptime(request.args.get('fecha_devolucion'), "%Y-%m-%d")
+                fecha_devolucion = datetime.strptime(fecha_devolucion, "%Y-%m-%d").date()
                 prestamos = prestamos.filter(PrestamoModel.fecha_devolucion == fecha_devolucion)
-            except:
-                return "Formato de fecha incorrecto. Utilice el formato 'yyyy-mm-dd'.", 400
+            except ValueError:
+                return {"message": "Formato de fecha incorrecto. Use 'YYYY-MM-DD'."}, 400
+
 
         #Filtrar por Id de libro
         if request.args.get('copiaID'):

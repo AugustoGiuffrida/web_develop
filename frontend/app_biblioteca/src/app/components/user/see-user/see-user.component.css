@@ -1,30 +1,81 @@
-/* Estilos para la pestaña lateral */
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 300px;
-    height: 100%;
-    background-color: #fff;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    z-index: 1000;
-    transition: transform 0.3s ease;
-  }
-  
-  .sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar-header h5 {
-    margin: 0;
-  }
-  
-  .sidebar-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
+body {
+  font-family: 'Inika', serif;
+  background-color: #f3f4f6; /* Fondo sutil */
+}
+
+.user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff; /* Fondo blanco para contraste */
+  border: 1px solid #ddd; /* Borde claro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+  padding: 15px; /* Espaciado interno */
+  margin-bottom: 15px; /* Separación entre tarjetas */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animación al pasar el cursor */
+}
+
+.user-card:hover {
+  transform: translateY(-2px); /* Pequeño desplazamiento al pasar el cursor */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Espaciado entre líneas */
+}
+
+.user-name {
+  font-size: 1.2rem; /* Tamaño mayor para resaltar el nombre */
+  font-weight: bold;
+  color: #333; /* Texto oscuro */
+}
+
+.user-email,
+.user-phone,
+.user-role {
+  font-size: 1rem; /* Tamaño más pequeño para los detalles */
+  color: #666; /* Texto gris */
+}
+
+.user-role {
+  font-style: italic; /* Cursiva para diferenciar el rol */
+  color: #888; /* Gris más claro */
+}
+
+
+.renew-button {
+    background-color: #28a745; /* Green background for renew */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+.renew-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+.edit-button {
+    background-color: #007bff; /* Blue background for edit */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+.edit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+.delete-button {
+    background-color: #dc3545; /* Red background for delete */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+}
+.delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+
+.button-group {
+    top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
+    right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
+    display: flex;       /* Usar Flexbox para alinear los botones en fila */
+    gap: 10px;           /* Espacio entre los botones */
+}
+

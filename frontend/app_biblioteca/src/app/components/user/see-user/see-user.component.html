@@ -1,16 +1,19 @@
 <div class="user-info">
-    <strong>{{ nombre }} {{ apellido }}</strong><br>
-    <span>{{ email }}<br>Teléfono: {{ telefono }}</span><br>
-    <span class="user-role text-secondary">{{ rol }}</span>
+  <div class="user-details">
+    <strong class="user-name">{{ nombre }} {{ apellido }}</strong>
+    <span class="user-email">{{ email }}</span>
+    <span class="user-phone">Teléfono: {{ telefono }}</span>
+    <span class="user-role">{{ rol }}</span>
+    <div class="button-group">
+      <button class="btn delete-button"(click)="deleteUser(id)">
+        <i class="bi bi-trash">Eliminar</i>
+      </button>
+      <button class="btn edit-button" (click)="onEditUser()">
+        <i class="bi bi-pencil">Editar</i>
+      </button>
+    </div>
   </div>
-  <div class="ms-auto">
-    <button class="btn btn-outline-danger me-2" (click)="deleteUser(id)">
-      <i class="bi bi-trash"></i> Eliminar
-    </button>
-    <button class="btn btn-outline-primary" (click)="onEditUser()">
-      <i class="bi bi-pencil"></i> Modificar
-    </button>
-  </div>
+</div>  
   
   <!-- Pestaña lateral para editar usuario -->
   <div class="sidebar" *ngIf="isEditing">

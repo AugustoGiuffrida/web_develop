@@ -7,8 +7,8 @@ class Prestamo(db.Model):
 
     prestamoID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     usuarioID = db.Column(db.Integer, db.ForeignKey('usuarios.usuarioID'), nullable=False) # Clave Foranea
-    fecha_entrega = db.Column(db.DateTime, nullable=False)
-    fecha_devolucion = db.Column(db.DateTime, nullable=False)
+    fecha_entrega = db.Column(db.Date, nullable=False)
+    fecha_devolucion = db.Column(db.Date, nullable=False)
     #relacion 1:1(Usuario es padre)
     usuario = db.relationship("Usuario", back_populates="prestamos",uselist=False,single_parent=True)
     #relacion 1:1(Libro es padre)
@@ -18,20 +18,21 @@ class Prestamo(db.Model):
     
     @property
     def days_left(self):
-        today = datetime.now()
-        days_left = (self.fecha_devolucion - today).days
+        today = datetime.now().date()  # Convertir a datetime.date
+        days_left = (self.fecha_devolucion - today).days  
         return days_left if days_left >= 0 else 0
+
 
     @property
     def status(self):
-        if self.fecha_devolucio == datetime.now():
+        today = datetime.now().date()  # Convertir a datetime.date
+        if self.fecha_devolucion == today:
             return 'pending'
-        elif self.fecha_devolucio > datetime.now():
-            print(self.fecha_devolucio, datetime.now())
-            print(self.fecha_devolucio > datetime.now())
+        elif self.fecha_devolucion > today:
             return 'active'
         else:
             return 'expired'
+
 
     def __repr__(self):
         return '<Prestamo: %r >' % (self.prestamoID)
@@ -71,8 +72,8 @@ class Prestamo(db.Model):
         prestamoID = prestamo_json.get('prestamoID')
         usuarioID = prestamo_json.get('usuarioID')
         copiaID = prestamo_json.get('copiaID')
-        fecha_entrega = datetime.strptime(prestamo_json.get('fecha_entrega'), '%Y-%m-%d')
-        fecha_devolucion = datetime.strptime(prestamo_json.get('fecha_devolucion'), '%Y-%m-%d')
+        fecha_entrega = datetime.strptime(prestamo_json.get('fecha_entrega'), '%Y-%m-%d').date()
+        fecha_devolucion = datetime.strptime(prestamo_json.get('fecha_devolucion'), '%Y-%m-%d').date()
         return Prestamo(prestamoID=prestamoID,
                         usuarioID=usuarioID,
                         copiaID=copiaID,
