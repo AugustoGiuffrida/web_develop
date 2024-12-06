@@ -19,7 +19,7 @@ class Libros(Resource):
         per_page = 9
         
         #no ejecuto el .all()
-        libros = db.session.query(LibroModel)#obtener todos objetos de la tabla en la base base de datos
+        libros = db.session.query(LibroModel)
 
 
         if request.args.get('page'): ##Existe el parametro "page" en la request?

@@ -87,20 +87,6 @@ with open(log_file, 'w') as log:
         INSERT INTO autores (autorID, autor_nombre, autor_apellido) VALUES (?, ?, ?)
     ''', datos_autores)
 
-    # Generar datos para la tabla "configuraciones"
-    datos_configuraciones = []
-    for i in range(1, 31):
-        configuracionID = i
-        idioma = fake.language_name()
-        orden = fake.word()
-        usuario_id = i
-        datos_configuraciones.append((configuracionID, idioma, orden, usuario_id))
-
-    # Insertar datos en la tabla "configuraciones"
-    cur.executemany('''
-        INSERT INTO configuraciones (configuracionID, idioma, orden, usuario_id) VALUES (?, ?, ?, ?)
-    ''', datos_configuraciones)
-
     # Generar datos para la tabla "reseñas"
     datos_reseñas = []
     reseñaID = 1  

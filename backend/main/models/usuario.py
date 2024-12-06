@@ -14,7 +14,6 @@ class Usuario(db.Model):
     rol = db.Column(db.String(10), nullable=False, server_default="pending")
 
     # Relaciones con otros modelos
-    configuraciones = db.relationship("Configuracion", uselist=False, back_populates="usuario", cascade="all, delete-orphan")
     reseñas = db.relationship("Reseña", uselist=False, back_populates="usuario", cascade="all, delete-orphan") 
     notificaciones = db.relationship("Notificacion", back_populates="usuario",cascade="all, delete-orphan")
     prestamos = db.relationship("Prestamo", uselist=False, back_populates="usuario", cascade="all, delete-orphan")

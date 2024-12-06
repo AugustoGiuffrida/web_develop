@@ -69,10 +69,11 @@ class Autor(Resource):
 
     def put(self, id):
         autor = db.session.query(AutorModel).get_or_404(id)
-        data = request.get_json()
-        for key, value in data.items():
+        data = request.get_json().items()
+        for key, value in data:
             setattr(autor, key, value)
         try:
+            db.session.add(autor)
             db.session.commit()
         except Exception as e:
             db.session.rollback()

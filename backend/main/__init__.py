@@ -53,8 +53,6 @@ def create_app():
 
     api.add_resource(resources.NotificacionesResources, '/notificaciones')
 
-    api.add_resource(resources.ConfiguracionesResources, '/configuraciones')
-
     api.add_resource(resources.ReseñasResources, '/reseñas')
     api.add_resource(resources.ReseñaResources, '/reseña/<id>')
 
