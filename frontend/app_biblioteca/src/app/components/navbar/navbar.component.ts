@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -8,9 +8,22 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavbarComponent {
   isDropdownOpen = false;
+  isSmallScreen = false;
 
   constructor(private authService: AuthService) {}
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenSize();
+  }
+
+  ngOnInit() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    this.isSmallScreen = window.innerWidth < 768; // Cambia el punto de quiebre si es necesario
+  }
   // Verificar si el token está presente usando el servicio AuthService
   get isToken() {
     return this.authService.isAuthenticated();  

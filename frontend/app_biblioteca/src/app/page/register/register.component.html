@@ -11,67 +11,118 @@
     <div class="form-information">
       <div class="form-information-childs">
         <h2>Crear una Cuenta</h2>
+        <!-- Mensaje de alerta general -->
+        <div *ngIf="formInvalid && submitted" class="alertaError">
+          Por favor, corrige los errores antes de continuar.
+        </div>
         <form [formGroup]="registerForm" class="form form-register" (ngSubmit)="submit()">
           <div>
-            <label class="" for="nombre">
+            <!-- Nombre -->
+            <label for="nombre">
               <i class="bi bi-person form-control-icon"></i>
-              <input type="text" formControlName="usuario_nombre" id="nombre" placeholder="Nombre" required>
+              <input
+                type="text"
+                formControlName="usuario_nombre"
+                id="nombre"
+                placeholder="Nombre"
+                [ngClass]="{ error: isFieldInvalid('usuario_nombre') }"
+                required
+              />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_nombre')" >
-              <div>{{ getFieldError('usuario_nombre') }}</div>
+            <div *ngIf="isFieldInvalid('usuario_nombre')" class="alerta alerta-error">
+              {{ getFieldError('usuario_nombre') }}
             </div>
           </div>
+          <!-- Apellido -->
           <div>
             <label for="apellido">
               <i class="bi bi-person form-control-icon"></i>
-              <input type="text" formControlName="usuario_apellido" id="apellido" placeholder="Apellido" required>
+              <input
+                type="text"
+                formControlName="usuario_apellido"
+                id="apellido"
+                placeholder="Apellido"
+                [ngClass]="{ error: isFieldInvalid('usuario_apellido') }"
+                required
+              />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_apellido')">
-              <div>{{ getFieldError('usuario_apellido') }}</div>
+            <div *ngIf="isFieldInvalid('usuario_apellido')" class="alerta alerta-error">
+              {{ getFieldError('usuario_apellido') }}
             </div>
           </div>
+          <!-- Email -->
           <div>
             <label for="email">
               <i class="bi bi-envelope form-control-icon"></i>
-              <input type="email" formControlName="usuario_email" id="email" placeholder="Correo electrónico" required>
+              <input
+                type="email"
+                formControlName="usuario_email"
+                id="email"
+                placeholder="Email"
+                [ngClass]="{ error: isFieldInvalid('usuario_email') }"
+                required
+              />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_email')">
-              <div>{{ getFieldError('usuario_email') }}</div>
+            <div *ngIf="isFieldInvalid('usuario_email')" class="alerta alerta-error">
+              {{ getFieldError('usuario_email') }}
             </div>
           </div>
+          <!-- Contraseña -->
           <div>
             <label for="password">
               <i class="bi bi-lock form-control-icon"></i>
-              <input type="password" formControlName="usuario_contraseña" id="password" placeholder="Contraseña" required>
+              <input
+                type="password"
+                formControlName="usuario_contraseña"
+                id="password"
+                placeholder="Contraseña"
+                [ngClass]="{ error: isFieldInvalid('usuario_contraseña') }"
+                required
+              />
             </label>
-              <div *ngIf="isFieldInvalid('usuario_contraseña')">
-                <div>{{ getFieldError('usuario_contraseña') }}</div>
-              </div>
+            <div *ngIf="isFieldInvalid('usuario_contraseña')" class="alerta alerta-error">
+              {{ getFieldError('usuario_contraseña') }}
+            </div>
           </div>
+          <!-- Confirmar Contraseña -->
           <div>
             <label for="confirm-password">
               <i class="bi bi-lock form-control-icon"></i>
-              <input type="password" formControlName="confirmPassword" id="confirm-password" placeholder="Confirma tu contraseña" required>
+              <input
+                type="password"
+                formControlName="confirmPassword"
+                id="confirm-password"
+                placeholder="Confirma tu contraseña"
+                [ngClass]="{ error: registerForm.hasError('mismatch') }"
+                required
+              />
             </label>
-            <div *ngIf="registerForm.hasError('mismatch')">
-              <div>{{ getFieldError('usuario_contraseña') }}</div>
+            <div *ngIf="registerForm.hasError('mismatch')" class="alerta alerta-error">
+              Las contraseñas no coinciden.
             </div>
-          </div>
-          <div>
-            <label for="phone">
-              <i class="bi bi-phone form-control-icon"></i>
-              <input type="text" formControlName="usuario_telefono" id="phone" placeholder="Teléfono" required>
+            <!-- Telefono -->
+            <label for="telefono">
+              <i class="bi bi-telephone form-control-icon"></i>
+              <input
+                type="text"
+                formControlName="usuario_telefono"
+                id="telefono"
+                placeholder="Teléfono"
+                [ngClass]="{ error: isFieldInvalid('usuario_telefono') }"
+                required
+              />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_telefono')">
-              <div>{{ getFieldError('usuario_telefono') }}</div>
+            <div *ngIf="isFieldInvalid('usuario_telefono')" class="alerta alerta-error">
+              {{ getFieldError('usuario_telefono') }}
             </div>
+
           </div>
           <div class="text-center">
-            <input type="submit" [disabled]="isLoading" value="Registrarse">
+            <input type="submit" [disabled]="isLoading" value="Registrarse" />
             <span *ngIf="isLoading">Enviando...</span>
           </div>
         </form>
       </div>
-    </div>
+    </div>      
   </div>
 </body>

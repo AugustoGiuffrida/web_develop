@@ -1,36 +1,50 @@
 .navbar {
-    background: linear-gradient(135deg, #ffffff, #f1f1f1);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
 
-  
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .btn-outline-dark {
-    border-color: #1E1E1E;
-    color: #1E1E1E;
-    transition: background-color 0.3s ease;
-  }
-
+  border-color: #1E1E1E;
+  color: #1E1E1E;
+  transition: background-color 0.3s ease;
+}
 
 .btn-outline-dark:hover {
-    background-color: #343a40;
-    color: #fff;
-  }
+  background-color: #343a40;
+  color: #fff;
+}
 
-  
 .btn i {
-    vertical-align: middle;
-  }
-
+  vertical-align: middle;
+}
 
 .btn:hover i {
-    transform: scale(1.2);
-  }
+  transform: scale(1.2);
+}
 
+.dropdown-menu {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
 
+.dropdown-item {
+  transition: background-color 0.2s ease;
+}
 
-  
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
 
-
-  
-
-  
+.dropdown-item.text-danger:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+}

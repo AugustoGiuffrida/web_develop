@@ -195,6 +195,28 @@ body {
   outline: solid 2px #9d2222; /* Rojo oscuro */
 }
 
+.alerta-error {
+  color: #dc3545; /* Rojo para los mensajes de error */
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.error {
+  border: 2px solid #dc3545; /* Resaltar los campos inválidos */
+}
+
+.alertaError {
+  display: block;
+  background-color: #dc3545;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+
+
 /*RESPONSIVE FORM*/
 @media screen and (max-width:750px) {
   html {

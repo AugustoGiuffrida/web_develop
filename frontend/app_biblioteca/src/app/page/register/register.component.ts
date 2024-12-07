@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   isLoading = false;
+  submitted = false;
+  formInvalid = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,11 +56,14 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(): void {
+    this.submitted = true; // Marcar el formulario como enviado
     if (this.registerForm.invalid) {
+      this.formInvalid = true; // Activar alerta general
       return;
     }
-
+    this.formInvalid = false; // Apagar alerta general si es válido
     this.isLoading = true;
+  
     const formData = this.registerForm.value;
     this.authService.register(formData).subscribe(
       () => {
@@ -70,4 +76,6 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+  
+  
 }
