@@ -103,16 +103,18 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
     def put(self, id):
         libro = db.session.query(LibroModel).get_or_404(id)
         data = request.get_json()                
-        autores_ids = data.get('autores', [])  # Obtener los IDs de los autores del JSON o una lista vacía si no se proporcionan
+        autores_ids = data.get('autores')
 
+        if data.get('titulo'):
+            libro.titulo = data.get('titulo')
+        if data.get('editorial'):
+            libro.editorial = data.get('editorial')
+        if data.get('genero'):
+            libro.genero = data.get('genero')
         if autores_ids:
-            # Obtener las instancias de autores basadas en las IDs recibidas
             autores = AutorModel.query.filter(AutorModel.autorID.in_(autores_ids)).all()
-            # Agregar las instancias de autor a la lista de autores del libro
-            libro.autores.extend(autores)
+            libro.autores = autores
 
-        for key, value in data.items():
-            setattr(libro, key, value)
         try:
             db.session.add(libro)
             db.session.commit()
@@ -120,4 +122,3 @@ class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso
             db.session.rollback()
             return {"message": "Error al agregar el libro"}, 400
         return libro.to_json(), 201
-

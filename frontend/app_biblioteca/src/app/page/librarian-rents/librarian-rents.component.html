@@ -1,36 +1,36 @@
 <app-navbar></app-navbar>
 
-<div class="container-form">
-  <!-- Barra superior azul -->
-  <div class="information-top">
-    <h2>Prestamos</h2>
+<div class="container-rents">
+  <!-- Encabezado con título -->
+  <div class="header-section">
+    <h1>Gestión de Préstamos</h1>
   </div>
 
-  <!-- Filtros -->
-  <div class="filter-section mb-4 p-3 rounded shadow-sm">
-    <h5 class="fw-bold mb-3">Filtros</h5>
-    <div class="row g-2">
-      <div class="col-lg-3 col-md-6 mb-2">
+  <!-- Sección de filtros -->
+  <div class="filter-section rounded shadow-sm">
+    <h4 class="filter-title">Filtrar Préstamos</h4>
+    <div class="row g-3">
+      <div class="col-lg-3 col-md-6">
         <label for="fechaEntrega" class="form-label">Fecha de Entrega</label>
         <input type="date" id="fechaEntrega" class="form-control" [(ngModel)]="filters.fecha_entrega" (change)="filterRents()">
       </div>
-      <div class="col-lg-3 col-md-6 mb-2">
+      <div class="col-lg-3 col-md-6">
         <label for="fechaDevolucion" class="form-label">Fecha de Devolución</label>
         <input type="date" id="fechaDevolucion" class="form-control" [(ngModel)]="filters.fecha_devolucion" (change)="filterRents()">
       </div>
-      <div class="col-lg-3 col-md-6 mb-2">
-        <label for="copiaID" class="form-label">ID de la copia</label>
+      <div class="col-lg-3 col-md-6">
+        <label for="copiaID" class="form-label">ID de la Copia</label>
         <input type="text" id="copiaID" class="form-control" placeholder="Ej. 1, 2, 3" [(ngModel)]="filters.copiaID" (input)="filterRents()">
       </div>
-      <div class="col-lg-3 col-md-6 mb-2">
+      <div class="col-lg-3 col-md-6">
         <label for="usuarioID" class="form-label">ID del Usuario</label>
         <input type="text" id="usuarioID" class="form-control" placeholder="Ej. 1001" [(ngModel)]="filters.usuarioID" (input)="filterRents()">
       </div>
     </div>
   </div>
 
-  <!-- Lista de libros alquilados -->
-  <div class="book-list-scroll">
+  <!-- Lista de préstamos -->
+  <div class="rents-list">
     <div *ngFor="let rent of rents">
       <app-see-rents
         [id]="rent.prestamoID"
@@ -44,11 +44,13 @@
     </div>
   </div>
 
-  <!-- Mensaje si no se encuentran libros -->
-  <div *ngIf="rents.length === 0" class="alert alert-warning">
-    No rented books found.
+  <!-- Mensaje si no hay préstamos -->
+  <div *ngIf="rents.length === 0" class="no-rents-alert">
+    No se encontraron préstamos.
   </div>
 
   <!-- Paginación -->
-  <app-paginate [page]="page" [pages]="pages" (pageChange)="getRents($event)"></app-paginate>
+  <div class="pagination-section">
+    <app-paginate [page]="page" [pages]="pages" (pageChange)="getRents($event)"></app-paginate>
+  </div>
 </div>

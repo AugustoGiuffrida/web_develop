@@ -1,25 +1,18 @@
-/* Estilos generales */
-.book-details-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Contenedor principal */
+.book-page {
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #f9fafb;
 }
 
-.book-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
+/* Imagen e información del libro */
+.book-info-container {
+  background: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-width: 900px;
-  width: 100%;
+  text-align: center;
 }
 
-/* Imagen del libro */
 .book-image-container {
   display: flex;
   justify-content: center;
@@ -29,83 +22,57 @@
 .book-image {
   max-width: 100%;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Información del libro */
-.book-info {
-  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .book-title {
-  font-size: 2em;
-  margin-bottom: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
   color: #333;
 }
 
-.book-author,
-.book-editorial,
-.book-description,
-.book-cantidad,
-.book-genero {
-  font-size: 1.1em;
-  margin: 8px 0;
+.book-meta {
+  font-size: 1rem;
   color: #555;
 }
 
-.book-edit {
-  background-color: #ffffff;
+/* Formulario de edición */
+.edit-book-form {
+  background: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-width: 900px;
-  width: 100%;
-  text-align: left;
 }
 
-
-/* Botón Success */
-.btn-success {
-  background-color: transparent; /* Fondo transparente */
-  border: 2px solid #0e912c; /* Borde verde */
-  color: #0e912c; /* Texto verde */
-  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+.form-group label {
+  font-weight: bold;
+  color: #333;
 }
 
-.btn-success:hover {
-  background-color: #0e912c; /* Fondo verde al hacer hover */
-  color: #ffffff; /* Texto blanco al hacer hover */
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
 }
 
-/* Botón Save */
-.btn-save {
-  background-color: transparent; /* Fondo transparente */
-  border: 2px solid #17a2b8; /* Borde cian */
-  color: #17a2b8; /* Texto cian */
-  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(14, 145, 44, 0.3);
 }
 
-.btn-save:hover {
-  background-color: #17a2b8; /* Fondo cian al hacer hover */
-  color: #ffffff; /* Texto blanco al hacer hover */
+/* Botones */
+.btn-upload {
+  background: #1385ff;
+  color: white;
 }
 
+.btn-upload:hover {
+  background: #007bff;
+}
 
-/* Responsive */
-@media (min-width: 768px) {
-  .book-content {
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 30px;
+@media (max-width: 768px) {
+  .book-info-container,
+  .edit-book-form {
+    margin-bottom: 20px;
   }
-
-  .book-image-container {
-    margin-bottom: 0;
-    margin-right: 30px;
-  }
-
-  .book-info {
-    text-align: left;
-  }
-
 }

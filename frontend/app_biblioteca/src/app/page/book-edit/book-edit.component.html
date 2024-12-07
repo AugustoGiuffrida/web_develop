@@ -1,78 +1,87 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-  <!-- Contenedor de información del libro -->
-  <div class="book-content">
-    <!-- Imagen del libro -->
-    <div class="book-image-container">
-        <img src="cover/{{ image }}" alt="Book Img" class="book-image">
+<div class="container book-page">
+  <div class="row">
+    <!-- Información del libro -->
+    <div class="col-lg-6 col-md-12 book-info-container">
+      <div class="book-image-container">
+        <img src="cover/{{ image }}" alt="Book Image" class="book-image">
+      </div>
+      <div class="book-details">
+        <h1 class="book-title">{{ titulo }}</h1>
+        <p class="book-meta"><strong>Género:</strong> {{ genero }}</p>
+        <p class="book-meta"><strong>Autor:</strong> {{ str_autores }}</p>
+        <p class="book-meta"><strong>Editorial:</strong> {{ editorial }}</p>
+      </div>
     </div>
 
-    <div class="book-info">
-      <h1 class="book-title">{{ titulo }}</h1>
-      <p class="book-genero"><strong>Género:</strong> {{ genero }}</p>
-      <p class="book-author"><strong>Autor:</strong> {{ autores }}</p>
-      <p class="book-editorial"><strong>Editorial:</strong> {{ editorial }}</p>
+    <!-- Formulario de edición -->
+    <div class="col-lg-6 col-md-12">
+      <form [formGroup]="editBookForm" (ngSubmit)="submit()" class="edit-book-form">
+        <!-- Título -->
+        <div class="form-group">
+          <label for="titleInput" class="form-label"><i class="bi bi-book"></i> Título:</label>
+          <input id="titleInput" formControlName="title" class="form-control" type="text" placeholder="Escribe un nuevo título" [value]="titulo">
+        </div>
+
+        <!-- Editorial -->
+        <div class="form-group">
+          <label for="editorialInput" class="form-label"><i class="bi bi-building"></i> Editorial:</label>
+          <input id="editorialInput" formControlName="editorial" class="form-control" type="text" placeholder="Escribe una nueva editorial" [value]="editorial">
+        </div>
+
+        <!-- Autores -->
+        <div class="form-group">
+          <label for="authorInput" class="form-label"><i class="bi bi-people"></i> Autores:</label>
+          <div class="input-group">
+            <input id="authorInput" formControlName="author" type="text" class="form-control" list="authorsList" placeholder="Buscar autor" (input)="getAuthors()">
+            <button class="btn btn-save" type="button" (click)="addAuthor()">
+              <i class="bi bi-plus-circle"></i>
+            </button>
+          </div>
+          <datalist id="authorsList">
+            @for (author of lista_autores; track author.id) {
+              <option value="{{author.autor_nombre}} {{author.autor_apellido}}"></option>
+            }
+          </datalist>
+          <ul class="list-group list-group-flush">
+            @for (libro_autor of libros_autores; track libro_autor.autorID) {
+              <li class="list-group-item d-flex justify-content-between">
+                {{ libro_autor.autor_nombre }} {{ libro_autor.autor_apellido }}
+                <button class="btn btn-outline-danger" id="delete-author-{{ libro_autor.autorID }}" type="button" (click)="deleteAuthor(libro_autor.autorID)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <!-- Género -->
+        <div class="form-group">
+          <label for="genreSelect" class="form-label"><i class="bi bi-bookmark"></i> Género:</label>
+          <select id="genreSelect" formControlName="genero" class="form-select">
+            <option *ngFor="let g of generos" [selected]="g === genero" [value]="g">{{ g }}</option>
+          </select>
+        </div>
+
+        <!-- Subir imagen -->
+        <div class="form-group">
+          <label for="uploadImage" class="form-label"><i class="bi bi-image"></i> Portada del libro:</label>
+          <div class="input-group">
+            <input id="uploadImage" type="file" class="form-control" accept=".jpg" (change)="uploadImage($event)">
+            <button class="btn btn-save" type="button" (click)="uploadImage($event)">
+              <i class="bi bi-upload"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Botón Guardar -->
+        <div class="text-center mt-4">
+          <button class="btn btn-upload w-100">
+            <i class="bi bi-floppy-fill"></i> Guardar
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-
-
-  <!-- Contenedor de edición del libro -->
-  <div class="book-edit">
-    <form [formGroup]="editBookForm">
-      <!-- Título -->
-      <div class="mb-3">
-        <label for="titleInput" class="form-label"><strong>Título:</strong></label>
-        <input id="titleInput" formControlName="title" class="form-control" type="text" placeholder="Escribe un nuevo título" [value]="titulo"/>
-      </div>
-
-      <!-- Descripción -->
-      <div class="mb-3">
-        <label for="descriptionInput" class="form-label"><strong>Descripción:</strong></label>
-        <textarea id="descriptionInput" formControlName="description" class="form-control" placeholder="Escribe una nueva descripción" rows="4"></textarea>
-      </div>
-
-      <!-- Autores -->
-      <div class="mb-3">
-        <label for="authorInput" class="form-label"><strong>Autores:</strong></label>
-        <div class="input-group">
-          <input id="authorInput" formControlName="author" type="text" class="form-control" list="authorsList" placeholder="Buscar autor" (input)="getAuthors()"/>
-          <button class="btn btn-save" type="button" (click)="addAuthor()">
-            <i class="bi bi-save"></i>
-          </button>
-        </div>
-        <datalist id="authorsList">
-          <option *ngFor="let autor of autores" value="author.autor_nombre + ' ' + author.autor_apellido"></option>
-        </datalist>
-        <p class="text-muted">{{ libros_autores || 'Desconocido' }}</p>
-      </div>
-
-      <!-- Género -->
-      <div class="mb-3">
-        <label for="genreSelect" class="form-label"><strong>Género:</strong></label>
-        <select id="genreSelect" formControlName="genero" class="form-select">
-          <option *ngFor="let g of generos" [selected]="g === genero" [value]="g">{{ g }}</option>
-        </select>
-      </div>
-
-      <!-- Subir imagen -->
-      <div class="mb-3">
-        <label for="uploadImage" class="form-label"><strong>Portada del libro:</strong></label>
-        <div class="input-group">
-          <input id="uploadImage" type="file" class="form-control" accept=".jpg" (change)="uploadImage($event)"/>
-          <button class="btn btn-save" type="button" (click)="uploadImage($event)">
-            <i class="bi bi-upload"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Botón Guardar -->
-      <div class="text-center mt-4">
-        <button class="btn btn-success w-100" >
-          <i class="bi bi-floppy-fill"></i> Guardar
-        </button>
-      </div>
-    </form>
-  </div>  
-
-  </div>
+</div>

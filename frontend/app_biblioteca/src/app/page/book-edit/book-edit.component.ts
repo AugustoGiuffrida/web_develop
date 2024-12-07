@@ -12,14 +12,15 @@ import { BookService } from '../../services/book.service';
 })
 export class BookEditComponent implements OnInit {
 
-  bookId: number | null = null; 
+  bookId: number = -1; 
   titulo: string = '';
   image: string = ''; 
   editorial: string = '';
   genero: string = '';
-  autores: string = '';
-  libros_autores: string = "";
-  new_authors: any[] = [];
+  autores: any[] = [];            // Ya están en el libro
+  new_autores: any[] = [];        // id de nuevos autores
+  lista_autores: any[] = [];      // Lista de autores dinámica (input)
+  libros_autores: any[] = [];
   isLoading = false;
   errors: any = {};
 
@@ -27,14 +28,13 @@ export class BookEditComponent implements OnInit {
   generos = ['Fiction', 'Non-fiction', 'Mystery', 'Science Fiction', 'Fantasy'];
   editBookForm = new FormGroup({
     title: new FormControl(''),
-    description: new FormControl(''),
     author: new FormControl(''),
     editorial: new FormControl(''),
     genero: new FormControl(''),
   })
 
   constructor(
-    private AuthorsService: AuthorsService,
+    private authorsService: AuthorsService,
     private bookService: BookService,
     private route: ActivatedRoute
   ) {}
@@ -48,19 +48,21 @@ export class BookEditComponent implements OnInit {
 
   }
 
-  parseAuthors(authors: any): string {
-    let result = "";
-    for (let i = 0; i < this.autores.length; i++) {
-      result += authors[i].autor_nombre + " " + authors[i].autor_apellido;
-      if (i < this.autores.length - 1) {
-        result += ", ";
-      }   
+  get str_autores(): string {
+    let str_authors: string = '';
+    let comma: string = '';
+    if (this.autores.length == 0) {
+      return 'Desconocido';
     }
-    return result;  
+    for (let author of this.autores) {
+      str_authors += comma + author.autor_nombre + ' ' + author.autor_apellido;
+      comma = ', ';
+    }
+    return str_authors;
   }
  
   repeatedAuthor(test_id: number): boolean {
-    for (let id of  this.new_authors) {
+    for (let id of this.new_autores) {
       if (id == test_id) {
         return true;
       }
@@ -69,61 +71,62 @@ export class BookEditComponent implements OnInit {
   }  
 
   addAuthor() {
-    console.log(this.new_authors);
-    const input = this.editBookForm.controls['author'].value;
-    const autor_nombre: string = input?.split(' ')[0] || '';
-    const autor_apellido: string = input?.split(' ')[1] || '';
-    if (!autor_nombre || !autor_apellido) {
+    const fullname = this.editBookForm.controls['author'].value;
+    if (!fullname) {
       return;
     } else {
-      this.AuthorsService.getAuthor_by_fullname(autor_nombre, autor_apellido).subscribe((answer:any) => {
-        const id = answer.autores[0].id;
+      this.authorsService.getAuthor_by_fullname(fullname).subscribe((answer:any) => {
+        const id = answer.autores[0].autorID;
         if (id && !(this.repeatedAuthor(id))) {
-          this.new_authors.push(id);
-          this.libros_autores += ', ' + answer.autores[0].autor_nombre + ' ' + answer.autores[0].autor_apellido;
+          this.new_autores.push(id);
+          this.libros_autores.push(answer.autores[0]);
           this.editBookForm.controls['author'].setValue('');
-          console.log(this.new_authors);
         }
-      })      
+      })
+    }
+  }
+
+  deleteAuthor(id: number): void {
+    for (let i = 0; i < this.new_autores.length; i++) {
+      if (this.new_autores[i] == id) {
+        this.new_autores.splice(i, 1);
+      }
+    }
+    for (let i = 0; i < this.libros_autores.length; i++) {
+      if (this.libros_autores[i].autorID == id) {
+        this.libros_autores.splice(i, 1);
+      }
     }
   }
   
   getAuthors() {
     const query = this.editBookForm.controls['author'].value
     if (typeof query === 'string') {
-      this.AuthorsService.getAuthors_by_name_or_lastname(query).subscribe((answer:any) => {
-        this.autores = answer.autores;
+      this.authorsService.getAuthors_by_name_or_lastname(query).subscribe((answer:any) => {
+        this.lista_autores = answer.autores;
       })
     } else {
-      this.AuthorsService.getAuthors_by_name_or_lastname('').subscribe((answer:any) => {
-        this.autores = answer.autores;
+      this.authorsService.getAuthors_by_name_or_lastname('').subscribe((answer:any) => {
+        this.lista_autores = answer.autores;
       })
     }
   }
-
   
   getBook(id: number) {
     this.bookService.getBook(id).subscribe((data: any) => {
-      console.log(data); 
+      this.bookId = id;
       this.titulo = data.titulo;
       this.image = data.image;
       this.editorial = data.editorial;
-      
       this.genero = data.genero;
-      if (Array.isArray(data.authors) && data.authors.length > 0) {
-        this.libros_autores = this.parseAuthors(data.authors);
-        for (let author of data.authors) {
-          this.new_authors.push(author.id);
-        }
-      } else {
-        this.libros_autores = '';
+      this.autores = data.autores;
+      for (let author of this.autores) {
+        this.new_autores.push(author.autorID);
+        this.libros_autores.push(author);
       }
     });
   }
   
-  
-
-
   uploadImage(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -135,5 +138,14 @@ export class BookEditComponent implements OnInit {
     }
   }
   
+  submit() {
+    let data: any = {};
+    data.titulo = this.editBookForm.controls['title'].value;
+    data.editorial = this.editBookForm.controls['editorial'].value;
+    data.genero = this.editBookForm.controls['genero'].value;
+    data.autores = this.new_autores;
+    this.bookService.updateBook(this.bookId, data).subscribe(() => {})
+    window.location.reload();
+  }
 
 }

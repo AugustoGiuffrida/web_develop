@@ -19,7 +19,9 @@ export class AuthorsService {
   }
   
 
-  getAuthor_by_fullname(autor_nombre: string, autor_apellido: string): Observable<any> {
+  getAuthor_by_fullname(fullname:string): Observable<any> {
+    const autor_nombre: string = fullname?.split(' ')[0] || '';
+    const autor_apellido: string = fullname?.split(' ')[1] || '';
     return this.httpClient.get('/api/autores?nombre='+autor_nombre+'&apellido='+autor_apellido);
   }
 
