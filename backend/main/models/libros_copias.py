@@ -9,7 +9,7 @@ class LibrosCopias(db.Model):
     #relacion 1:M(1 Libro N Copias)
     libro = db.relationship('Libro', back_populates='copias')   
     #relacion 1:1(1 Copia 1 Prestamos)
-    prestamos = db.relationship('Prestamo', back_populates='copias')
+    prestamos = db.relationship('Prestamo', back_populates='copias', cascade='all, delete-orphan')
 
     @property
     def estado(self):

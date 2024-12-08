@@ -3,6 +3,45 @@ from flask import request, jsonify
 from main.models import AutorModel  
 from .. import db
 from sqlalchemy import or_
+from main.auth.decorators import role_required
+from flask_jwt_extended import jwt_required
+
+class Autor(Resource):
+    def get(self, id):   
+        autor = db.session.query(AutorModel).get_or_404(id)
+        return autor.to_json_complete()
+    
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian'])
+    def put(self, id):
+        autor = db.session.query(AutorModel).get_or_404(id)
+        data = request.get_json().items()
+
+        if data.get('autor_nombre'):
+            autor.autor_nombre = data.get('autor_nombre')
+        if data.get('autor_apellido'):
+            autor.autor_apellido = data.get('autor_apellido')
+        try:
+            db.session.add(autor)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return {"message": "Error al actualizar el autor"}, 400
+        return autor.to_json(), 200
+
+    @jwt_required()
+    @role_required(roles=["admin", "librarian"]) 
+    def delete(self, id):
+        autor = db.session.query(AutorModel).get_or_404(id)
+        try:
+            db.session.delete(autor)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return {"message": "Error al borrar el autor"}, 400
+        return {"message": "Autor eliminado correctamente", "autor": autor.to_json()}, 204
+
+
 
 class Autores(Resource):
     def get(self):
@@ -34,6 +73,17 @@ class Autores(Resource):
                 )
             )
 
+        fullname = request.args.get('fullname')
+        if fullname:
+            nombre = fullname.split(' ')[0]
+            apellido = fullname.split(' ')[1]
+            autores = autores.filter(
+                and_(
+                    AutorModel.autor_nombre == nombre,
+                    AutorModel.autor_apellido == apellido
+                )
+            )
+
         autores = autores.paginate(page=page, per_page=per_page, error_out=True)
         return jsonify({
             'autores': [autor.to_json() for autor in autores],
@@ -42,6 +92,8 @@ class Autores(Resource):
             'page': page
         })
     
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian'])
     def post(self):
         autor = AutorModel.from_json(request.get_json())
         try:
@@ -52,31 +104,5 @@ class Autores(Resource):
             return {"message": "Error al agregar el autor"}, 400          
         return autor.to_json(), 201
 
-class Autor(Resource):
-    def get(self, id):   
-        autor = db.session.query(AutorModel).get_or_404(id)
-        return autor.to_json_complete()
-    
-    def delete(self, id):
-        autor = db.session.query(AutorModel).get_or_404(id)
-        try:
-            db.session.delete(autor)
-            db.session.commit()
-            return {"message": "Autor eliminado correctamente"}, 204
-        except Exception as e:
-            db.session.rollback()
-            return {"message": "Error al borrar el autor"}, 400
 
-    def put(self, id):
-        autor = db.session.query(AutorModel).get_or_404(id)
-        data = request.get_json().items()
-        for key, value in data:
-            setattr(autor, key, value)
-        try:
-            db.session.add(autor)
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            return {"message": "Error al actualizar el autor"}, 400
-        return autor.to_json(), 200
 
