@@ -136,31 +136,25 @@ with open(log_file, 'w') as log:
     ''', datos_prestamos)
 
 
+    # Generar datos para la tabla "notificaciones"
+    datos_notificaciones = []
+    for i in range(1, 31):
+        notificacionID = i
+        titulo = fake.sentence(nb_words=4)  # Título breve
+        descripcion = fake.text(max_nb_chars=100)  # Descripción más detallada
+        vista = fake.boolean(chance_of_getting_true=50)  # Estado de vista (True o False)
+        categoria = fake.random_element(elements=["warning", "danger", "info"])  # Categorías válidas
+        usuarioID = random.randint(1, 30)  # Asociar con un usuario aleatorio
+        datos_notificaciones.append((notificacionID, titulo, descripcion, vista, categoria, usuarioID))
 
-    # # Generar datos para la tabla "notificaciones"
-    # datos_notificaciones = []
-    # for i in range(1, 31):
-    #     notificacionID = i
-    #     comentario = fake.sentence(nb_words=6)
-    #     usuarioID = i
-    #     datos_notificaciones.append((notificacionID, comentario, usuarioID))
+    # Insertar datos en la tabla "notificaciones"
+    cur.executemany('''
+        INSERT INTO notificaciones (
+            notificacionID, titulo, descripcion, vista, categoria, usuarioID
+        ) VALUES (?, ?, ?, ?, ?, ?)
+    ''', datos_notificaciones)
 
-    # # Insertar datos en la tabla "notificaciones"
-    # cur.executemany('''
-    #     INSERT INTO notificaciones (notificacionID, comentario, usuarioID) VALUES (?, ?, ?)
-    # ''', datos_notificaciones)
 
-    # # Generar datos para la tabla intermedia "notificaciones_usuarios"
-    # datos_notificaciones_usuarios = []
-    # for i in range(1, 31):
-    #     notificacionID = i
-    #     usuarioID = i
-    #     datos_notificaciones_usuarios.append((notificacionID, usuarioID))
-
-    # # Insertar datos en la tabla "notificaciones_usuarios"
-    # cur.executemany('''
-    #     INSERT INTO notificaciones_usuarios (notificacionID, usuarioID) VALUES (?, ?)
-    # ''', datos_notificaciones_usuarios)
 
     # Generar datos para la tabla "libros_autores"
     datos_libros_autores = []

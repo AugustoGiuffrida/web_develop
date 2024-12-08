@@ -7,6 +7,7 @@ from sqlalchemy import cast, Date
 from datetime import datetime
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from main.auth.decorators import role_required
+from datetime import datetime
 
 
 class Prestamo(Resource):
@@ -33,19 +34,25 @@ class Prestamo(Resource):
     @jwt_required()
     @role_required(roles=['admin', 'librarian'])
     def put(self, id):
-            prestamo = db.session.query(PrestamoModel).get_or_404(id)
-            data = request.get_json()
+        prestamo = db.session.query(PrestamoModel).get_or_404(id)
+        data = request.get_json()
+
+        try:
             if data.get('fecha_entrega'):
-                prestamo.fecha_entrega = data.get('fecha_entrega')
+                # Convertir a objeto datetime.date
+                prestamo.fecha_entrega = datetime.strptime(data.get('fecha_entrega'), '%Y-%m-%d').date()
             if data.get('fecha_devolucion'):
-                prestamo.fecha_devolucion = data.get('fecha_devolucion')
-            try:
-                db.session.add(prestamo)
-                db.session.commit()
-            except Exception as e:
-                db.session.rollback()
-                return {"message": "Error al actualizar el préstamo"}, 400
-            return prestamo.to_json_complete(), 200
+                # Convertir a objeto datetime.date
+                prestamo.fecha_devolucion = datetime.strptime(data.get('fecha_devolucion'), '%Y-%m-%d').date()
+
+            db.session.add(prestamo)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return {"message": "Error al actualizar el préstamo", "error": str(e)}, 400
+
+        return prestamo.to_json_complete(), 200
+
 
 class Prestamos(Resource):
 
@@ -108,13 +115,13 @@ class Prestamos(Resource):
         data = request.get_json()
         db.session.query(LibrosCopiasModel).get_or_404(data.get('copiaID'))
         db.session.query(UsuarioModel).get_or_404(data.get('usuarioID'))
-        rent = PrestamoModel.from_json(data)
+        prestamo = PrestamoModel.from_json(data)
         try:
             db.session.add(prestamo)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return {"message": "Error al agregar el prestamo"}, 400         
+            return {"message": "Error al agregar el prestamo", "error": str(e)}, 400         
         return prestamo.to_json(), 201
 
     

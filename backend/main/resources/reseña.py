@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request, jsonify
-from main.models import ReseñaModel,UsuarioModel
+from main.models import ReseñaModel,UsuarioModel, LibroModel
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from main.auth.decorators import role_required
 from .. import db
@@ -69,8 +69,8 @@ class Reseñas(Resource):
     @role_required(roles=['user'])
     def post(self):
             reseña_json = request.get_json()
-            db.session.query(UsuarioModel).get_or_404(reseña_json.get['usuarioID'])
-            db.session.query(LibroModel).get_or_404(reseña_json.get['libroID'])
+            db.session.query(UsuarioModel).get_or_404(reseña_json.get('usuarioID'))
+            db.session.query(LibroModel).get_or_404(reseña_json.get('libroID'))
             reseña= ReseñaModel.from_json(request.get_json())
             try:
                 db.session.add(reseña)  # Agregar la reseña a la sesión

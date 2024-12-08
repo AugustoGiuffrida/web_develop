@@ -2,7 +2,7 @@ from flask_restful import Resource
 from flask import request, jsonify
 from main.models import AutorModel  
 from .. import db
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 from main.auth.decorators import role_required
 from flask_jwt_extended import jwt_required
 
@@ -15,7 +15,7 @@ class Autor(Resource):
     @role_required(roles=['admin', 'librarian'])
     def put(self, id):
         autor = db.session.query(AutorModel).get_or_404(id)
-        data = request.get_json().items()
+        data = request.get_json()
 
         if data.get('autor_nombre'):
             autor.autor_nombre = data.get('autor_nombre')
@@ -26,7 +26,7 @@ class Autor(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return {"message": "Error al actualizar el autor"}, 400
+            return {"message": "Error al actualizar el autor", "error": str(e)}, 400
         return autor.to_json(), 200
 
     @jwt_required()
@@ -38,9 +38,8 @@ class Autor(Resource):
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            return {"message": "Error al borrar el autor"}, 400
-        return {"message": "Autor eliminado correctamente", "autor": autor.to_json()}, 204
-
+            return {"message": "Error al borrar el autor", "error": str(e)   }, 400
+        return {"message": "Autor eliminado correctamente"}, 200
 
 
 class Autores(Resource):

@@ -15,7 +15,7 @@ class Usuario(db.Model):
 
     # Relaciones con otros modelos
     reseñas = db.relationship("Reseña", uselist=False, back_populates="usuario", cascade="all, delete-orphan") 
-    notificaciones = db.relationship("Notificacion", back_populates="usuario",cascade="all, delete-orphan")
+    notificaciones = db.relationship("Notificacion", back_populates="usuarios",cascade="all, delete-orphan")
     prestamos = db.relationship("Prestamo", uselist=False, back_populates="usuario", cascade="all, delete-orphan")
 
     @property

@@ -15,7 +15,7 @@ class Notificacion(db.Model):
     categoria = db.Column(db.String(50), nullable=False)
     usuarioID = db.Column(db.Integer, db.ForeignKey("usuarios.usuarioID"), nullable=False)
     #relacion 1:N(Usuario es padre)
-    usuario = db.relationship("Usuario", back_populates="notificaciones")
+    usuarios = db.relationship("Usuario", back_populates="notificaciones")
  
 
     def __repr__(self):
@@ -27,7 +27,8 @@ class Notificacion(db.Model):
             "titulo":str(self.titulo),
             "descripcion":str(self.descripcion),
             "vista":self.vista,
-            "categoria":self.categoria
+            "categoria":self.categoria,
+            "usuarioID": self.usuarioID
         }
         return Notificacion_json
 
@@ -54,23 +55,33 @@ class Notificacion(db.Model):
 
     @staticmethod
     def from_json(notificacion_json):
-        notificacionID = notificacion_json.get('notificacionID')
+        titulo = notificacion_json.get('titulo')
         usuarioID = notificacion_json.get('usuarioID')
         descripcion = notificacion_json.get('descripcion')
         vista = notificacion_json.get('vista')
         categoria = notificacion_json.get('categoria')
+
         try:
-            if not notificacionID or not usuarioID or not descripcion or not vista or not categoria:
-                raise ValueError("Todos los campos son obligatorios")
-
+            # Validaciones específicas
+            if titulo is None or titulo.strip() == "":
+                raise ValueError("El campo 'titulo' es obligatorio y no puede estar vacío.")
+            if usuarioID is None:
+                raise ValueError("El campo 'usuarioID' es obligatorio.")
+            if descripcion is None or descripcion.strip() == "":
+                raise ValueError("El campo 'descripcion' es obligatorio y no puede estar vacío.")
+            if vista is None:
+                raise ValueError("El campo 'vista' es obligatorio.")
             if categoria not in ["warning", "danger", "info"]:
-                raise ValueError("La categoria solo puede ser 'warning', 'danger' o 'info'")
+                raise ValueError("La categoría debe ser 'warning', 'danger' o 'info'.")
 
-            return Notificacion(notificacionID=notificacionID,
-                                    usuarioID=usuarioID, 
-                                    descripcion=descripcion,
-                                    vista=vista,
-                                    categoria=categoria
-                                    ) 
+            # Construcción de la instancia
+            return Notificacion(
+                notificacionID=notificacion_json.get('notificacionID'),
+                usuarioID=usuarioID,
+                titulo=titulo,
+                descripcion=descripcion,
+                vista=vista,
+                categoria=categoria
+            )
         except Exception as e:
             raise e

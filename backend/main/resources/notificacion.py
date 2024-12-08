@@ -3,6 +3,7 @@ from flask import request
 from .. import db
 from main.models import NotificacionModel, UsuarioModel
 from flask import jsonify
+from sqlalchemy import func, desc, asc
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from main.auth.decorators import role_required
 
@@ -13,7 +14,7 @@ class Notificacion(Resource):
     def get(self, id):
         current_user_id = get_jwt_identity()
         rol = db.session.query(UsuarioModel).get_or_404(current_user_id).rol
-        if current_user_id != id or rol != "admin":
+        if current_user_id != id and rol != "admin":
             return {"message": "No tienes permiso para ver esta notificacion"}, 403
         notificacion = db.session.query(NotificacionModel).get_or_404(id)
         return notificacion.to_json(), 200
@@ -29,7 +30,7 @@ class Notificacion(Resource):
         except Exception as e:
             db.session.rollback()
             return jsonify({"message": "Error al borrar la notificacion", "error": str(e)}), 500
-        return {"message": "Eliminado correctamente", "notificacion": notificacion.to_json()}, 204
+        return {"message": "Eliminado correctamente", "notificacion": notificacion.to_json()}, 200
 
     def put(self, id):
         notificacion = db.session.query(NotificacionModel).get_or_404(id)
@@ -108,7 +109,7 @@ class Notificaciones(Resource):
         try:
             db.session.add(notificacion)
             db.session.commit()
-        except: # captura cualquier excepción que ocurra durante la ejecución del código en el bloque try,
+        except Exception as e: 
             db.session.rollback()  #realiza un rollback de la sesión y luego devuelve el mensaje de error junto con el código de estado 400.      
-            return {"message": "Error al agregar la notificacion"}, 400 # Esto garantiza que cualquier cambio no se guarde en la base de datos si ocurre un error.
+            return {"message": "Error al agregar la notificacion" + str(e)}, 400 # Esto garantiza que cualquier cambio no se guarde en la base de datos si ocurre un error.
         return notificacion.to_json(), 201

@@ -27,7 +27,9 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
     def delete(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         current_user_id = get_jwt_identity()
-        if current_user_id != id and usuario.rol != "admin":
+        rol = db.session.query(UsuarioModel).get_or_404(current_user_id).rol
+        print(current_user_id, rol)
+        if current_user_id != id and rol != "admin":
             return {"message": "No tienes permiso para eliminar este usuario"}, 403
         try:
             # Eliminar notificaciones relacionadas
@@ -38,9 +40,8 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            logger.error(f"Error al borrar al usuario con ID {id}: {str(e)}")
-            return jsonify({"message": "Error al borrar al usuario", "error": str(e)}), 500
-        return jsonify({"message": "Eliminado correctamente"}), 204
+            return {"message": "Error al borrar al usuario", "error": str(e)}, 400
+        return {"message": "Eliminado correctamente"}, 201
             
     #Modificar el recurso usuario
     @jwt_required()
