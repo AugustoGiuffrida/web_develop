@@ -1,14 +1,56 @@
 from flask_restful import Resource
 from flask import request
 from .. import db
-from main.models import PrestamoModel
+from main.models import PrestamoModel, LibrosCopiasModel, UsuarioModel
 from flask import jsonify
 from sqlalchemy import cast, Date
 from datetime import datetime
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from main.auth.decorators import role_required
 
+
+class Prestamo(Resource):
+
+    @jwt_required()
+    @role_required(roles=["admin", "librarian"])
+    def get(self, id):
+        prestamo = db.session.query(PrestamoModel).get_or_404(id)
+        return prestamo.to_json_complete()
+
+    @jwt_required()
+    @role_required(roles=["admin", "librarian"])
+    def delete(self, id):
+        prestamo = db.session.query(PrestamoModel).get_or_404(id)
+        try:
+            db.session.delete(prestamo)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return {"message": "Error al eliminar el prestamo"}, 400
+        return {"message": "Eliminado correctamente"}, 200
+
+
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian'])
+    def put(self, id):
+            prestamo = db.session.query(PrestamoModel).get_or_404(id)
+            data = request.get_json()
+            if data.get('fecha_entrega'):
+                prestamo.fecha_entrega = data.get('fecha_entrega')
+            if data.get('fecha_devolucion'):
+                prestamo.fecha_devolucion = data.get('fecha_devolucion')
+            try:
+                db.session.add(prestamo)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return {"message": "Error al actualizar el préstamo"}, 400
+            return prestamo.to_json_complete(), 200
 
 class Prestamos(Resource):
 
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian', 'user'])
     def get(self):
         #Página inicial por defecto
         page = 1
@@ -22,9 +64,8 @@ class Prestamos(Resource):
             page = int(request.args.get('page'))
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
-        
-        ### FILTROS ###
 
+        ### FILTROS ###
 
         # Filtrar por fecha de entrega
         if fecha_entrega := request.args.get('fecha_entrega'):
@@ -61,9 +102,13 @@ class Prestamos(Resource):
                   'page': page      
         })
 
-    #insertar recurso
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian', 'user'])
     def post(self):
-        prestamo = PrestamoModel.from_json(request.get_json())
+        data = request.get_json()
+        db.session.query(LibrosCopiasModel).get_or_404(data.get('copiaID'))
+        db.session.query(UsuarioModel).get_or_404(data.get('usuarioID'))
+        rent = PrestamoModel.from_json(data)
         try:
             db.session.add(prestamo)
             db.session.commit()
@@ -73,37 +118,4 @@ class Prestamos(Resource):
         return prestamo.to_json(), 201
 
     
-class Prestamo(Resource):
-
-    def get(self, id):
-        prestamo = db.session.query(PrestamoModel).get_or_404(id)
-        return prestamo.to_json_complete()
-
-    def delete(self, id):
-        prestamo = db.session.query(PrestamoModel).get_or_404(id)
-        try:
-            db.session.delete(prestamo)
-            db.session.commit()
-            return {"message": "Eliminado correctamente"}, 200
-        except Exception as e:
-            db.session.rollback()
-            return {"message": "Error al eliminar el prestamo"}, 400
-
-   
-    def put(self, id):
-            prestamo = db.session.query(PrestamoModel).get_or_404(id)
-            data = request.get_json()
-            for key, value in data.items():
-                if key in ['fecha_entrega', 'fecha_devolucion']:
-                    try:
-                        value = datetime.strptime(value, '%Y-%m-%d')  # Convertir la cadena en objeto datetime
-                    except ValueError:
-                        return {"message": "Formato incorrecto de fecha {key}, debe ser YYYY-MM-DD"}, 400      
-                setattr(prestamo, key, value)
-            try:
-                db.session.commit()
-            except Exception as e:
-                db.session.rollback()
-                return {"message": "Error al actualizar el préstamo"}, 400
-            return prestamo.to_json_complete(), 200
 

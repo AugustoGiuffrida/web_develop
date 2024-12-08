@@ -8,6 +8,57 @@ from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from main.auth.decorators import role_required
 
+class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
+    
+    #obtener recurso 
+    @jwt_required()
+    def get(self, id):
+        usuario = db.session.query(UsuarioModel).get_or_404(id)
+        current_user_id = get_jwt_identity()
+        if current_user_id:
+            return usuario.to_json_complete()
+        else:
+            return usuario.to_json()
+
+
+    #eliminar recurso
+    @jwt_required()
+    @role_required(roles=["admin", "user"])
+    def delete(self, id):
+        usuario = db.session.query(UsuarioModel).get_or_404(id)
+        current_user_id = get_jwt_identity()
+        if current_user_id != id and usuario.rol != "admin":
+            return {"message": "No tienes permiso para eliminar este usuario"}, 403
+        try:
+            # Eliminar notificaciones relacionadas
+            db.session.query(NotificacionModel).filter(NotificacionModel.usuarioID == id).delete()
+
+            # Ahora eliminar el usuario
+            db.session.delete(usuario)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Error al borrar al usuario con ID {id}: {str(e)}")
+            return jsonify({"message": "Error al borrar al usuario", "error": str(e)}), 500
+        return jsonify({"message": "Eliminado correctamente"}), 204
+            
+    #Modificar el recurso usuario
+    @jwt_required()
+    def put(self, id):
+        usuario = db.session.query(UsuarioModel).get_or_404(id)
+        data = request.get_json().items()
+        if usuario.usuarioID != get_jwt_identity():
+            return {"message": "No tienes permiso para editar este usuario"}, 403
+        for key, value in data:
+            if key == 'rol' and usuario.rol != 'admin':
+                continue
+            setattr(usuario, key, value)
+        try:
+            db.session.commit()  
+        except:
+            db.session.rollback()
+            return {"message": "Error al agregar al usuario"}, 400
+        return usuario.to_json(), 200
 
 class Usuarios(Resource):
     @jwt_required()
@@ -71,67 +122,5 @@ class Usuarios(Resource):
                   'page': page      
         })
 
-    #insertar recurso
-    def post(self):
-        usuario = UsuarioModel.from_json(request.get_json())
-        notificaciones_ids = request.get_json().get('notificaciones')
-
-        if notificaciones_ids:
-            # Obtener las instancias de notificaciones basadas en las ids recibidas
-            notificaciones = NotificacionModel.query.filter(NotificacionModel.notificacionID.in_(notificaciones_ids)).all()
-            # Agregar las instancias de notificacion al usuario
-            usuario.notificaciones.extend(notificaciones) 
-
-        try:
-            db.session.add(usuario)
-            db.session.commit()
-        except:
-            db.session.rollback()
-            return {"message": "Error al agregar el usuario"}, 400
-        return usuario.to_json(), 201
 
     
-class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
-    
-    #obtener recurso 
-    @jwt_required(optional=True)
-    def get(self, id):
-        usuario = db.session.query(UsuarioModel).get_or_404(id)
-        current_identity = get_jwt_identity()
-        if current_identity:
-            return usuario.to_json_complete()
-        else:
-            return usuario.to_json()
-
-
-    #eliminar recurso
-    @jwt_required()
-    @role_required(roles=["admin", "user", "librarian"])
-    def delete(self, id):
-        usuario = db.session.query(UsuarioModel).get_or_404(id)
-        try:
-            # Eliminar notificaciones relacionadas
-            db.session.query(NotificacionModel).filter(NotificacionModel.usuarioID == id).delete()
-
-            # Ahora eliminar el usuario
-            db.session.delete(usuario)
-            db.session.commit()
-            return jsonify({"message": "Eliminado correctamente"}), 204
-        except Exception as e:
-            db.session.rollback()
-            logger.error(f"Error al borrar al usuario con ID {id}: {str(e)}")
-            return jsonify({"message": "Error al borrar al usuario", "error": str(e)}), 500
-            
-    #Modificar el recurso usuario
-    @jwt_required()
-    def put(self, id):
-        usuario = db.session.query(UsuarioModel).get_or_404(id)
-        data = request.get_json()
-        for key, value in data.items():
-            setattr(usuario, key, value)
-        try:
-            db.session.commit()  
-            return usuario.to_json(), 200
-        except:
-            db.session.rollback()
-            return {"message": "Error al agregar al usuario"}, 400
