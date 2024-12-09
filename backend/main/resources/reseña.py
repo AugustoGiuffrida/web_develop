@@ -18,8 +18,9 @@ class Reseña(Resource):
         reseña = db.session.query(ReseñaModel).get_or_404(id)
         usuario = db.session.query(UsuarioModel).get_or_404(reseña.usuarioID)
         current_user_id = get_jwt_identity()
+        rol = db.session.query(UsuarioModel).get_or_404(current_user_id).rol
 
-        if current_user_id != usuario.usuarioID and usuario.rol != 'admin':
+        if current_user_id != usuario.usuarioID and rol != 'admin':
             return {"message": "No tienes permiso para borrar esta reseña"}, 403
         libro = db.session.query(LibroModel).get_or_404(reseña.libroID)
 

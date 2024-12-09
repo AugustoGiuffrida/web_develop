@@ -66,12 +66,21 @@
 
     <!-- Listado de reseñas -->
     <div class="reviews-list">
+
       <ng-container *ngIf="resenas && resenas.length > 0; else noReviews">
-        <app-review *ngFor="let resena of resenas; trackByResenaId" [id]="resena.usuarioID" [valoration]="resena.valoracion" [comment]="resena.comentario"></app-review>
+        <app-review *ngFor="let resena of resenas; trackByResenaId" 
+          [id]="resena.usuarioID"
+          [reviewID]="resena.resenaID" 
+          [valoration]="resena.valoracion" 
+          [comment]="resena.comentario"
+          [self_comment] = "resena.usuarioID == userId">
+        </app-review>
       </ng-container>
+
       <ng-template #noReviews>
         <p>No hay reseñas disponibles para este libro.</p>
       </ng-template>
-    </div>
+   </div>
+
   </div>
 </div>

@@ -18,6 +18,28 @@
       <div class="d-flex align-items-center">
         <app-star [rating]="valoration" class="me-2"></app-star>
       </div>
+      @if (self_comment && !isAdmin) {
+        <div class="mt-2 mt-md-0 ms-md-3 d-flex flex-md-column">
+          <button 
+            class="btn btn-outline-success btn-sm me-2 me-md-0 mb-md-2" 
+            title="Editar" 
+            type="button" 
+            data-bs-toggle="modal" 
+            data-bs-target="#editComment">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button class="btn btn-outline-danger btn-sm" title="Eliminar" (click)="deleteComment()">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      }
+      @if (isAdmin) {
+        <div class="mt-2 mt-md-0 ms-md-3 d-flex flex-md-column">
+          <button class="btn btn-outline-danger btn-sm me-2 me-md-0 mb-md-2" title="Eliminar" (click)="deleteComment()">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      }
     </div>
   </div>
 

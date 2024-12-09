@@ -23,6 +23,7 @@ export class BookDetailsComponent implements OnInit {
   cantidad: number = 0; 
   rating: number = 0;
   resenas: any[] = [];
+  self_comment: any = null;
   userRating: number = 1;
   userReview: string = '';
 
@@ -40,7 +41,10 @@ export class BookDetailsComponent implements OnInit {
     this.getBook(this.bookId);
 
   }
-  
+  get userId(): number {
+    return this.authService.UserId;
+  }
+
   get isToken() {
     return this.authService.isAuthenticated();  
   }
@@ -75,6 +79,7 @@ export class BookDetailsComponent implements OnInit {
       this.genero = data.genero;
       this.resenas = data.resenas;
       this.rating = data.rating;
+      this.self_comment = data.self_comment;
   
       if (data.autores && data.autores.length > 0) {
         this.autores = data.autores.map((autor: any) => `${autor.autor_nombre} ${autor.autor_apellido}`).join(', ');

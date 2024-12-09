@@ -19,4 +19,8 @@ export class ReviewsService {
     return this.httpClient.post(this.url+'/reseñas', dataComment).pipe(take(1));
   }
 
+  deleteReview(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.url}/reseña/${id}`).pipe(take(1));
+  }
+
 }
