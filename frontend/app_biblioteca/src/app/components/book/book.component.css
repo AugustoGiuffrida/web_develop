@@ -15,7 +15,7 @@
 
 /* Estilo para la imagen del libro */
 .book-image {
-    max-width: 100px;               /* Ajusta el tamaño de la imagen */
+    max-width: 100px;               /* Ajusta el tamano de la imagen */
     height: auto;                    /* Mantiene la proporción de la imagen */
     margin-right: 15px;             /* Espaciado entre la imagen y el texto */
     border: 1px solid #ddd;         /* Borde gris claro */
@@ -67,7 +67,7 @@
 
 .btn-outline-danger:hover {
     background-color: #c82333; /* Fondo rojo oscuro al hacer hover */
-    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+    transform: scale(1.05); /* Aumentar tamano al hacer hover */
 }
 
 .btn-outline-primary {
@@ -78,7 +78,7 @@
 
 .btn-outline-primary:hover {
     background-color: #0056b3; /* Fondo azul oscuro al hacer hover */
-    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+    transform: scale(1.05); /* Aumentar tamano al hacer hover */
 }
 
 .btn-success {
@@ -89,7 +89,7 @@
 
 .btn-success:hover {
     background-color: #218838; /* Fondo verde oscuro al hacer hover */
-    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+    transform: scale(1.05); /* Aumentar tamano al hacer hover */
 }
 
 .btn-info {
@@ -100,20 +100,20 @@
 
 .btn-info:hover {
     background-color: #138496; /* Fondo cian oscuro al hacer hover */
-    transform: scale(1.05); /* Aumentar tamaño al hacer hover */
+    transform: scale(1.05); /* Aumentar tamano al hacer hover */
 }
 
 /* Espaciado adicional para el cuerpo de la tarjeta */
 .card-body {
-    padding: 15px; /* Añadir padding al cuerpo de la tarjeta */
+    padding: 15px; /* Anadir padding al cuerpo de la tarjeta */
 }
 
 
 /* Contenedor de botones en la esquina superior derecha */
 .button-group {
     position: absolute;  /* Posiciona los botones de manera absoluta */
-    top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
-    right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
+    top: 10px;           /* Alinea con el borde superior con un pequeno espacio */
+    right: 10px;         /* Alinea con el borde derecho con un pequeno espacio */
     display: flex;       /* Usar Flexbox para alinear los botones en fila */
     gap: 10px;           /* Espacio entre los botones */
 }
@@ -126,7 +126,7 @@
 }
 
 
-/* Estilo base para la mini pestaña */
+/* Estilo base para la mini pestana */
 .info-tab {
     max-height: 0;
     overflow: hidden;
@@ -139,10 +139,10 @@
     opacity: 0;
   }
   
-  /* Estilo para cuando la pestaña está abierta */
+  /* Estilo para cuando la pestana está abierta */
   .info-tab.open {
     max-height: 150px; /* Ajusta según la cantidad de información */
-    padding: 15px; /* Añadir padding cuando está abierto */
+    padding: 15px; /* Anadir padding cuando está abierto */
     opacity: 1;
     transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out, opacity 0.3s;
   }

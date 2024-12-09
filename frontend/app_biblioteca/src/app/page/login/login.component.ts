@@ -16,7 +16,7 @@ export class LoginComponent {
   ) {
     this.loginForm = this.formBuilder.group({
       usuario_email: ["",Validators.required],
-      usuario_contraseña: ["", Validators.required]
+      usuario_contrasena: ["", Validators.required]
     })
   }
 
@@ -31,7 +31,7 @@ export class LoginComponent {
         this.router.navigateByUrl("home");
       },
       error: (err: any) => {
-        alert('Usuario o contraseña incorrecta');
+        alert('Usuario o contrasena incorrecta');
         console.log('Error:', err);
         sessionStorage.removeItem("token");
       },

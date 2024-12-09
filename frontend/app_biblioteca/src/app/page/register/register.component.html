@@ -67,24 +67,24 @@
               {{ getFieldError('usuario_email') }}
             </div>
           </div>
-          <!-- Contraseña -->
+          <!-- Contrasena -->
           <div>
             <label for="password">
               <i class="bi bi-lock form-control-icon"></i>
               <input
                 type="password"
-                formControlName="usuario_contraseña"
+                formControlName="usuario_contrasena"
                 id="password"
-                placeholder="Contraseña"
-                [ngClass]="{ error: isFieldInvalid('usuario_contraseña') }"
+                placeholder="Contrasena"
+                [ngClass]="{ error: isFieldInvalid('usuario_contrasena') }"
                 required
               />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_contraseña')" class="alerta alerta-error">
-              {{ getFieldError('usuario_contraseña') }}
+            <div *ngIf="isFieldInvalid('usuario_contrasena')" class="alerta alerta-error">
+              {{ getFieldError('usuario_contrasena') }}
             </div>
           </div>
-          <!-- Confirmar Contraseña -->
+          <!-- Confirmar Contrasena -->
           <div>
             <label for="confirm-password">
               <i class="bi bi-lock form-control-icon"></i>
@@ -92,13 +92,13 @@
                 type="password"
                 formControlName="confirmPassword"
                 id="confirm-password"
-                placeholder="Confirma tu contraseña"
+                placeholder="Confirma tu contrasena"
                 [ngClass]="{ error: registerForm.hasError('mismatch') }"
                 required
               />
             </label>
             <div *ngIf="registerForm.hasError('mismatch')" class="alerta alerta-error">
-              Las contraseñas no coinciden.
+              Las contrasenas no coinciden.
             </div>
             <!-- Telefono -->
             <label for="telefono">

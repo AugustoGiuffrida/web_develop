@@ -17,7 +17,7 @@ body {
 }
 
 .user-card:hover {
-  transform: translateY(-2px); /* Pequeño desplazamiento al pasar el cursor */
+  transform: translateY(-2px); /* Pequeno desplazamiento al pasar el cursor */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
 }
 
@@ -28,7 +28,7 @@ body {
 }
 
 .user-name {
-  font-size: 1.2rem; /* Tamaño mayor para resaltar el nombre */
+  font-size: 1.2rem; /* Tamano mayor para resaltar el nombre */
   font-weight: bold;
   color: #333; /* Texto oscuro */
 }
@@ -36,7 +36,7 @@ body {
 .user-email,
 .user-phone,
 .user-role {
-  font-size: 1rem; /* Tamaño más pequeño para los detalles */
+  font-size: 1rem; /* Tamano más pequeno para los detalles */
   color: #666; /* Texto gris */
 }
 
@@ -74,8 +74,8 @@ body {
 
 .button-group {
     
-    top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
-    right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
+    top: 10px;           /* Alinea con el borde superior con un pequeno espacio */
+    right: 10px;         /* Alinea con el borde derecho con un pequeno espacio */
     display: flex;       /* Usar Flexbox para alinear los botones en fila */
     gap: 10px;           /* Espacio entre los botones */
 }

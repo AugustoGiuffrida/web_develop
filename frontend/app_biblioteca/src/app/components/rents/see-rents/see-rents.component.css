@@ -60,8 +60,8 @@ body {
 
 .button-group {
     
-  top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
-  right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
+  top: 10px;           /* Alinea con el borde superior con un pequeno espacio */
+  right: 10px;         /* Alinea con el borde derecho con un pequeno espacio */
   display: flex;       /* Usar Flexbox para alinear los botones en fila */
   gap: 10px;           /* Espacio entre los botones */
 }

@@ -23,18 +23,18 @@
     </div>
   </div>
 
-  <!-- Sección de reseñas -->
+  <!-- Sección de resenas -->
   <div class="reviews-section">
     <div class="reviews-header">
-      <h3>Reseñas</h3>
+      <h3>Resenas</h3>
       <div class="add-review-btn">
         <button *ngIf="isLogged" class="btn btn-info text-white" type="button" data-bs-toggle="collapse" data-bs-target="#reviewForm">
-          <i class="bi bi-chat"></i> Añadir reseña
+          <i class="bi bi-chat"></i> Anadir resena
         </button>
       </div>
     </div>
 
-    <!-- Formulario para añadir una reseña -->
+    <!-- Formulario para anadir una resena -->
     <div *ngIf="isLogged" class="collapse" id="reviewForm">
       <div class="card review-card">
         <div class="card-body">
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <!-- Listado de reseñas -->
+    <!-- Listado de resenas -->
     <div class="reviews-list">
 
       <ng-container *ngIf="resenas && resenas.length > 0; else noReviews">
@@ -78,7 +78,7 @@
       </ng-container>
 
       <ng-template #noReviews>
-        <p>No hay reseñas disponibles para este libro.</p>
+        <p>No hay resenas disponibles para este libro.</p>
       </ng-template>
    </div>
 

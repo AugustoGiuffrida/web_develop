@@ -10,8 +10,8 @@ from .prestamo import Prestamo as PrestamoResources
 from .notificacion import Notificaciones as NotificacionesResources
 from .notificacion import Notificacion as NotificacionResources
 
-from .reseña import Reseña as ReseñaResources
-from .reseña import Reseñas as ReseñasResources
+from .resena import Resena as ResenaResources
+from .resena import Resenas as ResenasResources
 
 from .autor import Autor as AutorResources
 from .autor import Autores as AutoresResources

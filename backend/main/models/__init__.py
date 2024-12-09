@@ -2,7 +2,7 @@ from .libro import Libro as LibroModel
 #from .libro import libros_prestamos  as libros_prestamosModel
 from .notificacion import Notificacion as NotificacionModel
 from .prestamo import Prestamo as PrestamoModel
-from .reseña import Reseña as ReseñaModel
+from .resena import Resena as ResenaModel
 from .usuario import Usuario as UsuarioModel
 from .autor import Autor as AutorModel
 from .autor import libros_autores as libros_autoresModel
