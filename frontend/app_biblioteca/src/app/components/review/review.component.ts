@@ -27,4 +27,12 @@ export class ReviewComponent {
     })
   }
 
+  getUserImage(user: any) {
+    if (!user?.image || user?.image === '') {
+      return `https://via.placeholder.com/150?text=${user?.usuario_nombre[0]}${user?.usuario_apellido[0]}`;
+    }
+    return user?.image;
+  }
+
+  
 }

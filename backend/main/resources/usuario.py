@@ -47,19 +47,15 @@ class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo rec
     @jwt_required()
     def put(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
-        data = request.get_json().items()
-        if usuario.usuarioID != get_jwt_identity():
-            return {"message": "No tienes permiso para editar este usuario"}, 403
-        for key, value in data:
-            if key == 'rol' and usuario.rol != 'admin':
-                continue
+        data = request.get_json()
+        for key, value in data.items():
             setattr(usuario, key, value)
         try:
             db.session.commit()  
+            return usuario.to_json(), 200
         except:
             db.session.rollback()
             return {"message": "Error al agregar al usuario"}, 400
-        return usuario.to_json(), 200
 
 class Usuarios(Resource):
     @jwt_required()

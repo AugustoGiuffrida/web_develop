@@ -25,11 +25,11 @@
 
         <!-- Botones de acción -->
         <div *ngIf="isAdmin || isLibrarian" class="button-group mt-3">
-          <button class="btn btn-danger" (click)="deleteLoan()">
-            <i class="bi bi-trash"></i>
+          <button class="btn delete-button" (click)="deleteLoan()">
+            <i class="bi bi-trash">Eliminar</i>
           </button>
-          <button class="btn btn-primary" (click)="openModal()">
-            <i class="bi bi-pencil"></i>
+          <button class="btn edit-button" (click)="openModal()">
+            <i class="bi bi-pencil">Editar</i>
           </button>
         </div>
       </div>

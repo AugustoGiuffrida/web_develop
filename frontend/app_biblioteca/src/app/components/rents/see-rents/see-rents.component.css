@@ -59,11 +59,11 @@ body {
 }
 
 .button-group {
-    position: absolute;  /* Posiciona los botones de manera absoluta */
-    top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
-    right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
-    display: flex;       /* Usar Flexbox para alinear los botones en fila */
-    gap: 10px;           /* Espacio entre los botones */
+    
+  top: 10px;           /* Alinea con el borde superior con un pequeño espacio */
+  right: 10px;         /* Alinea con el borde derecho con un pequeño espacio */
+  display: flex;       /* Usar Flexbox para alinear los botones en fila */
+  gap: 10px;           /* Espacio entre los botones */
 }
 
 .modal {

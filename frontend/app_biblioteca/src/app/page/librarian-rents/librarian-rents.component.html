@@ -31,17 +31,16 @@
 
   <!-- Lista de préstamos -->
   <div class="rents-list">
-    <div *ngFor="let rent of rents">
-      <app-see-rents
-        [id]="rent.prestamoID"
-        [title]="rent.copias?.titulo || 'Libro no disponible'"
-        [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
-        [fecha_entrega]="rent.fecha_entrega"
-        [fecha_devolucion]="rent.fecha_devolucion"
-        [image]="rent.copias.image"
-        [daysLeft]="rent.days_left || 0">
-      </app-see-rents>
-    </div>
+    <app-see-rents
+      *ngFor="let rent of rents"
+      [id]="rent.prestamoID"
+      [title]="rent.copias?.titulo || 'Libro no disponible'"
+      [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
+      [fecha_entrega]="rent.fecha_entrega"
+      [fecha_devolucion]="rent.fecha_devolucion"
+      [image]="rent.copias.image"
+      [daysLeft]="rent.days_left || 0">
+    </app-see-rents>
   </div>
 
   <!-- Mensaje si no hay préstamos -->

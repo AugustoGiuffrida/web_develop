@@ -15,7 +15,7 @@ class Notificacion(db.Model):
     categoria = db.Column(db.String(50), nullable=False)
     usuarioID = db.Column(db.Integer, db.ForeignKey("usuarios.usuarioID"), nullable=False)
     #relacion 1:N(Usuario es padre)
-    usuarios = db.relationship("Usuario", back_populates="notificaciones")
+    usuario = db.relationship("Usuario", back_populates="notificaciones")
  
 
     def __repr__(self):

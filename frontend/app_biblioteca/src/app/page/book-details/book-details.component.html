@@ -2,77 +2,76 @@
   <app-navbar></app-navbar>
 </header>
 
-<div class="container mt-4">
-  <!-- Contenedor de información del libro -->
-  <div class="book-content">
+<div class="book-detail-container">
+  <!-- Información del libro -->
+  <div class="book-detail">
     <!-- Imagen del libro -->
-    <div class="book-image-container">
-      <img src="cover/{{ image }}" alt="Book Img" class="book-image">
+    <div class="book-image">
+      <img src="cover/{{ image }}" alt="Book Cover" class="book-cover-image" onerror="this.src='https://images.unsplash.com/photo-1543002588-bfa74002ed7e'">
     </div>
-    
+
     <!-- Detalles del libro -->
     <div class="book-info">
       <h1 class="book-title">{{ titulo }}</h1>
-      <p class="book-genero"><strong>Género:</strong> {{ genero }}</p>
       <p class="book-author"><strong>Autor:</strong> {{ autores }}</p>
-      <p class="book-editorial"><strong>Editorial:</strong> {{ editorial }}</p>
-      <p class="book-cantidad"><strong>Cantidad:</strong> {{ cantidad }}</p>
-      <app-star [rating]="rating"></app-star>
-    </div>
-  </div>
-
-  <div class="row">
-    <h3 class="col my-3"><strong>Reseñas</strong></h3>
-    <div class="col text-end my-3 mx-4">
-      <button *ngIf="isLogged" class="btn btn-info text-white" type="button" data-bs-toggle="collapse" data-bs-target="#commentInput">
-        <i class="bi bi-chat"></i> Añadir reseña
-      </button>
-    </div>
-  </div>
-  
-  <!-- Input para añadir comentarios -->
-  <div *ngIf="isLogged" class="collapse" id="commentInput">
-    <div class="card border-0 shadow-sm mb-4">
-      <div class="card-body">
-        <div class="d-flex align-items-center mb-3">
-          <button class="btn btn-info dropdown-toggle text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ userRating }} estrellas
-          </button>
-          <ul class="dropdown-menu">
-            <li><button (click)="setRating(1)" class="dropdown-item">1 estrella</button></li>
-            <li><button (click)="setRating(2)" class="dropdown-item">2 estrellas</button></li>
-            <li><button (click)="setRating(3)" class="dropdown-item">3 estrellas</button></li>
-            <li><button (click)="setRating(4)" class="dropdown-item">4 estrellas</button></li>
-            <li><button (click)="setRating(5)" class="dropdown-item">5 estrellas</button></li>
-          </ul>
-        </div>
-        
-        <div class="mb-3">
-          <textarea [(ngModel)]="userReview" class="form-control w-100" rows="3" placeholder="Escribe un comentario..."></textarea>
-        </div>
-        <div class="text-end">
-          <button (click)="postReview()" class="btn btn-info text-white">
-            <i class="bi bi-send-fill"></i> Enviar
-          </button>
-        </div>
+      <p class="book-genre"><strong>Género:</strong> {{ genero }}</p>
+      <p class="book-publisher"><strong>Editorial:</strong> {{ editorial }}</p>
+      <p class="book-quantity"><strong>Cantidad:</strong> {{ cantidad }}</p>
+      <div class="book-rating">
+        <app-star [rating]="rating"></app-star>
       </div>
     </div>
   </div>
-  
 
-  
-  <!-- Reseñas del libro -->
-  <div class="reseñas-container">
-    <ng-container *ngIf="resenas && resenas.length > 0; else noReviews">
-      <app-review 
-        *ngFor="let resena of resenas; trackByResenaId"
-        [id]="resena.usuarioID"
-        [valoration]="resena.valoracion"
-        [comment]="resena.comentario"
-      ></app-review>
-    </ng-container>
-    <ng-template #noReviews>
-      <p>No hay reseñas disponibles para este libro.</p>
-    </ng-template>
+  <!-- Sección de reseñas -->
+  <div class="reviews-section">
+    <div class="reviews-header">
+      <h3>Reseñas</h3>
+      <div class="add-review-btn">
+        <button *ngIf="isLogged" class="btn btn-info text-white" type="button" data-bs-toggle="collapse" data-bs-target="#reviewForm">
+          <i class="bi bi-chat"></i> Añadir reseña
+        </button>
+      </div>
+    </div>
+
+    <!-- Formulario para añadir una reseña -->
+    <div *ngIf="isLogged" class="collapse" id="reviewForm">
+      <div class="card review-card">
+        <div class="card-body">
+          <div class="rating-dropdown">
+            <button class="btn btn-info dropdown-toggle text-white"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ userRating }} estrellas
+            </button>
+            <ul class="dropdown-menu">
+              <li><button (click)="setRating(1)" class="dropdown-item">1 estrella</button></li>
+              <li><button (click)="setRating(2)" class="dropdown-item">2 estrellas</button></li>
+              <li><button (click)="setRating(3)" class="dropdown-item">3 estrellas</button></li>
+              <li><button (click)="setRating(4)" class="dropdown-item">4 estrellas</button></li>
+              <li><button (click)="setRating(5)" class="dropdown-item">5 estrellas</button></li>
+            </ul>
+          </div>
+
+          <div class="review-textarea">
+            <textarea [(ngModel)]="userReview" class="form-control" rows="3" placeholder="Escribe un comentario..."></textarea>
+          </div>
+
+          <div class="submit-review-btn">
+            <button (click)="postReview()" class="btn btn-info text-white">
+              <i class="bi bi-send-fill"></i> Enviar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Listado de reseñas -->
+    <div class="reviews-list">
+      <ng-container *ngIf="resenas && resenas.length > 0; else noReviews">
+        <app-review *ngFor="let resena of resenas; trackByResenaId" [id]="resena.usuarioID" [valoration]="resena.valoracion" [comment]="resena.comentario"></app-review>
+      </ng-container>
+      <ng-template #noReviews>
+        <p>No hay reseñas disponibles para este libro.</p>
+      </ng-template>
+    </div>
   </div>
 </div>
