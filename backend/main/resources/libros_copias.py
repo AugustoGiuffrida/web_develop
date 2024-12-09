@@ -40,7 +40,11 @@ class LibrosCopias(Resource):
 
         libroID = request.args.get('libroID')  
         if libroID:
-            libros_copias = libros_copias.filter(LibrosCopiasModel.libroID == libroID)  
+            libros_copias = libros_copias.filter(LibrosCopiasModel.libroID == libroID) 
+
+        estado = request.args.get('estado')
+        if estado:
+            libros_copias = libros_copias.filter(LibrosCopiasModel.estado == estado)     
 
         libros_copias = libros_copias.paginate(page=page, per_page=per_page, error_out=False)
 

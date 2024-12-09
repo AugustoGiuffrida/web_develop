@@ -8,7 +8,7 @@ import random
 fake = Faker()
 
 # Conectarse a la base de datos existente
-conn = sqlite3.connect('/home/valen/Documentos/Help/web_develop/backend/DB/biblioteca.db')
+conn = sqlite3.connect('C:\\Users\\MegaTecnologia\\Documents\\programacion_1\\backend\\DB\\biblioteca.db')
 cur = conn.cursor()
 
 # Crear un archivo de log para registrar los datos

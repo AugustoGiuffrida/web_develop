@@ -13,9 +13,9 @@ class LibrosCopias(db.Model):
 
     @property
     def estado(self):
-        if self.prestamos =="disponible":
-            return "Disponible"
-        return "No disponible"    
+        if self.prestamos:
+            return "No disponible"    
+        return "Disponible"
 
 
     def __repr__(self):
