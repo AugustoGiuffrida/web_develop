@@ -23,11 +23,12 @@
           *ngFor="let rent of rents"
           [title]="rent.copias?.titulo || 'Libro no disponible'"
           [userEmail]="rent.usuario?.usuario_email"
+          [copyID]="rent.copias?.copiaID"
+          [status]="rent.estado"
           [fecha_entrega]="rent.fecha_entrega"
           [fecha_devolucion]="rent.fecha_devolucion"
           [image]="rent.copias.image"
           [daysLeft]="rent.days_left">
-
         </app-see-rents>
         
       </div>

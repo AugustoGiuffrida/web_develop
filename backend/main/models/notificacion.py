@@ -1,9 +1,5 @@
 from .. import db
 
-notificaciones_usuarios = db.Table("notificaciones_usuarios",
-    db.Column("notificacionID",db.Integer,db.ForeignKey("notificaciones.notificacionID"),primary_key=True),
-    db.Column("usuarioID",db.Integer,db.ForeignKey("usuarios.usuarioID"),primary_key=True)
-    )
 
 class Notificacion(db.Model):
     __tablename__ = 'notificaciones'  
@@ -19,7 +15,7 @@ class Notificacion(db.Model):
  
 
     def __repr__(self):
-        return '<Notificacion: %r >' % self.notificacionID
+        return f'{self.notificacionID} {self.titulo} {self.descripcion} {self.categoria}'
 
     def to_json(self):
         Notificacion_json = {
@@ -69,18 +65,15 @@ class Notificacion(db.Model):
                 raise ValueError("El campo 'usuarioID' es obligatorio.")
             if descripcion is None or descripcion.strip() == "":
                 raise ValueError("El campo 'descripcion' es obligatorio y no puede estar vacío.")
-            if vista is None:
-                raise ValueError("El campo 'vista' es obligatorio.")
             if categoria not in ["warning", "danger", "info"]:
                 raise ValueError("La categoría debe ser 'warning', 'danger' o 'info'.")
 
             # Construcción de la instancia
             return Notificacion(
-                notificacionID=notificacion_json.get('notificacionID'),
                 usuarioID=usuarioID,
                 titulo=titulo,
                 descripcion=descripcion,
-                vista=vista,
+                vista=False,
                 categoria=categoria
             )
         except Exception as e:

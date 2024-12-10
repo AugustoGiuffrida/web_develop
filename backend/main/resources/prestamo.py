@@ -94,6 +94,7 @@ class Prestamos(Resource):
         #Filtrar por Id de libro
         if request.args.get('copiaID'):
             prestamos = prestamos.filter(PrestamoModel.copiaID == request.args.get('copiaID'))
+
         
         #Filtrar por Id de usuario
         if request.args.get('usuarioID'):

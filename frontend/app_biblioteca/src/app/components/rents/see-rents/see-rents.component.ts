@@ -34,6 +34,9 @@ export class SeeRentsComponent {
     return this.authService.isLibrarian();
   }
 
+  get isUser(): boolean {
+    return this.authService.isUser();
+  }
 
   deleteLoan() {
     this.rentsService.deleteLoan(this.id).subscribe(() => {
@@ -59,14 +62,15 @@ export class SeeRentsComponent {
   
 
   get statusColor(): string {
-    if (this.rent.status === 'active') {
+    if (this.status === 'activo') {
       return 'success';
-    } if (this.rent.status === 'pending') {
+    } if (this.status === 'pendiente') {
       return 'warning';
     } else {
       return 'danger';
     }
   }
+  
 
 
   closeModal(): void {

@@ -72,6 +72,7 @@ class Usuario(db.Model):
             "usuarioID": self.usuarioID,
             "usuario_nombre": self.usuario_nombre,
             "usuario_apellido": self.usuario_apellido,
+            "usuario_email": self.usuario_email,
             "rol": self.rol  
         }
         return Usuario_json

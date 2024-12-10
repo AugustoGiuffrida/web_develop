@@ -10,7 +10,7 @@ export class UsuariosService {
   
   constructor(private httpClient: HttpClient) { }
 
-  getUsers(page: number = 1, perPage: number = 9, nombre?: string, apellido?: string, nr_prestamos?: number, rol?: string): Observable<any> {
+  getUsers(page: number = 1, perPage: number = 6, nombre?: string, apellido?: string, nr_prestamos?: number, rol?: string): Observable<any> {
 
     let params: any = { page, per_page: perPage };
     if (nombre) params.nombre = nombre;

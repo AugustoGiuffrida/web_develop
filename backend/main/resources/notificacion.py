@@ -101,15 +101,39 @@ class Notificaciones(Resource):
 
 
     @jwt_required()
-    @role_required(roles=["admin", "librarian"])
+    @role_required(roles=["admin", "librarian", "user"])
     def post(self):
         data = request.get_json()
-        notificacion = NotificacionModel.from_json(data) #notificacion = notificacion.from_json(request.get_json()
+        current_user_id = get_jwt_identity()
+        rol = db.session.query(UsuarioModel).get_or_404(current_user_id).rol
+        if rol == "user":
+            librarians = db.session.query(UsuarioModel).filter(UsuarioModel.rol == "librarian").all()
+            if librarians:
+                user_notification = {
+                    'titulo': data.get('titulo'),
+                    'descripcion': data.get('descripcion'),
+                    'categoria': data.get('categoria'),
+                }
+                for librarian in librarians:
+                    user_notification['usuarioID'] = librarian.usuarioID
+                    notificacion = NotificacionModel.from_json(user_notification)
+                    try:
+                        db.session.add(notificacion)
+                        db.session.commit()
+                    except:
+                        db.session.rollback()
 
+                return {"message": "Notificacion enviada correctamente a los bibliotecarios"}, 201
+
+            else:
+                return {"message": "No se encontraron bibliotecarios para enviar la notificacion"}, 400
+
+        db.session.query(UsuarioModel).get_or_404(data.get('usuarioID'))
+        notificacion = NotificacionModel.from_json(data)
         try:
             db.session.add(notificacion)
             db.session.commit()
         except Exception as e: 
-            db.session.rollback()  #realiza un rollback de la sesión y luego devuelve el mensaje de error junto con el código de estado 400.      
-            return {"message": "Error al agregar la notificacion" + str(e)}, 400 # Esto garantiza que cualquier cambio no se guarde en la base de datos si ocurre un error.
+            db.session.rollback() 
+            return {"message": "Error al agregar la notificacion" + str(e)}, 400 
         return notificacion.to_json(), 201

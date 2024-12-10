@@ -11,7 +11,7 @@ from main.auth.decorators import role_required
 class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
     
     #obtener recurso 
-
+    @jwt_required()
     def get(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         current_user_id = get_jwt_identity()
@@ -113,7 +113,7 @@ class Usuarios(Resource):
         #Obtener valor paginado
         usuarios = usuarios.paginate(page=page, per_page=per_page, error_out=True)
 
-        return jsonify({"usuarios":[usuario.to_json() for usuario in usuarios.items],    
+        return jsonify({"usuarios":[usuario.to_json_complete() for usuario in usuarios.items],    
                   'total': usuarios.total,
                   'pages': usuarios.pages,
                   'page': page      
