@@ -69,11 +69,12 @@
 
       <ng-container *ngIf="resenas && resenas.length > 0; else noReviews">
         <app-review *ngFor="let resena of resenas; trackByResenaId" 
-          [id]="resena.usuarioID"
+          [id]="resena.usuario.usuarioID"
+          [user]="resena.usuario" 
           [reviewID]="resena.resenaID" 
           [valoration]="resena.valoracion" 
           [comment]="resena.comentario"
-          [self_comment] = "resena.usuarioID == userId">
+          [self_comment] = "resena.usuario.usuarioID == userId">
         </app-review>
       </ng-container>
 

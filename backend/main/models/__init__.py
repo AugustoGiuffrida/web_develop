@@ -1,9 +1,9 @@
 from .libro import Libro as LibroModel
 #from .libro import libros_prestamos  as libros_prestamosModel
 from .notificacion import Notificacion as NotificacionModel
-from .prestamo import Prestamo as PrestamoModel
-from .resena import Resena as ResenaModel
 from .usuario import Usuario as UsuarioModel
+from .resena import Resena as ResenaModel
 from .autor import Autor as AutorModel
 from .autor import libros_autores as libros_autoresModel
 from .libros_copias import LibrosCopias as LibrosCopiasModel
+from .prestamo import Prestamo as PrestamoModel

@@ -9,7 +9,7 @@ body {
 /* Contenedor principal */
 .container-rents {
   max-width: 950px;
-  margin: 20px auto;
+  margin: 10px auto;
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -59,11 +59,10 @@ body {
 
 /* Lista de préstamos */
 
-/* Ajustes para la lista de préstamos */
 .rents-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Tres columnas dinámicas */
-  gap: 20px; /* Espacio entre elementos */
+  gap: 10px; /* Espacio entre elementos */
   padding: 20px;
   background: #fff;
   border-top: 1px solid #ddd;

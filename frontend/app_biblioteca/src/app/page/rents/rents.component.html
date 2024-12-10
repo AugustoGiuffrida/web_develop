@@ -22,7 +22,7 @@
         <app-see-rents
           *ngFor="let rent of rents"
           [title]="rent.copias?.titulo || 'Libro no disponible'"
-          [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
+          [userEmail]="rent.usuario?.usuario_email"
           [fecha_entrega]="rent.fecha_entrega"
           [fecha_devolucion]="rent.fecha_devolucion"
           [image]="rent.copias.image"

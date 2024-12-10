@@ -10,12 +10,14 @@ import { AuthService } from '../../../services/auth.service';
 export class SeeRentsComponent {
   @Input() id: number = 0;
   @Input() title: string = 'Default title';
-  @Input() user: string = 'Default user';
+  @Input() userEmail: string = 'Default Email';
   @Input() fecha_entrega: Date = new Date(2024, 0, 1);
   @Input() fecha_devolucion: Date = new Date(2024, 0, 1);
   @Input() image: string = 'media/default-book-cover.jpg';
-
+  @Input() copyID: number = 0;
+  @Input() status: string = '';
   @Input() daysLeft: number = 0;
+  @Input() rent: any = {};
 
   isModalOpen: boolean = false;
   editedFechaEntrega: string = '';
@@ -32,9 +34,6 @@ export class SeeRentsComponent {
     return this.authService.isLibrarian();
   }
 
-  get expirationReport() {
-    return this.daysLeft <= 1;
-  }
 
   deleteLoan() {
     this.rentsService.deleteLoan(this.id).subscribe(() => {
@@ -58,6 +57,17 @@ export class SeeRentsComponent {
     this.editedFechaDevolucion = this.fecha_devolucion.toISOString().split('T')[0];
   }
   
+
+  get statusColor(): string {
+    if (this.rent.status === 'active') {
+      return 'success';
+    } if (this.rent.status === 'pending') {
+      return 'warning';
+    } else {
+      return 'danger';
+    }
+  }
+
 
   closeModal(): void {
     this.isModalOpen = false;

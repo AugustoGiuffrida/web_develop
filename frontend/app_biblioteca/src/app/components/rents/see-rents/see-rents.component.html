@@ -1,37 +1,33 @@
 <div class="row">
-  <div id="Book-list">
-    <div class="col-12 mb-3">
-      <div class="card loan-card">
-        <!-- Encabezado -->
-        <div class="book-header d-flex align-items-center">
-          <img src="cover/{{ image }}" alt="Book Img" class="book-image">
-          <div class="book-info ms-3">
-            <h5 class="fw-bold mb-2">{{ title }}</h5>
-            <p><span class="badge bg-primary">Días restantes: {{ daysLeft }}</span></p>
-            <div *ngIf="isAdmin || isLibrarian">
-              <p class="text-muted">Alquilado por: {{ user }}</p>
-            </div>
-            <ul class="loan-details">
-              <li><strong>Entrega:</strong> {{ fecha_entrega | date: 'yyyy-MM-dd' }}</li>
-              <li><strong>Devolución:</strong> {{ fecha_devolucion | date: 'yyyy-MM-dd' }}</li>
-            </ul>
+  <div id="book-list" class="col-12">
+    <div class="card loan-card">
+      <!-- Encabezado -->
+      <div class="book-header d-flex align-items-center">
+        <div class="book-info ms-3">
+          <h5 class="fw-bold mb-1 pt-2">Titulo: {{ title }}</h5>
+          <p class="mb-1"><span class="badge bg-primary">Días restantes: {{ daysLeft }}</span></p>
+          <p class="badge bg-secondary">Estado: {{ status }}</p>
+          <div *ngIf="isAdmin || isLibrarian" class="mt-2">
+            <p class="text-muted small">Alquilado por: {{ userEmail }}</p>
           </div>
+          <p class="text-muted small">Copia: {{ copyID }}</p>
+          <ul class="loan-details list-unstyled mt-2 small">
+            <li><strong>📅 Entrega:</strong> {{ fecha_entrega | date: 'yyyy-MM-dd' }}</li>
+            <li><strong>📅 Devolución:</strong> {{ fecha_devolucion | date: 'yyyy-MM-dd' }}</li>
+          </ul>
         </div>
+      </div>
 
-        <!-- Advertencia -->
-        <div *ngIf="expirationReport" class="alert alert-warning mt-2" role="alert">
-          ¡Este préstamo está a punto de vencer!
-        </div>
 
-        <!-- Botones de acción -->
-        <div *ngIf="isAdmin || isLibrarian" class="button-group mt-3">
-          <button class="btn delete-button" (click)="deleteLoan()">
-            <i class="bi bi-trash">Eliminar</i>
-          </button>
-          <button class="btn edit-button" (click)="openModal()">
-            <i class="bi bi-pencil">Editar</i>
-          </button>
-        </div>
+
+      <!-- Botones de acción -->
+      <div *ngIf="isAdmin || isLibrarian" class="button-group mt-3">
+        <button class="btn delete-button" (click)="deleteLoan()">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+        <button class="btn edit-button" (click)="openModal()">
+          <i class="bi bi-pencil"></i> Editar
+        </button>
       </div>
     </div>
   </div>
@@ -51,8 +47,10 @@
         <input type="date" id="fechaDevolucion" [(ngModel)]="editedFechaDevolucion" name="fechaDevolucion" required />
       </div>
       <div class="modal-actions">
-        <button type="submit" class="btn-success">Guardar </button>
-        <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-success"><i class="bi bi-check-circle"></i> Guardar</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
       </div>
     </form>
   </div>

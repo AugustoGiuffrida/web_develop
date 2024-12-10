@@ -15,25 +15,14 @@ export class ReviewComponent {
   @Input() valoration: number = 0;
   @Input() comment: string = '';
   @Input() self_comment: any = null;
-  user: any = null;
+  @Input() user: any = null;
 
   constructor(private usuariosService: UsuariosService, private authService: AuthService, private reviewService: ReviewsService) {}
-
-  ngOnInit() {
-    this.usuariosService.getUser(this.id).subscribe(user => {
-    this.user = user;
-  });
-  }
 
   get isAdmin(): boolean {
     return this.authService.isAdmin();
   }
 
-  getUser(usuarioID: number): void  {
-    this.usuariosService.getUserName(usuarioID).subscribe(user => {
-      this.user = user;
-    })
-  }
 
   getUserImage(user: any) {
     if (!user?.image || user?.image === '') {

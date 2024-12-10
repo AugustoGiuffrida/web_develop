@@ -11,7 +11,7 @@ from main.auth.decorators import role_required
 class Usuario(Resource): #A la clase usuario le indico que va a ser del tipo recurso(Resource)
     
     #obtener recurso 
-    @jwt_required()
+
     def get(self, id):
         usuario = db.session.query(UsuarioModel).get_or_404(id)
         current_user_id = get_jwt_identity()
@@ -65,7 +65,7 @@ class Usuarios(Resource):
         #Página inicial por defecto
         page = 1
         #Cantidad de elementos por página por defecto
-        per_page = 9
+        per_page = 6
         
         usuarios = db.session.query(UsuarioModel)
         

@@ -1,4 +1,6 @@
 from .. import db
+from . import UsuarioModel
+
 
 class Resena(db.Model):
     __tablename__ = 'resenas'  # Nombre de la tabla en plural
@@ -17,12 +19,14 @@ class Resena(db.Model):
     def __repr__(self):
         return '<Resena: %r >' % self.resenaID
 
+
     def to_json(self):
+        usuario = db.session.query(UsuarioModel).get_or_404(self.usuarioID)
         Resena_json = {
             "resenaID": self.resenaID,
             "valoracion": self.valoracion,
             "comentario": self.comentario,
-            "usuarioID": self.usuarioID,
+            "usuario": usuario.to_json_short(),
         }
         return Resena_json
 

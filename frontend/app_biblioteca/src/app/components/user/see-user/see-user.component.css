@@ -1,84 +1,111 @@
 body {
   font-family: 'Inika', serif;
-  background-color: #f3f4f6; /* Fondo sutil */
+  background-color: #f8f9fa; /* Fondo claro */
+  margin: 0;
+  padding: 0;
 }
 
 .user-card {
   display: flex;
+  flex-direction: column; /* Alineación vertical de los elementos */
+  align-items: stretch;  /* Mantener el ancho del contenedor */
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 15px;
+  width: 425px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-content {
+  display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: #fff; /* Fondo blanco para contraste */
-  border: 1px solid #ddd; /* Borde claro */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
-  padding: 15px; /* Espaciado interno */
-  margin-bottom: 15px; /* Separación entre tarjetas */
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animación al pasar el cursor */
 }
 
 .user-card:hover {
-  transform: translateY(-2px); /* Pequeno desplazamiento al pasar el cursor */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
+  transform: translateY(-2px); /* Sutil movimiento al pasar el cursor */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más profunda */
 }
 
-.user-details {
+.user-avatar {
   display: flex;
-  flex-direction: column;
-  gap: 5px; /* Espaciado entre líneas */
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e0e0e0; /* Fondo gris */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff; /* Azul para destacar */
+}
+
+.user-info {
+  flex: 1;
+  margin-left: 15px;
 }
 
 .user-name {
-  font-size: 1.2rem; /* Tamano mayor para resaltar el nombre */
+  font-size: 1.25rem;
   font-weight: bold;
-  color: #333; /* Texto oscuro */
+  color: #333333; /* Texto oscuro */
+  margin: 0;
 }
 
 .user-email,
 .user-phone,
 .user-role {
-  font-size: 1rem; /* Tamano más pequeno para los detalles */
-  color: #666; /* Texto gris */
+  font-size: 1rem;
+  color: #666666; /* Texto gris */
+  margin: 5px 0;
 }
 
-.user-role {
-  font-style: italic; /* Cursiva para diferenciar el rol */
-  color: #888; /* Gris más claro */
+.loan-details {
+  background-color: #f8f9fa; /* Fondo claro para la sección de detalles */
+  padding: 10px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  border: 1px solid #e0e0e0; /* Borde sutil */
 }
 
+.manage-button {
+  font-size: 0.9rem; /* Smaller font size */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Padding inside the button */
+  cursor: pointer; /* Pointer cursor on hover */
+}
 
-.renew-button {
-    background-color: #28a745; /* Green background for renew */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
-}
-.renew-button:hover {
-    background-color: #218838; /* Darker green on hover */
-}
 .edit-button {
-    background-color: #007bff; /* Blue background for edit */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
+  background-color: #007bff; /* Blue background for edit */
+  color: #fff; /* White text color */
+  border: none; /* Remove border */
 }
 .edit-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3; /* Darker blue on hover */
 }
 .delete-button {
-    background-color: #dc3545; /* Red background for delete */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
+  background-color: #dc3545; /* Red background for delete */
+  color: #fff; /* White text color */
+  border: none; /* Remove border */
 }
 .delete-button:hover {
-    background-color: #c82333; /* Darker red on hover */
+  background-color: #c82333; /* Darker red on hover */
 }
-
 
 .button-group {
-    
-    top: 10px;           /* Alinea con el borde superior con un pequeno espacio */
-    right: 10px;         /* Alinea con el borde derecho con un pequeno espacio */
-    display: flex;       /* Usar Flexbox para alinear los botones en fila */
-    gap: 10px;           /* Espacio entre los botones */
+  display: flex;
+  justify-content: center; /* Centrar los botones horizontalmente */
+  gap: 10px;
+  margin-top: 15px; /* Espaciado entre el contenido y los botones */
 }
+
 
 .modal {
   display: none;

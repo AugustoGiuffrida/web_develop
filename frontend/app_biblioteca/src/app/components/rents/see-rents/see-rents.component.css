@@ -1,69 +1,59 @@
 body {
-    font-family: 'Inika', serif;
+  font-family: 'Inika', serif;
+  background-color: #f5f5f5; /* Fondo suave para toda la página */
 }
 
 .loan-card {
-    display: flex;
-    align-items: flex-start; /* Align items at the start */
-    border: 1px solid #ddd; /* Add border to the card */
-    border-radius: 15px; /* Rounded corners */
-    overflow: hidden; /* Ensure content stays within rounded corners */
-    background: #fff; /* White background for the card */
-    padding: 5px; /* Add padding to the card */
+  border: 1px solid #e0e0e0; /* Borde claro */
+  border-radius: 10px; /* Esquinas ligeramente redondeadas */
+  background: #fff; /* Fondo blanco */
+  transition: box-shadow 0.3s; /* Animación suave en hover */
 }
-.book-image {
-    width: 125px; /* Fixed width for image */
-    height: 175px; /* Fixed height for image */
-    object-fit: cover; /* Cover image */
-    border-radius: 8px; /* Rounded corners for the image */
-    border: 1px solid #ddd; /* Border around image */
+
+.loan-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil al pasar el cursor */
 }
-.manage-buttons {
-    display: flex;
-    gap: 5px; /* Space between buttons */
+
+.book-header h5 {
+  color: #333; /* Texto oscuro para encabezados */
 }
+
+.loan-details {
+  background-color: #f8f9fa; /* Fondo claro para la sección de detalles */
+  padding: 10px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  border: 1px solid #e0e0e0; /* Borde sutil */
+}
+
 .manage-button {
-    font-size: 0.9rem; /* Smaller font size */
-    border-radius: 5px; /* Rounded corners */
-    padding: 5px 10px; /* Padding inside the button */
-    cursor: pointer; /* Pointer cursor on hover */
+  font-size: 0.9rem; /* Smaller font size */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Padding inside the button */
+  cursor: pointer; /* Pointer cursor on hover */
 }
-.renew-button {
-    background-color: #28a745; /* Green background for renew */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
-}
-.renew-button:hover {
-    background-color: #218838; /* Darker green on hover */
-}
+
 .edit-button {
-    background-color: #007bff; /* Blue background for edit */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
+  background-color: #007bff; /* Blue background for edit */
+  color: #fff; /* White text color */
+  border: none; /* Remove border */
 }
 .edit-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3; /* Darker blue on hover */
 }
 .delete-button {
-    background-color: #dc3545; /* Red background for delete */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
+  background-color: #dc3545; /* Red background for delete */
+  color: #fff; /* White text color */
+  border: none; /* Remove border */
 }
 .delete-button:hover {
-    background-color: #c82333; /* Darker red on hover */
-}
-.card-header {
-    background-color: #f8f9fa; /* Light grey background */
-    border-bottom: 1px solid #ddd; /* Border bottom */
-
+  background-color: #c82333; /* Darker red on hover */
 }
 
 .button-group {
-    
-  top: 10px;           /* Alinea con el borde superior con un pequeno espacio */
-  right: 10px;         /* Alinea con el borde derecho con un pequeno espacio */
+  align-self: center;
   display: flex;       /* Usar Flexbox para alinear los botones en fila */
   gap: 10px;           /* Espacio entre los botones */
+  border-bottom: 10px solid #fff;                     /* separar con el borde inferior con un pequeno espacio */ 
 }
 
 .modal {

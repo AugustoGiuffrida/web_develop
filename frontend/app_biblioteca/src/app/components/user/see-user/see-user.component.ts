@@ -13,6 +13,7 @@ export class SeeUserComponent {
   @Input() email: string = '';
   @Input() telefono: string = '0';
   @Input() rol: string = '';
+  user: any = null;
 
   // Variables para el modal
   isModalOpen: boolean = false;
@@ -20,6 +21,13 @@ export class SeeUserComponent {
   roles: string[] = ['admin', 'librarian', 'user', 'pending']; // Opciones válidas
 
   constructor(private usuariosService: UsuariosService) {}
+
+  ngOnInit() {
+    this.usuariosService.getUser(this.id).subscribe(user => {
+    this.user = user;
+  });
+  }
+
 
   // Abrir modal
   openModal(): void {
@@ -50,6 +58,14 @@ export class SeeUserComponent {
       }
     );
   }
+
+  getUserImage(user: any) {
+    if (!user?.image || user?.image === '') {
+      return `https://via.placeholder.com/150?text=${user?.usuario_nombre[0]}${user?.usuario_apellido[0]}`;
+    }
+    return user?.image;
+  }
+
 
   // Eliminar usuario
   deleteUser() {
