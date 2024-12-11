@@ -26,6 +26,7 @@ export class BookDetailsComponent implements OnInit {
   self_comment: any = null;
   userRating: number = 1;
   userReview: string = '';
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +49,11 @@ export class BookDetailsComponent implements OnInit {
   get isToken() {
     return this.authService.isAuthenticated();  
   }
+
+  get isUser(): boolean {
+    return this.authService.isUser();
+  }
+  
 
   setRating(rating: number) {
     this.userRating = rating;
