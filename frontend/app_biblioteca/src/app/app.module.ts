@@ -28,6 +28,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RentsComponent } from './page/rents/rents.component';
 import { SeeNotificationsComponent } from './components/notifications/see-notifications/see-notifications.component';
+import { AddCopiesComponent } from './components/add-copies/add-copies.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { SeeNotificationsComponent } from './components/notifications/see-notifi
     BookEditComponent,
     RentsComponent,
     SeeNotificationsComponent,
+    AddCopiesComponent,
   ],
   imports: [
     BrowserModule,

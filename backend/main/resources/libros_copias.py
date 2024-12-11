@@ -13,6 +13,8 @@ class LibroCopia(Resource):
 
     def delete(self, id):
         libro_copia = db.session.query(LibrosCopiasModel).get_or_404(id)
+        if libro_copia.prestamos:
+            return {"message": "No se puede borrar una copia prestada"}, 400
         try:
             db.session.delete(libro_copia)
             db.session.commit()

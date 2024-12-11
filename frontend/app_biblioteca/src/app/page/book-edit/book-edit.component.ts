@@ -21,6 +21,7 @@ export class BookEditComponent implements OnInit {
   new_autores: any[] = [];        // id de nuevos autores
   lista_autores: any[] = [];      // Lista de autores dinámica (input)
   libros_autores: any[] = [];
+  copias: any[] = [];
   isLoading = false;
   errors: any = {};
 
@@ -119,6 +120,7 @@ export class BookEditComponent implements OnInit {
       this.image = data.image;
       this.editorial = data.editorial;
       this.genero = data.genero;
+      this.copias = data.copias || [];
       this.autores = data.autores;
       for (let author of this.autores) {
         this.new_autores.push(author.autorID);
