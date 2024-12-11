@@ -27,6 +27,7 @@ import { StarComponent } from './components/star/star.component';
 import { ReviewComponent } from './components/review/review.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RentsComponent } from './page/rents/rents.component';
+import { SeeNotificationsComponent } from './components/notifications/see-notifications/see-notifications.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RentsComponent } from './page/rents/rents.component';
     ReviewComponent,
     BookEditComponent,
     RentsComponent,
+    SeeNotificationsComponent,
   ],
   imports: [
     BrowserModule,

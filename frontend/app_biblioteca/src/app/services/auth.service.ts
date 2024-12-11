@@ -32,6 +32,21 @@ export class AuthService {
     return this.isAdmin() || this.isLibrarian() || this.isUser();
   }
 
+  get email(): string {
+    const token = this.token;
+    if (!token) {
+      return '';
+    }
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.mail;
+    } catch (e) {
+      console.error('Invalid token format', e);
+      return '';
+    }
+  }
+
+
   get token(): any {
     const token = sessionStorage.getItem('token');
     if (!token) {

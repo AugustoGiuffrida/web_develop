@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RentsService } from '../../../services/rents.service';
 import { AuthService } from '../../../services/auth.service';
+import { NotificationsService } from '../../../services/notifications.service';
 
 @Component({
   selector: 'app-see-rents',
@@ -23,7 +24,7 @@ export class SeeRentsComponent {
   editedFechaEntrega: string = '';
   editedFechaDevolucion: string = '';
 
-  constructor(private rentsService: RentsService, private authService: AuthService) {}
+  constructor(private rentsService: RentsService, private authService: AuthService, private notificationService: NotificationsService) {}
 
   
   get isAdmin(): boolean {
@@ -71,6 +72,22 @@ export class SeeRentsComponent {
     }
   }
   
+  sendRenewalRequest() {
+    const data = {
+      "titulo": "Solicitud de renovación de préstamo",
+      "descripcion": `El usuario ${this.authService.email} desea renovar el préstamo del libro: ${this.rent.copias.titulo} (copia: ${this.rent.copias.copiaID}).`,
+      //"note": `Identificador único del préstamo: ${this.rent.id}`,
+      "categoria": "info"
+    }
+    this.notificationService.postNotification(data).subscribe({
+      next: (response) => {
+        console.log('Renovar solicitud enviada (broadcast): ', response);
+      },
+      error: (error) => {
+        console.error('Error al enviar la solicitud de renovación del préstamo:', error);
+      }
+    });
+  }
 
 
   closeModal(): void {

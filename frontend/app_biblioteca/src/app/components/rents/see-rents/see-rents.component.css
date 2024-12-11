@@ -58,7 +58,7 @@ body {
 
 .btn-primary {
   align-self: center; /* Centra el botón horizontalmente */
-  margin-top: 20px;
+  margin-top: 0px;
   background-color: #007bff;
   border: none;
   padding: 10px 20px;

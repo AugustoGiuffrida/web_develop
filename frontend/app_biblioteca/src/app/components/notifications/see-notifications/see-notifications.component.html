@@ -1,0 +1,12 @@
+<div class="notification-card p-3 mb-3 rounded shadow-sm bg-light border-left-{{ categoria }}">
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="mb-1 text-{{ categoria }}"><strong>{{ titulo }}</strong></h5>
+      <small class="text-muted">{{ getDateDifference(notification_date) }}</small>
+    </div>
+    <p class="mb-2 text-dark">{{ descripcion }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="badge bg-{{ categoria }}">{{ getCategoryLabel(categoria) }}</span>
+    </div>
+  </div>
+  <hr>
+  
