@@ -77,7 +77,7 @@ export class SeeRentsComponent {
 
     const data = {
       "titulo": "Solicitud de renovación de préstamo",
-      "descripcion": `El usuario ${this.rent.usuario?.usuario_email} desea renovar el préstamo del libro: ${this.rent.copias?.titulo} (copiaID: ${this.rent.copias?.copiaID}, prestamoID: ${this.rent.prestamoID}).`,
+      "descripcion": `El usuario ${this.rent.usuario?.usuario_email} desea renovar el préstamo del libro: ${this.rent.copias?.titulo} (copiaID: ${this.rent.copias?.copiaID}, UsuarioID: ${this.rent.usuario?.usuarioID}).`,
       "categoria": "info"
     };
   
