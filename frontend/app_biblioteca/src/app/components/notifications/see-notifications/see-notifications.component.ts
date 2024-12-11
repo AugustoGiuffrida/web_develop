@@ -10,7 +10,7 @@ export class SeeNotificationsComponent {
   @Input() id: number = 0;
   @Input() titulo: string = 'Título por defecto';
   @Input() descripcion: string = 'Mensaje por defecto';
-  @Input() categoria: string = 'info'; // warning, info, danger
+  @Input() categoria: string = 'info'; //   , info, danger
   @Input() notification_date: Date = new Date();
   
   constructor(private notificationsService: NotificationsService) {}
@@ -26,7 +26,6 @@ export class SeeNotificationsComponent {
     return `${differenceInDays} días atrás`;
   }
 
-
   getCategoryLabel(type: string): string {
     switch (type) {
       case 'info':
@@ -41,4 +40,13 @@ export class SeeNotificationsComponent {
         return 'Otro';
     }
   }
+
+  deleteNotification(id: number): void {
+    this.notificationsService.deleteNotification(id).subscribe(() => {
+      console.log('Notificación eliminada con exito');
+      window.location.reload();
+    }); 
+  }
+
+
 }

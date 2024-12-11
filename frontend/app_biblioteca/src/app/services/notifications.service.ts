@@ -23,4 +23,7 @@ export class NotificationsService {
     return this.httpClient.post(this.url + '/notificaciones', dataNotification).pipe(take(1));
   }
 
+  deleteNotification(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.url}/notificacion/${id}`).pipe(take(1));
+  }
 }

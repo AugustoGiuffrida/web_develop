@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
+  [x: string]: any;
   url = '/api';
 
   constructor(
@@ -32,21 +33,8 @@ export class AuthService {
     return this.isAdmin() || this.isLibrarian() || this.isUser();
   }
 
-  get email(): string {
-    const token = this.token;
-    if (!token) {
-      return '';
-    }
-    try {
-      const decoded: any = jwtDecode(token);
-      return decoded.mail;
-    } catch (e) {
-      console.error('Invalid token format', e);
-      return '';
-    }
-  }
-
-
+  
+  
   get token(): any {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -55,7 +43,24 @@ export class AuthService {
       return token;
     }
   }
-
+  
+  get email(): string {
+    const token = this.token;
+    if (!token) {
+      console.error('No token found');
+      return '';
+    }
+    try {
+      const decoded: any = jwtDecode(token);
+      console.log('Decoded token:', decoded); // Revisa qué contiene el token
+      return decoded.usuario_email; // Devuelve el campo correcto
+    } catch (e) {
+      console.error('Invalid token format', e);
+      return '';
+    }
+  }
+  
+  
 
   get UserId(): any {
     const token = this.token;

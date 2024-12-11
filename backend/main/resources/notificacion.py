@@ -93,7 +93,7 @@ class Notificaciones(Resource):
 
         notificaciones = notificaciones.paginate(page=page, per_page=per_page, error_out=True)
         # Convertir resultados a JSON y retornar
-        return jsonify({"notificaciones": [notificacion.to_json() for notificacion in notificaciones.items],
+        return jsonify({"notificaciones": [notificacion.to_json_complete() for notificacion in notificaciones.items],
                         'total': notificaciones.total,
                         'pages': notificaciones.pages,
                         'page': page      
@@ -136,4 +136,4 @@ class Notificaciones(Resource):
         except Exception as e: 
             db.session.rollback() 
             return {"message": "Error al agregar la notificacion" + str(e)}, 400 
-        return notificacion.to_json(), 201
+        return notificacion.to_json_complete(), 201

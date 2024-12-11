@@ -73,12 +73,14 @@ export class SeeRentsComponent {
   }
   
   sendRenewalRequest() {
+    console.log('Rent data:', this.rent);
+
     const data = {
       "titulo": "Solicitud de renovación de préstamo",
-      "descripcion": `El usuario ${this.authService.email} desea renovar el préstamo del libro: ${this.rent.copias.titulo} (copia: ${this.rent.copias.copiaID}).`,
-      //"note": `Identificador único del préstamo: ${this.rent.id}`,
+      "descripcion": `El usuario ${this.rent.usuario?.usuario_email} desea renovar el préstamo del libro: ${this.rent.copias?.titulo} (copiaID: ${this.rent.copias?.copiaID}, prestamoID: ${this.rent.prestamoID}).`,
       "categoria": "info"
-    }
+    };
+  
     this.notificationService.postNotification(data).subscribe({
       next: (response) => {
         console.log('Renovar solicitud enviada (broadcast): ', response);
@@ -88,6 +90,7 @@ export class SeeRentsComponent {
       }
     });
   }
+  
 
 
   closeModal(): void {

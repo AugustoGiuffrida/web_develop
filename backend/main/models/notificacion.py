@@ -29,7 +29,7 @@ class Notificacion(db.Model):
         return Notificacion_json
 
     def to_json_complete(self):
-        usuarios_info = [usuario.to_json() for usuario in self.usuarios]
+        usuario = self.usuario.to_json_short()
         Notificacion_json = {
             "notificacionID": self.notificacionID,
             "titulo":str(self.titulo),
@@ -37,7 +37,7 @@ class Notificacion(db.Model):
             "vista":self.vista,
             "categoria":self.categoria,
             "usuarioID": self.usuarioID,
-            'usuarios': usuarios_info
+            'usuarios': usuario
         }
         return Notificacion_json
 

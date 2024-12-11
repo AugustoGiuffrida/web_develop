@@ -1,27 +1,26 @@
 <app-navbar></app-navbar>
 <div class="container d-flex justify-content-center align-items-start pt-5">
     <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
-        
-
         <!-- Page Title -->
-        <h3 class="fw-bold mb-4" style="font-size: 24px;">Notifications</h3>
+        <h3 class="fw-bold mb-4" style="font-size: 24px;">Notificaciones</h3>
 
-        <div class="list-group">
+        <!-- Notifications List -->
+        <div class="list-group" *ngIf="notifications && notifications.length > 0; else noNotifications">
             <app-see-notifications
               *ngFor="let notification of notifications; trackBy: trackById"
-              [id]="notification.notificacionID"	
+              [id]="notification.notificacionID"
               [titulo]="notification.titulo"
               [descripcion]="notification.descripcion"
               [categoria]="notification.categoria">
             </app-see-notifications>
-          </div>
-          
-
-        <!-- Notifications Content
-        <div class="text-center">
-            <img src="illustration _cat kitten animal sad pink_.png" alt="No Notifications" class="notification-image">
-            <p class="text-secondary" style="font-size: 16px;">No notifications at the moment</p>
         </div>
-    </div> -->
-</div>
 
+        <!-- No Notifications Content -->
+        <ng-template #noNotifications>
+            <div class="no_notifications text-center">
+              <img src="illustration _cat kitten animal sad pink_.png" alt="No Notifications" class="notification-image">
+                <p class="text-secondary" style="font-size: 16px;">No notifications at the moment</p>
+            </div>
+        </ng-template>
+    </div>
+</div>
