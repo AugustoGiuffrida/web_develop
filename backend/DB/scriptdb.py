@@ -18,8 +18,8 @@ with open(log_file, 'w') as log:
 
     # Generar datos para la tabla "usuarios"
     datos_usuarios = []
-    datos_usuarios.append((32, "pepe", "pepe", generate_password_hash("pepe"), "pepe@pepe.pepe", "123456789", "admin"))
-    log.write(f'ID: {1}, Nombre: {"pepe"}, Apellido: {"pepe"}, psk: {"pepe"}, Email: {"pepe@pepe.pepe"}, Telefono: {"123456789"}, Rol: {"admin"}\n')
+    datos_usuarios.append((32, "pedro", "perez", generate_password_hash("auto"), "admin@email.com", "123456789", "admin"))
+    log.write(f'ID: {1}, Nombre: {"pedro"}, Apellido: {"perez"}, psk: {"auto"}, Email: {"admin@email.com"}, Telefono: {"123456789"}, Rol: {"admin"}\n')
     log.write('\n')
     for i in range(1, 31):
         usuarioID = i

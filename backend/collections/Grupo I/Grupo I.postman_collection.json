@@ -18,7 +18,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMDUzNjUyNSwianRpIjoiNWU2OWNmOGMtYWM3Zi00ZjgzLThmOTMtZWFkYjgwYzI5NjEwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzMsIm5iZiI6MTcyMDUzNjUyNSwiY3NyZiI6IjlhMDM1NjMyLTc1ZDgtNDMxYy05YzQ5LTBiMjBmOWQ0NGY5YiIsInJvbCI6InVzZXIiLCJpZCI6MzMsImVtYWlsIjoiZ2l1ZmZyaWRhQGFsdW1uby51bS5lZHUuYXIifQ.jy2JitC-6tKv-Fw_exbIbgJ8c_snZs5jJfmNvG8RfSI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk3NzU4NSwianRpIjoiY2Y1OTM4ZTEtY2EzOC00YjU1LWFmNjEtN2RjNWRjM2I5YmY5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzk3NzU4NSwiY3NyZiI6Ijk5NzIzYzNlLWE0M2UtNDJlNy04Y2FhLWU5MmMwYjc4OTJlNSIsImV4cCI6MTczMzk4MTE4NSwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.5ChO5UhpRgqHOmnv-9KHIhQLjgRvdu2k1XoEXdcohsQ",
 									"type": "string"
 								}
 							]
@@ -37,6 +37,23 @@
 							"port": "7000",
 							"path": [
 								"usuarios"
+							],
+							"query": [
+								{
+									"key": "apellido",
+									"value": "Giuffrida",
+									"disabled": true
+								},
+								{
+									"key": "nr_prestamos",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "rol",
+									"value": "librarian",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -84,7 +101,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyMDUzNjUyNSwianRpIjoiNWU2OWNmOGMtYWM3Zi00ZjgzLThmOTMtZWFkYjgwYzI5NjEwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzMsIm5iZiI6MTcyMDUzNjUyNSwiY3NyZiI6IjlhMDM1NjMyLTc1ZDgtNDMxYy05YzQ5LTBiMjBmOWQ0NGY5YiIsInJvbCI6InVzZXIiLCJpZCI6MzMsImVtYWlsIjoiZ2l1ZmZyaWRhQGFsdW1uby51bS5lZHUuYXIifQ.jy2JitC-6tKv-Fw_exbIbgJ8c_snZs5jJfmNvG8RfSI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk4Nzk4NiwianRpIjoiOGM0NGE1ODItZjZiNS00YTFkLTkxNDItYjgxZmUxNTQ3MGQzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzk4Nzk4NiwiY3NyZiI6ImE5MjIwODhiLWNmODMtNDgzNS04NjE2LWQ5MDc5ZjhjODk3ZSIsImV4cCI6MTczMzk5MTU4Niwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.shjNjWEftQkSkHrG5M4Ld2O7aMVpQ51g-eOv3Ju0SdI",
 									"type": "string"
 								}
 							]
@@ -100,39 +117,6 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://127.0.0.1:7000/usuario/10",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "7000",
-							"path": [
-								"usuario",
-								"10"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Del-usuario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNzA4MTQ0MCwianRpIjoiNzI4YWM4MTAtNThkYS00YTA5LThmZWYtZTJmNGI0MTcxNDNkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTAsIm5iZiI6MTcxNzA4MTQ0MCwiY3NyZiI6IjY1OTNmZTQwLWI1NzctNDBjNS04ZjcyLWYwNjU5OTI0M2Y4OSIsImV4cCI6MTcxNzA4NTA0MCwicm9sIjoiYWRtaW4iLCJpZCI6MTAsImVtYWlsIjoianVhbjFAZ21haWwuY29tIn0.CNvVygQowNh1HodaXZDSgV-Ze9Gpsq2GGE2Rr6CGEIw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
 						"url": {
 							"raw": "http://127.0.0.1:7000/usuario/3",
 							"protocol": "http",
@@ -152,21 +136,22 @@
 					"response": []
 				},
 				{
-					"name": "put-usuario",
+					"name": "Del-usuario",
 					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"usuario_nombre\" : \"pepe1\",\r\n    \"usuario_apellido\":\"perez\",\r\n    \"usuario_contraseña\": \"123\",\r\n    \"usuario_email\":\"pepe@gmail.com\",\r\n    \"usuario_telefono\":\"4321\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzc2NjE0OCwianRpIjoiOTJmN2NjN2QtMTM2OC00YzFkLWExZTUtODQ3ODM3YTIyZjhjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzc2NjE0OCwiY3NyZiI6IjFkNDU1N2M2LWQ5NzYtNDQ2Zi1hY2Y0LWJjNmYzOTY5MjViMyIsImV4cCI6MTczMzc2OTc0OCwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.P0Yg2yvt6cYP5czKLckPNa_z9DezYxbZhpT-S6ViVlo",
+									"type": "string"
 								}
-							}
+							]
 						},
+						"method": "DELETE",
+						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/usuario/1",
+							"raw": "http://127.0.0.1:7000/usuario/26",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -177,7 +162,49 @@
 							"port": "7000",
 							"path": [
 								"usuario",
+								"26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put-usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY5MDA2NCwianRpIjoiNDM4Y2E3MzMtZTE0NC00NzFmLWJlY2MtNjIxYTNkOTc0ZTVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY5MDA2NCwiY3NyZiI6ImMyOGFmMGQ5LWJkZWYtNDZhOS04OTg1LTRkOTFhYjZjYTZlMyIsImV4cCI6MTczMzY5MzY2NCwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.g_pV6bTVEYnVoQq4S9Gb1DSkCv0QDJsiztyeeqoMHiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario_nombre\" : \"pedro\",\r\n    \"usuario_apellido\":\"perez\",\r\n    \"usuario_contraseña\": \"pepe\",\r\n    \"usuario_email\":\"pepe@pepe.pepe\",\r\n    \"usuario_telefono\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/usuario/32",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
 								"1"
+							],
+							"port": "7000",
+							"path": [
+								"usuario",
+								"32"
 							]
 						}
 					},
@@ -194,7 +221,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/libros?titulo=Libro6677",
+							"raw": "http://127.0.0.1:7000/libros",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -208,8 +235,34 @@
 							],
 							"query": [
 								{
+									"key": "id",
+									"value": "1001",
+									"disabled": true
+								},
+								{
 									"key": "titulo",
-									"value": "Libro6677"
+									"value": "pancho",
+									"disabled": true
+								},
+								{
+									"key": "sortby_titulo",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "editorial",
+									"value": "Harris-Salazar",
+									"disabled": true
+								},
+								{
+									"key": "sortby_editorial",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "sortby_prestamos",
+									"value": "asc",
+									"disabled": true
 								}
 							]
 						}
@@ -219,11 +272,21 @@
 				{
 					"name": "post-libros",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk3NDcxMCwianRpIjoiMmU1YTBjMzQtNjUwMy00ZjZkLTg0YmItZWVkZWQxYTk0ZTk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzk3NDcxMCwiY3NyZiI6ImRiM2QwOThiLTZkMWMtNGFiZi1iZjYwLTU4MDM1OWQ5NjMyOSIsImV4cCI6MTczMzk3ODMxMCwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.dlfVMxNb-zkfwSEXbAAAV8N_4BfLpMoYfAW55OGVsMU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"titulo\":\"Libro7\",\n    \"cantidad\":5,\n    \"editorial\":\"Editorial6\"\n}",
+							"raw": "{\n    \"titulo\":\"Libro7\",\n    \"cantidad\":5,\n    \"editorial\":\"Editorial6\",\n    \"genero\":\"suspenso\",\n    \"image\":\"path/to/image\",\n    \"autores\": [5,6]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,10 +313,20 @@
 				{
 					"name": "get-libro",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/libro/3",
+							"raw": "http://127.0.0.1:7000/libro/1003",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -264,7 +337,7 @@
 							"port": "7000",
 							"path": [
 								"libro",
-								"3"
+								"1003"
 							]
 						}
 					},
@@ -273,10 +346,20 @@
 				{
 					"name": "del-libro",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY2NDcxNiwianRpIjoiNmY1OWQ1ZmQtZjkzMC00OTYzLWI1OGYtNjZkNDA0NDY2ZjQ2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY2NDcxNiwiY3NyZiI6ImQ1YzhmY2MwLWIxZTktNDc1MS04NGZhLWY2MGE1YmE3YjQ4OCIsImV4cCI6MTczMzY2ODMxNiwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.rl4WhDS1I_EW8iNDFSoe1XsYuGY59td6Hl0CaEdOVHM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/libro/3",
+							"raw": "http://127.0.0.1:7000/libro/1051",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -287,7 +370,7 @@
 							"port": "7000",
 							"path": [
 								"libro",
-								"3"
+								"1051"
 							]
 						}
 					},
@@ -296,11 +379,21 @@
 				{
 					"name": "put-libro",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY2NDcxNiwianRpIjoiNmY1OWQ1ZmQtZjkzMC00OTYzLWI1OGYtNjZkNDA0NDY2ZjQ2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY2NDcxNiwiY3NyZiI6ImQ1YzhmY2MwLWIxZTktNDc1MS04NGZhLWY2MGE1YmE3YjQ4OCIsImV4cCI6MTczMzY2ODMxNiwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.rl4WhDS1I_EW8iNDFSoe1XsYuGY59td6Hl0CaEdOVHM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"titulo\":\"Libro6677\",\n    \"cantidad\":787,\n    \"editorial\":\"Editorial566\"\n}",
+							"raw": "{\n    \"titulo\":\"Libro1\",\n    \"cantidad\":5,\n    \"editorial\":\"Editorial5\",\n    \"genero\":\"suspenso\",\n    \"image\":\"image1.png\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -308,7 +401,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/libro/1",
+							"raw": "http://127.0.0.1:7000/libro/1001",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -319,7 +412,141 @@
 							"port": "7000",
 							"path": [
 								"libro",
+								"1001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "libro_copias",
+			"item": [
+				{
+					"name": "get-copias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk4Nzk4NiwianRpIjoiOGM0NGE1ODItZjZiNS00YTFkLTkxNDItYjgxZmUxNTQ3MGQzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzk4Nzk4NiwiY3NyZiI6ImE5MjIwODhiLWNmODMtNDgzNS04NjE2LWQ5MDc5ZjhjODk3ZSIsImV4cCI6MTczMzk5MTU4Niwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.shjNjWEftQkSkHrG5M4Ld2O7aMVpQ51g-eOv3Ju0SdI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/libros_copias",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
 								"1"
+							],
+							"port": "7000",
+							"path": [
+								"libros_copias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post-copias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk4Nzk4NiwianRpIjoiOGM0NGE1ODItZjZiNS00YTFkLTkxNDItYjgxZmUxNTQ3MGQzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzk4Nzk4NiwiY3NyZiI6ImE5MjIwODhiLWNmODMtNDgzNS04NjE2LWQ5MDc5ZjhjODk3ZSIsImV4cCI6MTczMzk5MTU4Niwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.shjNjWEftQkSkHrG5M4Ld2O7aMVpQ51g-eOv3Ju0SdI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"libroID\": 1005,\r\n    \"cantidad\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/libros_copias",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"libros_copias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-copia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/libro_copia/97",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"libro_copia",
+								"97"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del-copia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk0MzY1NywianRpIjoiMmY5MjNkYmEtOThjOC00MGU1LWEzZjMtZTIwYWJhNmI4NmExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzk0MzY1NywiY3NyZiI6ImQ4N2Y2OWNlLTYzZDAtNDI0Ni05MTNmLWM0NTk4MTk4OGJhZSIsImV4cCI6MTczMzk0NzI1Nywicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.e6HKNMi0hwkMRgd4xANrqqTsXWh_OxplcuVRgP7B1X4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/libro_copia/5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"libro_copia",
+								"5"
 							]
 						}
 					},
@@ -367,11 +594,21 @@
 				{
 					"name": "post-reseñas",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY3MDM0MCwianRpIjoiYWMyMWJkMGItNjY5Ny00MjMxLThjZTctZjhmYmE0YTdlNGI0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTksIm5iZiI6MTczMzY3MDM0MCwiY3NyZiI6Ijg0MTM4OWM2LThjZDUtNGRmYS1hZDhlLTQ1M2M0YTAzNzBkZSIsImV4cCI6MTczMzY3Mzk0MCwicm9sIjoidXNlciIsImlkIjoxOSwiZW1haWwiOiJkc2FuY2hlekBleGFtcGxlLm5ldCJ9.KwUwVtPGRLPzo-0-kjBsux2rHHVkXdNkjT_BlA8vLZU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"valoracion\":5,\n    \"comentario\":\"si\",\n    \"libroID\":1,\n    \"usuarioID\":1\n}",
+							"raw": "{\n    \"valoracion\":5,\n    \"comentario\":\"si\",\n    \"libroID\":1001,\n    \"usuarioID\":19\n    \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -398,10 +635,20 @@
 				{
 					"name": "get-reseña",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña/10",
+							"raw": "http://127.0.0.1:7000/resena/12",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -411,8 +658,8 @@
 							],
 							"port": "7000",
 							"path": [
-								"reseña",
-								"10"
+								"resena",
+								"12"
 							]
 						}
 					},
@@ -421,6 +668,16 @@
 				{
 					"name": "del-reseña",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzc2NjE0OCwianRpIjoiOTJmN2NjN2QtMTM2OC00YzFkLWExZTUtODQ3ODM3YTIyZjhjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzc2NjE0OCwiY3NyZiI6IjFkNDU1N2M2LWQ5NzYtNDQ2Zi1hY2Y0LWJjNmYzOTY5MjViMyIsImV4cCI6MTczMzc2OTc0OCwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.P0Yg2yvt6cYP5czKLckPNa_z9DezYxbZhpT-S6ViVlo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -433,7 +690,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña/1",
+							"raw": "http://127.0.0.1:7000/resena/1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -443,7 +700,7 @@
 							],
 							"port": "7000",
 							"path": [
-								"reseña",
+								"resena",
 								"1"
 							]
 						}
@@ -453,6 +710,16 @@
 				{
 					"name": "put-reseña",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY3MDExMCwianRpIjoiOGZlOGY3MTYtNmVjMC00ZDcyLWI1MjQtZTQ4OGY1OGM1OGI5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTksIm5iZiI6MTczMzY3MDExMCwiY3NyZiI6IjdjZjY5ZWI5LTk1MjAtNGY3Mi05MDNkLWI5MzdmMGQ3YjRiYyIsImV4cCI6MTczMzY3MzcxMCwicm9sIjoidXNlciIsImlkIjoxOSwiZW1haWwiOiJkc2FuY2hlekBleGFtcGxlLm5ldCJ9.a-h4acRkETWYdGjP6ibDAZozywxBrFrpeyDkHettUdY",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -465,7 +732,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/reseña/1",
+							"raw": "http://127.0.0.1:7000/reseña/121",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -476,7 +743,7 @@
 							"port": "7000",
 							"path": [
 								"reseña",
-								"1"
+								"121"
 							]
 						}
 					},
@@ -490,10 +757,20 @@
 				{
 					"name": "get-prestamos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk0MzY1NywianRpIjoiMmY5MjNkYmEtOThjOC00MGU1LWEzZjMtZTIwYWJhNmI4NmExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzk0MzY1NywiY3NyZiI6ImQ4N2Y2OWNlLTYzZDAtNDI0Ni05MTNmLWM0NTk4MTk4OGJhZSIsImV4cCI6MTczMzk0NzI1Nywicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.e6HKNMi0hwkMRgd4xANrqqTsXWh_OxplcuVRgP7B1X4",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/prestamos",
+							"raw": "http://127.0.0.1:7000/prestamos?usuario_email=kwhitaker@example.com",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -504,6 +781,32 @@
 							"port": "7000",
 							"path": [
 								"prestamos"
+							],
+							"query": [
+								{
+									"key": "fecha_entrega",
+									"value": "2025-03-21",
+									"disabled": true
+								},
+								{
+									"key": "fecha_devolucion",
+									"value": "2025-02-27",
+									"disabled": true
+								},
+								{
+									"key": "copiaID",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "usuarioID",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "usuario_email",
+									"value": "kwhitaker@example.com"
+								}
 							]
 						}
 					},
@@ -512,11 +815,21 @@
 				{
 					"name": "post-prestamos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY3MDM0MCwianRpIjoiYWMyMWJkMGItNjY5Ny00MjMxLThjZTctZjhmYmE0YTdlNGI0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MTksIm5iZiI6MTczMzY3MDM0MCwiY3NyZiI6Ijg0MTM4OWM2LThjZDUtNGRmYS1hZDhlLTQ1M2M0YTAzNzBkZSIsImV4cCI6MTczMzY3Mzk0MCwicm9sIjoidXNlciIsImlkIjoxOSwiZW1haWwiOiJkc2FuY2hlekBleGFtcGxlLm5ldCJ9.KwUwVtPGRLPzo-0-kjBsux2rHHVkXdNkjT_BlA8vLZU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fecha_entrega\":\"2024-03-01\",\n    \"fecha_devolucion\":\"2024-03-03\",\n    \"usuarioID\":10,\n    \"libroID\":1010\n}\n",
+							"raw": "{\n    \"fecha_entrega\":\"2024-03-01\",\n    \"fecha_devolucion\":\"2024-03-07\",\n    \"usuarioID\":1,\n    \"copiaID\":2\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -543,10 +856,20 @@
 				{
 					"name": "get-prestamo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzg1MDk3NiwianRpIjoiMzA3NGJiMzYtMGEzYi00YjA5LTg4MDItYWE2Mjc5ZDBjMDRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzg1MDk3NiwiY3NyZiI6IjQyYzYwNGNiLThkZTQtNDBlMS05YjBmLTExZDY0OTYzYjQ3MyIsImV4cCI6MTczMzg1NDU3Niwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.0Ch25Knlz4vJ2LRpD9A6AvpG-d_AAeGDBe61r43Ui7c",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/prestamo/31",
+							"raw": "http://127.0.0.1:7000/prestamo/5",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -557,7 +880,7 @@
 							"port": "7000",
 							"path": [
 								"prestamo",
-								"31"
+								"5"
 							]
 						}
 					},
@@ -566,6 +889,16 @@
 				{
 					"name": "Del-prestamo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY3MzI2MCwianRpIjoiZjE4ZjJkODEtYWZkZi00ZmVkLWJlMWQtNzQ2ZTM2ZDYxYTlkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY3MzI2MCwiY3NyZiI6ImNmOWQ1YWQ4LTEzMTYtNDE5OS04OWJlLTc2NDlmZmFmOWVhMSIsImV4cCI6MTczMzY3Njg2MCwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.az8qaqu0SxeOfUMaAZi66s0usve4TqnwALHrAPnuqBs",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -589,11 +922,21 @@
 				{
 					"name": "put-prestamo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzc4MDM0MSwianRpIjoiNGE3ZmYwYmItMzQ1YS00NDEyLTgwOWQtZDkzZmEyYmViY2NmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzc4MDM0MSwiY3NyZiI6ImIyMTI1M2I1LTY2YjktNGFmMy1hN2FlLTU0MDBkODI4MTYxZSIsImV4cCI6MTczMzc4Mzk0MSwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.EC8F5sAQIEeQo9xqbM4yrPyWTmfQlgS8dmlCDmvOy0Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"fecha_entrega\": \"2024-05-01\",\n  \"fecha_devolucion\": \"2024-05-15\",\n  \"usuarioID\": 1,\n  \"libroID\": 1\n}",
+							"raw": "{\n  \"fecha_entrega\": \"2025-12-3\",\n  \"fecha_devolucion\": \"2024-1-10\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -601,7 +944,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/prestamo/1",
+							"raw": "http://127.0.0.1:7000/prestamo/5",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -612,7 +955,7 @@
 							"port": "7000",
 							"path": [
 								"prestamo",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -629,7 +972,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/autores",
+							"raw": "http://127.0.0.1:7000/autores?fullname=Lorraine Frye",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -640,6 +983,27 @@
 							"port": "7000",
 							"path": [
 								"autores"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "Matthew",
+									"disabled": true
+								},
+								{
+									"key": "apellido",
+									"value": "Hoffma",
+									"disabled": true
+								},
+								{
+									"key": "nombre_o_apellido",
+									"value": "Robert",
+									"disabled": true
+								},
+								{
+									"key": "fullname",
+									"value": "Lorraine Frye"
+								}
 							]
 						}
 					},
@@ -648,11 +1012,21 @@
 				{
 					"name": "post-autores",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY4MDA1NSwianRpIjoiN2IzOTkxYTctNjRiYS00OGJkLTgxNjYtMzY2YzI2YmNmODJhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY4MDA1NSwiY3NyZiI6ImU1NWU3NGQ5LTc2NjEtNDA4OC05OTljLTliOGI3NWU4ZWJkZSIsImV4cCI6MTczMzY4MzY1NSwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.K1sayw95lbhdXocIUgDL2IXLAF9Ku9_wqh3ALPoBmm0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"autor_nombre\": \"Gabriel\",\n    \"autor_apellido\": \"Garcia Marquez\"\n}\n",
+							"raw": "{\n    \"autor_nombre\": \"Matthew\",\n    \"autor_apellido\": \"Hoffma\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -682,7 +1056,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/autor/1",
+							"raw": "http://127.0.0.1:7000/autor/28",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -693,7 +1067,7 @@
 							"port": "7000",
 							"path": [
 								"autor",
-								"1"
+								"28"
 							]
 						}
 					},
@@ -702,10 +1076,20 @@
 				{
 					"name": "Del-autor",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY4MDA1NSwianRpIjoiN2IzOTkxYTctNjRiYS00OGJkLTgxNjYtMzY2YzI2YmNmODJhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY4MDA1NSwiY3NyZiI6ImU1NWU3NGQ5LTc2NjEtNDA4OC05OTljLTliOGI3NWU4ZWJkZSIsImV4cCI6MTczMzY4MzY1NSwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.K1sayw95lbhdXocIUgDL2IXLAF9Ku9_wqh3ALPoBmm0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/autor/2",
+							"raw": "http://127.0.0.1:7000/autor/29",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -716,7 +1100,7 @@
 							"port": "7000",
 							"path": [
 								"autor",
-								"2"
+								"29"
 							]
 						}
 					},
@@ -725,11 +1109,21 @@
 				{
 					"name": "put-autor",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY4MDA1NSwianRpIjoiN2IzOTkxYTctNjRiYS00OGJkLTgxNjYtMzY2YzI2YmNmODJhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY4MDA1NSwiY3NyZiI6ImU1NWU3NGQ5LTc2NjEtNDA4OC05OTljLTliOGI3NWU4ZWJkZSIsImV4cCI6MTczMzY4MzY1NSwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.K1sayw95lbhdXocIUgDL2IXLAF9Ku9_wqh3ALPoBmm0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"prestamosID\": 3,\n    \"fecha_entrega\": \"2023-02-01\",\n    \"fecha_devolucion\": \"2024-03-03\"\n}",
+							"raw": "{\n    \"autor_nombre\": \"pepe\",\n    \"autor_apellido\": \"perez\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -737,7 +1131,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/autor/1",
+							"raw": "http://127.0.0.1:7000/autor/28",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -748,65 +1142,7 @@
 							"port": "7000",
 							"path": [
 								"autor",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "configuracion",
-			"item": [
-				{
-					"name": "get-config",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:7000/configuraciones",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "7000",
-							"path": [
-								"configuraciones"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "post-config",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"idioma\":\"ingles\",\n    \"orden\":\"sssss\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://127.0.0.1:7000/configuraciones",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "7000",
-							"path": [
-								"configuraciones"
+								"28"
 							]
 						}
 					},
@@ -818,12 +1154,22 @@
 			"name": "notificacion",
 			"item": [
 				{
-					"name": "get-notificacion",
+					"name": "get-notificaciones",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzkzMTM1MCwianRpIjoiZjY1MzU5MjgtMjEyYy00NjNlLTlhNmQtNzE3ZDM1NDdlZjZhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzkzMTM1MCwiY3NyZiI6IjRlOTgyOGYyLThmOWMtNGIwMi1hZTY2LTJmMjk2NDgwZWFkOCIsImV4cCI6MTczMzkzNDk1MCwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.hGyVldIugHtFuTrS45qL5R38h7I3l4mCr3PyNKOF9gw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/notificacion/1",
+							"raw": "http://127.0.0.1:7000/notificaciones",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -833,21 +1179,42 @@
 							],
 							"port": "7000",
 							"path": [
-								"notificacion",
-								"1"
+								"notificaciones"
+							],
+							"query": [
+								{
+									"key": "usuarioID",
+									"value": "32",
+									"disabled": true
+								},
+								{
+									"key": "usuario_nombre",
+									"value": "Gabriel",
+									"disabled": true
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "post-notificacion",
+					"name": "post-notificaciones",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzkyOTI4NCwianRpIjoiYWQ2M2UxNWUtODJhNy00YmM0LTgzNGYtNjNmZmYzZGMzNzY5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NCwibmJmIjoxNzMzOTI5Mjg0LCJjc3JmIjoiNjNlNzI5NjctN2EzNi00ZGNiLWE4MWItODdkMGFmYmU1N2RmIiwiZXhwIjoxNzMzOTMyODg0LCJyb2wiOiJ1c2VyIiwiaWQiOjQsImVtYWlsIjoibWlsbGVycmljaGFyZEBleGFtcGxlLm9yZyJ9.IgFJWd5KcNqPtvhK6FoKJPqdlpg_zwnDOq6WQ9AuCbs",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"comentario\":\"zzzz\"\n}",
+							"raw": "{\n    \"titulo\": \"Argentina.\",\n    \"categoria\": \"danger\",\n    \"descripcion\": \"Aguante borca.\",\n    \"vista\": true,\n    \"usuarioID\":32\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -855,7 +1222,39 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:7000/notificacion/1",
+							"raw": "http://127.0.0.1:7000/notificaciones",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"notificaciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-notificacion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY4NjY2MSwianRpIjoiZmQ5MWE2YzItN2IyMC00MGJlLTgyNWQtZjI1YTBkZTc3NGNjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY4NjY2MSwiY3NyZiI6IjA3Y2Y4N2U4LTJjZDItNGQwNS04ZDYxLTZlODdiYTI0OTQxMSIsImV4cCI6MTczMzY5MDI2MSwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.9Z4LNlUMUdh0IncsRQOIApeLLPeY5uYsdeSZuaLYCqQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/notificacion/28",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -866,7 +1265,82 @@
 							"port": "7000",
 							"path": [
 								"notificacion",
+								"28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del-notificacion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzkyNjEyNywianRpIjoiN2E5ZTg4ODYtNTdmMS00ZDg2LWI5NGEtZjAwYTE1ZTUzNzRhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzkyNjEyNywiY3NyZiI6ImQ4NzkwMzQ1LWUyZDktNDYxMC04YTE5LWVkZjg5MzEwYzg5YiIsImV4cCI6MTczMzkyOTcyNywicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.fk_wdnLinl3Akq1D7WkPvzf14bGp_cNFd_z5lGoRtOY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/notificacion/115",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
 								"1"
+							],
+							"port": "7000",
+							"path": [
+								"notificacion",
+								"115"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put-notificacion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzY4NTc0OCwianRpIjoiMDcxOGE5MDQtNjQ2My00MWE3LWIzMjMtM2FmODBiN2EyZDlkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MzIsIm5iZiI6MTczMzY4NTc0OCwiY3NyZiI6ImEwOTc0OTdiLWM0YzQtNDE5NC1iMWQ0LTZmOWNlZjUwYzExMyIsImV4cCI6MTczMzY4OTM0OCwicm9sIjoiYWRtaW4iLCJpZCI6MzIsImVtYWlsIjoicGVwZUBwZXBlLnBlcGUifQ.qwMd0YmkVn_1O3hV67LobFkhW-D7aTz22sIRcAXluhU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"FFFFF\",\r\n    \"categoria\": \"warning\",\r\n    \"descripcion\": \"Aguante boca.\",\r\n    \"vista\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/notificacion/31",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"notificacion",
+								"31"
 							]
 						}
 					},
@@ -884,7 +1358,39 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_contraseña\": \"12345288\",\n    \"usuario_email\":\"giuffrida@alumno.um.edu.ar\"\n}",
+							"raw": "{\n    \"usuario_contrasena\": \"pepe\",\n    \"usuario_email\":\"pepe@pepe.pepe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/auth/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post-login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usuario_contrasena\": \"p+Va2DlSAC\",\n    \"usuario_email\":\"millerrichard@example.org\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -916,7 +1422,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario_nombre\" : \"Augusto\",\n    \"usuario_apellido\":\"Giuffrida\",\n    \"usuario_contraseña\": \"12345288\",\n    \"usuario_email\":\"giuffrida@alumno.um.edu.ar\",\n    \"usuario_telefono\":\"47131\",\n    \"rol\":\"user\"\n}",
+							"raw": "{\n    \"usuario_nombre\" : \"Juan\",\n    \"usuario_apellido\":\"Perez\",\n    \"usuario_contrasena\": \"123456\",\n    \"usuario_email\":\"perez@alumno.edu.ar\",\n    \"usuario_telefono\":\"47131\",\n    \"rol\":\"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
