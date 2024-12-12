@@ -21,6 +21,17 @@ export class HomeComponent {
     this.getBooks(this.page);
   }
 
+  bookCreated(message: string) {
+    console.log(message); // Para verificar si el evento se recibe
+    this.getBooks(this.page); // Refresca la lista de libros
+  }
+  
+  errorBookCreated(message: string) {
+    console.error(message); // Muestra el error en la consola
+  }
+  
+  
+
   getBooks(page: number) {
     this.page = page; // Actualiza la página actual
     this.booksService.getBooks(page).subscribe((answer: any) => {
@@ -30,9 +41,6 @@ export class HomeComponent {
     });
   }
   
-  
-  
-
   filterBooks() {
     this.filteredBooks = this.books.filter(book =>
       book.titulo.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
