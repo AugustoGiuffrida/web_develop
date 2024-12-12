@@ -43,4 +43,29 @@ export class LibrarianRentsComponent implements OnInit {
     this.page = 1; // Reiniciar a la primera página al filtrar
     this.getRents(this.page);
   }
-}
+
+  rentCreated() {
+    this.showAlert('Prestamo creado con exito', 'success');
+    document.documentElement.scrollTo({top:0, behavior: 'smooth'});
+    this.getRents(this.page);
+  }
+
+  errorRentCreated(): void {
+    this.showAlert('Error al crear el prestamo', 'danger');
+    document.documentElement.scrollTo({top:0, behavior: 'smooth'});
+  }
+
+
+  showAlert(message: string, type: 'danger' | 'success') {
+    const alertPlaceholder = document.getElementById('rentAlertPlaceholder')
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>'
+    ].join('')
+    alertPlaceholder?.append(wrapper)
+  }
+
+  }

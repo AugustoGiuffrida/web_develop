@@ -53,4 +53,10 @@ export class RentsService {
       })
     );
   }
+
+
+  createLoan(loanData: any): Observable<any> {
+    return this.httpClient.post(`${this.url}/prestamos`, loanData).pipe(take(1));
+  }
+
 }

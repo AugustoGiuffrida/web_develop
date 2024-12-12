@@ -41,7 +41,5 @@
 </app-add-book>
 
 
-<!-- Mensaje de estado -->
-<div *ngIf="statusMessage" class="alert alert-info mt-3">{{ statusMessage }}</div>
 
 <app-paginate [page]="page" [pages]="pages" (pageChange)="getBooks($event)"></app-paginate>

@@ -26,6 +26,27 @@ export class SeeRentsComponent {
 
   constructor(private rentsService: RentsService, private authService: AuthService, private notificationService: NotificationsService) {}
 
+  onRentBook() {
+    if (!this.rent.usuario || !this.rent.copias) {
+      console.error('Datos de renta incompletos:', this.rent);
+      return; // Salir si no están los datos necesarios
+    }
+  
+    const data = {
+      titulo: "Solicitud de préstamo",
+      descripcion: `El usuario ${this.rent.usuario.usuario_email} desea alquilar el libro: ${this.rent.copias.titulo} (copiaID: ${this.rent.copias.copiaID}, UsuarioID: ${this.rent.usuario.usuarioID}).`,
+      categoria: "info"
+    };
+  
+    this.notificationService.postNotification(data).subscribe({
+      next: (response) => {
+        console.log('Notificación enviada:', response);
+      },
+      error: (error) => {
+        console.error('Error al enviar la notificación:', error);
+      }
+    });
+  }
   
   get isAdmin(): boolean {
     return this.authService.isAdmin();

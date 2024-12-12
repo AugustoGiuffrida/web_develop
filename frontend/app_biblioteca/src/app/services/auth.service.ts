@@ -76,7 +76,6 @@ export class AuthService {
     }
   }
 
-
   get rol(): string {
     const token = this.token;
     if (!token) {
