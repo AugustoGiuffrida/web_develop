@@ -19,6 +19,7 @@ export class BookComponent implements OnInit {
   @Input() quantity: number = 0;
   @Input() image!: string;
   @Input() rating: number = 0;
+  @Input() available_copies:any[] = [];
   user: any = {};
 
   // Propiedades para el formulario de edición
@@ -63,11 +64,21 @@ export class BookComponent implements OnInit {
     })
   }
 
+  get parseAvailable(): string {
+    let result: string = '';
+    let comma: string = '';
+    for (let copy of this.available_copies) {
+      result += comma + copy.copiaID;
+      comma = ', ';
+    }
+    return result
+  }
+
   onRentBook() {
     
     const data = {
       "titulo": "Solicitud de préstamo",
-      "descripcion": `El usuario ${this.user?.usuario_email} desea alquilar el libro: ${this.title} (UsuarioID: ${this.user?.usuarioID}, libroID: ${this.id}).`,
+      "descripcion": `El usuario ${this.user?.usuario_email} desea alquilar el libro: ${this.title} (UsuarioID: ${this.user?.usuarioID}, libroID: ${this.id}) copias disponibles: ${this.parseAvailable}.`,
       "categoria": "info"
     };
     

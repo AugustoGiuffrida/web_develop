@@ -22,6 +22,9 @@ class LibrosCopias(db.Model):
         return '<Copia: %r  >' % (self.copiaID)
 
 
+    def to_json_book(self):
+        return {"copiaID": self.copiaID}
+
     def to_json_short(self):
         libros_copias_json = {
             "copiaID": self.copiaID,

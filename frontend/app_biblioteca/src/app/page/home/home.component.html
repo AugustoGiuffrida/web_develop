@@ -28,17 +28,18 @@
       [image]="book.image"
       [gender]="book.genero"
       [author]="book.autores"
-      [rating]="book.rating">
+      [rating]="book.rating"
+      [available_copies]="book.copias_disponibles">
     </app-book>
     </div>
   </div>
 </main>
 
 <!-- Modal de Crear Libro -->
-<app-add-book
+<!-- <app-add-book
   (bookCreated)="bookCreated($event)"
   (errorBookCreated)="errorBookCreated($event)">
-</app-add-book>
+</app-add-book> -->
 
 
 

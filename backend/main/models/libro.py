@@ -40,6 +40,10 @@ class Libro(db.Model):
             total_rating += resena.valoracion
         return round(total_rating / len(self.resenas),1)
 
+    @property
+    def copias_disponibles(self):
+        return [copia.to_json_book() for copia in self.copias if copia.estado == 'Disponible']
+
 
     def __repr__(self):
         return '<Libro: %r  >' % (self.libroID)
@@ -71,7 +75,8 @@ class Libro(db.Model):
             "image": self.image,
             "autores": autores,
             "resenas": resenas,
-            "rating": self.rating
+            "rating": self.rating,
+            "copias_disponibles": self.copias_disponibles
         }
         return Libro_json  
 
