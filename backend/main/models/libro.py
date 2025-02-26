@@ -14,7 +14,7 @@ class Libro(db.Model):
     #relacion 1:M(1 Libro M copias)
     copias =  db.relationship('LibrosCopias', back_populates='libro', cascade='all, delete-orphan')
     #relacion 1:N(Libro es padre)
-    reseñas =  db.relationship('Reseña', back_populates='libro', cascade='all, delete-orphan')
+    resenas =  db.relationship('Resena', back_populates='libro', cascade='all, delete-orphan')
     #relacion N:M(Libro es padre)
     #autores = db.relationship("Autor", secondary="libros_autores", back_populates="libros")
 
@@ -33,12 +33,16 @@ class Libro(db.Model):
 
     @property
     def rating(self):
-        if not self.reseñas:
+        if not self.resenas:
             return 0
         total_rating = 0
-        for reseña in self.reseñas:
-            total_rating += reseña.valoracion
-        return round(total_rating / len(self.reseñas),1)
+        for resena in self.resenas:
+            total_rating += resena.valoracion
+        return round(total_rating / len(self.resenas),1)
+
+    @property
+    def copias_disponibles(self):
+        return [copia.to_json_book() for copia in self.copias if copia.estado == 'Disponible']
 
 
     def __repr__(self):
@@ -57,10 +61,10 @@ class Libro(db.Model):
         }
         return Libro_json
 
-    # Convertir objeto en JSON completo con lista de prestamos y reseñas
+    # Convertir objeto en JSON completo con lista de prestamos y resenas
     def to_json_complete(self):
         autores = [autor.to_json() for autor in self.autores]
-        reseñas = [reseña.to_json() for reseña in self.reseñas]
+        resenas = [resena.to_json() for resena in self.resenas]
 
         Libro_json = {
             "libroID": self.libroID,
@@ -70,8 +74,9 @@ class Libro(db.Model):
             'genero': self.genero,
             "image": self.image,
             "autores": autores,
-            "resenas": reseñas,
-            "rating": self.rating
+            "resenas": resenas,
+            "rating": self.rating,
+            "copias_disponibles": self.copias_disponibles
         }
         return Libro_json  
 

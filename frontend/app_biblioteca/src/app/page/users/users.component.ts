@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
     const nr_prestamos = this.selectedNrPrestamos ?? undefined;
     const rol = this.selectedRole === 'Todos' ? undefined : this.selectedRole;
 
-    this.usuariosService.getUsers(page, 9, nombre, apellido, nr_prestamos, rol).subscribe(
+    this.usuariosService.getUsers(page, 6, nombre, apellido, nr_prestamos, rol).subscribe(
       (data: any) => {
         if (data && typeof data.pages === 'number') {
           this.pages = data.pages;

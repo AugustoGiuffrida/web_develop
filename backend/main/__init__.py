@@ -52,9 +52,10 @@ def create_app():
     api.add_resource(resources.PrestamoResources, '/prestamo/<id>')
 
     api.add_resource(resources.NotificacionesResources, '/notificaciones')
+    api.add_resource(resources.NotificacionResources, '/notificacion/<id>')
 
-    api.add_resource(resources.ReseñasResources, '/reseñas')
-    api.add_resource(resources.ReseñaResources, '/reseña/<id>')
+    api.add_resource(resources.ResenasResources, '/resenas')
+    api.add_resource(resources.ResenaResources, '/resena/<id>')
 
     api.add_resource(resources.AutoresResources, '/autores')
     api.add_resource(resources.AutorResources, '/autor/<id>')

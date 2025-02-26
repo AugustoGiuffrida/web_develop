@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
 
+<div class="py-3" id="rentAlertPlaceholder"></div>
+
 <div class="container-rents">
   <!-- Encabezado con título -->
   <div class="header-section">
@@ -24,24 +26,32 @@
       </div>
       <div class="col-lg-3 col-md-6">
         <label for="usuarioID" class="form-label">ID del Usuario</label>
-        <input type="text" id="usuarioID" class="form-control" placeholder="Ej. 1001" [(ngModel)]="filters.usuarioID" (input)="filterRents()">
+        <input type="text" id="usuarioID" class="form-control" placeholder="Ej. 1, 2, 3" [(ngModel)]="filters.usuarioID" (input)="filterRents()">
       </div>
     </div>
+
+    <app-add-rent class="d-flex justify-content-center mt-3"
+    (rentCreated)="rentCreated()"
+    (errorRentCreated)="errorRentCreated()">
+    </app-add-rent>
+
+
   </div>
 
   <!-- Lista de préstamos -->
   <div class="rents-list">
-    <div *ngFor="let rent of rents">
-      <app-see-rents
-        [id]="rent.prestamoID"
-        [title]="rent.copias?.titulo || 'Libro no disponible'"
-        [user]="rent.usuario?.usuario_nombre + ' ' + rent.usuario?.usuario_apellido || 'Usuario no disponible'"
-        [fecha_entrega]="rent.fecha_entrega"
-        [fecha_devolucion]="rent.fecha_devolucion"
-        [image]="rent.copias.image"
-        [daysLeft]="rent.days_left || 0">
-      </app-see-rents>
-    </div>
+    <app-see-rents
+      *ngFor="let rent of rents"
+      [id]="rent.prestamoID"
+      [copyID]="rent.copias?.copiaID"
+      [status]="rent.estado"
+      [title]="rent.copias?.titulo || 'Libro no disponible'"
+      [userEmail]="rent.usuario?.usuario_email"
+      [fecha_entrega]="rent.fecha_entrega"
+      [fecha_devolucion]="rent.fecha_devolucion"
+      [image]="rent.copias.image"
+      [daysLeft]="rent.days_left || 0">
+    </app-see-rents>
   </div>
 
   <!-- Mensaje si no hay préstamos -->

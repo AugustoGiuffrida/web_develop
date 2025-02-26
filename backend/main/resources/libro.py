@@ -3,12 +3,54 @@ from flask import request, jsonify
 from .. import db
 from main.models import LibroModel, AutorModel, PrestamoModel
 from sqlalchemy import func, desc, asc
+from main.auth.decorators import role_required
+from flask_jwt_extended import jwt_required
 
-#Datos de prueba en JSON
-LIBROS = {
-    1: {'nombre':'Rey leon', 'categoria':'Drama'},
-    2: {'nombre':'El principito', 'categoria':'Misterio'}
-}
+class Libro(Resource): 
+      
+    def get(self, id):
+        libro = db.session.query(LibroModel).get_or_404(id)
+        return libro.to_json_complete()
+
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian'])
+    def delete(self, id):
+        libro = db.session.query(LibroModel).get_or_404(id)
+        try:
+            db.session.delete(libro)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return {"message": "Error al borrar el libro", "error": str(e)}, 400
+        return {"message": "Libro eliminado correctamente", "libro": libro.to_json()}, 201
+
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian'])
+    def put(self, id):
+        libro = db.session.query(LibroModel).get_or_404(id)
+        data = request.get_json()                
+        autores_ids = data.get('autores')
+
+        if data.get('titulo'):
+            libro.titulo = data.get('titulo')
+        if data.get('editorial'):
+            libro.editorial = data.get('editorial')
+        if data.get('genero'):
+            libro.genero = data.get('genero')
+        if data.get('image'):
+            libro.image = data.get('image')
+        if autores_ids:
+            autores = AutorModel.query.filter(AutorModel.autorID.in_(autores_ids)).all()
+            libro.autores = autores
+
+        try:
+            db.session.add(libro)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return {"message": "Error al agregar el libro"}, 400
+        return libro.to_json(), 201
+
 
 class Libros(Resource): 
     #obtener lista de los libros
@@ -18,17 +60,17 @@ class Libros(Resource):
         #Cantidad de elementos por página por defecto
         per_page = 9
         
-        #no ejecuto el .all()
         libros = db.session.query(LibroModel)
 
 
-        if request.args.get('page'): ##Existe el parametro "page" en la request?
-            page = int(request.args.get('page'))##Si existe, lo cargo
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
         params = request.args
 
         ### FILTROS ### 
+
         #Filtrar por titulo
         if request.args.get('titulo'):
             libros = libros.filter(LibroModel.titulo.like('%' + request.args.get('titulo') + '%'))
@@ -65,6 +107,8 @@ class Libros(Resource):
                   'page': page           #
                 })
 
+    @jwt_required()
+    @role_required(roles=['admin', 'librarian'])
     def post(self):
         data = request.get_json()
         autores_ids = data.get('autores', [])  # Obtener los IDs de los autores del JSON o una lista vacía si no se proporcionan
@@ -78,47 +122,7 @@ class Libros(Resource):
         try:
             db.session.add(libro)
             db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            return {"message": f"Error al agregar el libro: {str(e)}"}, 400
-        return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.
-
-class Libro(Resource): #A la clase libro le indico que va a ser del tipo recurso(Resource)
-    #obtener recurso        
-    def get(self, id):
-        libro = db.session.query(LibroModel).get_or_404(id)
-        return libro.to_json_complete()
-
-    def delete(self, id):
-        libro = db.session.query(LibroModel).get_or_404(id)
-        try:
-            db.session.delete(libro)
-            db.session.commit()
-            return {"message": "Eliminado correctamente"}, 200
         except:
             db.session.rollback()
-            return {"message": "Error al borrar el libro"}, 400
-
-
-    def put(self, id):
-        libro = db.session.query(LibroModel).get_or_404(id)
-        data = request.get_json()                
-        autores_ids = data.get('autores')
-
-        if data.get('titulo'):
-            libro.titulo = data.get('titulo')
-        if data.get('editorial'):
-            libro.editorial = data.get('editorial')
-        if data.get('genero'):
-            libro.genero = data.get('genero')
-        if autores_ids:
-            autores = AutorModel.query.filter(AutorModel.autorID.in_(autores_ids)).all()
-            libro.autores = autores
-
-        try:
-            db.session.add(libro)
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            return {"message": "Error al agregar el libro"}, 400
-        return libro.to_json(), 201
+            return {"message":"Error al agregar el libro", "libro": libro.to_json()}, 400
+        return libro.to_json(), 201 #Si la operación es exitosa, se devuelve la representación JSON del libro con el código de estado 201.

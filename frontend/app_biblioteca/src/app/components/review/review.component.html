@@ -1,18 +1,45 @@
-<div class="row">
-
-    <div class="col">
-      <div class="card-body">
-        <h5 class="card-title mb-1 text-truncate" style="max-width: 220px;">{{ user?.usuario_nombre }} {{ user?.usuario_apellido }}</h5>
-        <app-star [rating]="valoration"></app-star>
+<div class="card border-0 shadow-sm mb-3">
+  <!-- Cabecera del usuario -->
+  <div class="row g-0 align-items-center p-3">
+    <!-- Imagen del usuario -->
+    <div class="col-auto">
+      <div 
+        class="d-flex justify-content-center align-items-center rounded-circle border" 
+        style="width: 60px; height: 60px; background-color: #e0e0e0; font-size: 24px; font-weight: bold; color: #17a2b8;">
+        {{ user?.usuario_nombre[0] }}{{ user?.usuario_apellido[0] }}
       </div>
     </div>
-  </div>
-  
-  <div class="row">
-    <div class="col">
-      <div class="card-body">
-        <p class="card-text">{{comment}}</p>
+
+    <!-- Información del usuario -->
+    <div class="col ms-3">
+      <h5 class="card-title mb-1 text-truncate" style="max-width: 250px;">
+        {{ user?.usuario_nombre }} {{ user?.usuario_apellido }}
+      </h5>
+      <div class="d-flex align-items-center">
+        <app-star [rating]="valoration" class="me-2"></app-star>
       </div>
+      @if (self_comment && !isAdmin) {
+        <div class="mt-2">
+          <button class="btn btn-outline-danger btn-sm" title="Eliminar" (click)="deleteComment()">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      }
+      @if (isAdmin) {
+        <div class="mt-2">
+          <button class="btn btn-outline-danger btn-sm me-2 me-md-0 mb-md-2" title="Eliminar" (click)="deleteComment()">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      }
     </div>
   </div>
 
+  <!-- Línea divisoria -->
+  <hr class="m-0" />
+
+  <!-- Comentario del usuario -->
+  <div class="card-body pt-3">
+    <p class="card-text mb-0">{{ comment }}</p>
+  </div>
+</div>

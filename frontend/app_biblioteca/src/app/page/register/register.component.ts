@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
         usuario_nombre: ['',[Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z ]*$')],],
         usuario_apellido: ['',[Validators.required, Validators.minLength(4), Validators.pattern('^[a-zA-Z ]*$')],],
         usuario_email: ['', [Validators.required, Validators.email]],
-        usuario_contraseña: ['',[Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/),],],
+        usuario_contrasena: ['',[Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/),],],
         confirmPassword: ['', Validators.required],
         usuario_telefono: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]], 
       },
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
   }
 
   passwordsMatchValidator(group: AbstractControl): { mismatch: boolean } | null {
-    const password = group.get('usuario_contraseña')?.value;
+    const password = group.get('usuario_contrasena')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { mismatch: true };
   }

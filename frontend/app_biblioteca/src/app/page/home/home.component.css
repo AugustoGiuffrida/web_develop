@@ -108,8 +108,8 @@
 .navbar-bottom {
     background-color: #7c0e0e; /* Fondo blanco */
     height: 10px; 
-    border-top: 1px solid #CCCCCC; /* Añadir un borde superior sutil */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadir sombra sutil */
+    border-top: 1px solid #CCCCCC; /* Anadir un borde superior sutil */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Anadir sombra sutil */
 }
 
 .navbar-bottom .container {
@@ -123,7 +123,7 @@
 }
 
 .navbar-bottom a:hover {
-    transform: scale(1.1); /* Aumentar tamaño en hover */
+    transform: scale(1.1); /* Aumentar tamano en hover */
 }
 
 /* Estilo para el botón Pedir */

@@ -14,4 +14,10 @@ url = '/api'
     return this.httpClient.get(this.url + '/libros?page=' + page);
   }
 
+
+
+  createBook(dataBook: any): Observable<any> {
+    return this.httpClient.post('/api/libros', dataBook);
+  }
+
 }

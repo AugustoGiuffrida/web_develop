@@ -24,14 +24,14 @@ class Prestamo(db.Model):
 
 
     @property
-    def status(self):
+    def estado(self):
         today = datetime.now().date()  # Convertir a datetime.date
         if self.fecha_devolucion == today:
-            return 'pending'
+            return 'pendiente'
         elif self.fecha_devolucion > today:
-            return 'active'
+            return 'activo'
         else:
-            return 'expired'
+            return 'atrasado'
 
 
     def __repr__(self):
@@ -47,12 +47,13 @@ class Prestamo(db.Model):
         return Prestamo_json
 
     def to_json_complete(self):
-        usuario = self.usuario.to_json_short()
+        usuario = self.usuario.to_json()
         copias = self.copias.to_json_short()
         prestamo_json = {
             "usuario": usuario,
             "copias": copias,
             "prestamoID": self.prestamoID,
+            "estado": self.estado,
             "fecha_entrega": self.fecha_entrega.strftime("%Y-%m-%d"),
             "fecha_devolucion": self.fecha_devolucion.strftime("%Y-%m-%d"),
             "days_left": self.days_left

@@ -8,7 +8,7 @@ import random
 fake = Faker()
 
 # Conectarse a la base de datos existente
-conn = sqlite3.connect('C:\\Users\\MegaTecnologia\\Documents\\programacion_1\\backend\\DB\\biblioteca.db')
+conn = sqlite3.connect('/home/augusto/Documentos/programacion1/backend/DB/biblioteca.db')
 cur = conn.cursor()
 
 # Crear un archivo de log para registrar los datos
@@ -18,19 +18,19 @@ with open(log_file, 'w') as log:
 
     # Generar datos para la tabla "usuarios"
     datos_usuarios = []
-    datos_usuarios.append((32, "pepe", "pepe", generate_password_hash("pepe"), "pepe@pepe.pepe", "123456789", "admin"))
-    log.write(f'ID: {1}, Nombre: {"pepe"}, Apellido: {"pepe"}, psk: {"pepe"}, Email: {"pepe@pepe.pepe"}, Telefono: {"123456789"}, Rol: {"admin"}\n')
+    datos_usuarios.append((32, "pedro", "perez", generate_password_hash("auto"), "admin@email.com", "123456789", "admin"))
+    log.write(f'ID: {1}, Nombre: {"pedro"}, Apellido: {"perez"}, psk: {"auto"}, Email: {"admin@email.com"}, Telefono: {"123456789"}, Rol: {"admin"}\n')
     log.write('\n')
     for i in range(1, 31):
         usuarioID = i
         usuario_nombre = fake.first_name()
         usuario_apellido = fake.last_name()
-        usuario_contraseña = fake.password()
+        usuario_contrasena = fake.password()
         usuario_email = fake.email()
         usuario_telefono = fake.phone_number()
         rol = fake.random_element(elements=('admin', 'user', 'librarian'))
-        datos_usuarios.append((usuarioID, usuario_nombre, usuario_apellido, generate_password_hash(usuario_contraseña), usuario_email, usuario_telefono, rol))
-        log.write(f'ID: {usuarioID}, Nombre: {usuario_nombre}, Apellido: {usuario_apellido}, psk: {usuario_contraseña}, Email: {usuario_email}, Telefono: {usuario_telefono}, Rol: {rol}\n')
+        datos_usuarios.append((usuarioID, usuario_nombre, usuario_apellido, generate_password_hash(usuario_contrasena), usuario_email, usuario_telefono, rol))
+        log.write(f'ID: {usuarioID}, Nombre: {usuario_nombre}, Apellido: {usuario_apellido}, psk: {usuario_contrasena}, Email: {usuario_email}, Telefono: {usuario_telefono}, Rol: {rol}\n')
     log.write('\n')
 
     # Insertar datos en la tabla "usuarios"
@@ -39,7 +39,7 @@ with open(log_file, 'w') as log:
             usuarioID,
             usuario_nombre,
             usuario_apellido,
-            usuario_contraseña,
+            usuario_contrasena,
             usuario_email,
             usuario_telefono,
             rol
@@ -87,22 +87,22 @@ with open(log_file, 'w') as log:
         INSERT INTO autores (autorID, autor_nombre, autor_apellido) VALUES (?, ?, ?)
     ''', datos_autores)
 
-    # Generar datos para la tabla "reseñas"
-    datos_reseñas = []
-    reseñaID = 1  
+    # Generar datos para la tabla "resenas"
+    datos_resenas = []
+    resenaID = 1  
     for libroID in range(1001, 1031):  
-        num_reseñas = random.randint(1, 6)  # Determinar cuántas reseñas generar para cada libro
-        for _ in range(num_reseñas):
+        num_resenas = random.randint(1, 6)  # Determinar cuántas resenas generar para cada libro
+        for _ in range(num_resenas):
             usuarioID = random.randint(1, 30)  # Seleccionar un usuario aleatorio
             valoracion = fake.random_int(min=1, max=5)
             comentario = fake.text(max_nb_chars=100)
-            datos_reseñas.append((reseñaID, usuarioID, libroID, valoracion, comentario))
-            reseñaID += 1  
+            datos_resenas.append((resenaID, usuarioID, libroID, valoracion, comentario))
+            resenaID += 1  
 
-    # Insertar datos en la tabla "reseñas"
+    # Insertar datos en la tabla "resenas"
     cur.executemany('''
-        INSERT INTO reseñas (reseñaID, usuarioID, libroID, valoracion, comentario) VALUES (?, ?, ?, ?, ?)
-    ''', datos_reseñas)
+        INSERT INTO resenas (resenaID, usuarioID, libroID, valoracion, comentario) VALUES (?, ?, ?, ?, ?)
+    ''', datos_resenas)
 
 
     # Generar datos para la tabla "prestamos"
@@ -136,31 +136,25 @@ with open(log_file, 'w') as log:
     ''', datos_prestamos)
 
 
-
     # Generar datos para la tabla "notificaciones"
     datos_notificaciones = []
     for i in range(1, 31):
         notificacionID = i
-        comentario = fake.sentence(nb_words=6)
-        usuarioID = i
-        datos_notificaciones.append((notificacionID, comentario, usuarioID))
+        titulo = fake.sentence(nb_words=4)  # Título breve
+        descripcion = fake.text(max_nb_chars=100)  # Descripción más detallada
+        vista = fake.boolean(chance_of_getting_true=50)  # Estado de vista (True o False)
+        categoria = fake.random_element(elements=["warning", "danger", "info"])  # Categorías válidas
+        usuarioID = random.randint(1, 30)  # Asociar con un usuario aleatorio
+        datos_notificaciones.append((notificacionID, titulo, descripcion, vista, categoria, usuarioID))
 
     # Insertar datos en la tabla "notificaciones"
     cur.executemany('''
-        INSERT INTO notificaciones (notificacionID, comentario, usuarioID) VALUES (?, ?, ?)
+        INSERT INTO notificaciones (
+            notificacionID, titulo, descripcion, vista, categoria, usuarioID
+        ) VALUES (?, ?, ?, ?, ?, ?)
     ''', datos_notificaciones)
 
-    # Generar datos para la tabla intermedia "notificaciones_usuarios"
-    datos_notificaciones_usuarios = []
-    for i in range(1, 31):
-        notificacionID = i
-        usuarioID = i
-        datos_notificaciones_usuarios.append((notificacionID, usuarioID))
 
-    # Insertar datos en la tabla "notificaciones_usuarios"
-    cur.executemany('''
-        INSERT INTO notificaciones_usuarios (notificacionID, usuarioID) VALUES (?, ?)
-    ''', datos_notificaciones_usuarios)
 
     # Generar datos para la tabla "libros_autores"
     datos_libros_autores = []

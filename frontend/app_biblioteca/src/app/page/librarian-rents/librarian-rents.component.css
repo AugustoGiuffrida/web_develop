@@ -8,8 +8,8 @@ body {
 
 /* Contenedor principal */
 .container-rents {
-  max-width: 900px;
-  margin: 20px auto;
+  max-width: 950px;
+  margin: 10px auto;
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -58,22 +58,27 @@ body {
 }
 
 /* Lista de préstamos */
+
 .rents-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Tres columnas dinámicas */
+  gap: 10px; /* Espacio entre elementos */
   padding: 20px;
-  max-height: 500px;
-  overflow-y: auto;
   background: #fff;
   border-top: 1px solid #ddd;
 }
 
-.rents-list::-webkit-scrollbar {
-  width: 6px;
+
+
+/* Tarjeta de préstamo (app-see-rents) */
+app-see-rents {
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.rents-list::-webkit-scrollbar-thumb {
-  background: #007bff;
-  border-radius: 10px;
-}
 
 /* Alerta sin préstamos */
 .no-rents-alert {

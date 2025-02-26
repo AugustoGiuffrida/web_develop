@@ -11,10 +11,11 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def login():
     #Busca al usuario en la db por mail
     usuario = db.session.query(UsuarioModel).filter(UsuarioModel.usuario_email == request.get_json().get("usuario_email")).first_or_404()
-    #Valida la contraseña
-    if usuario.validate_pass(request.get_json().get("usuario_contraseña")):
+    #Valida la contrasena
+    if usuario.validate_pass(request.get_json().get("usuario_contrasena")):
         #Genera un nuevo token
         #Pasa el objeto usuario como identidad
+        print(usuario)
         access_token = create_access_token(identity=usuario)
         #Devolver valores y token
         data = {

@@ -29,8 +29,8 @@
                         <i class='bx bx-lock-alt'></i>
                         <input 
                             type="password" 
-                            placeholder="Contraseña" 
-                            formControlName="usuario_contraseña" 
+                            placeholder="Contrasena" 
+                            formControlName="usuario_contrasena" 
                             required
                         >
                     </label>
@@ -40,6 +40,10 @@
                     value="Iniciar Sesión" 
                     [disabled]="loginForm.invalid"
                 >
+                <div>
+                    <a routerLink="/home" class="volver-inicio">Volver al inicio</a>
+                </div>
+
                 <!-- Alertas -->
                 <div *ngIf="loginForm.invalid && loginForm.touched" class="alerta-error">
                     Todos los campos son obligatorios

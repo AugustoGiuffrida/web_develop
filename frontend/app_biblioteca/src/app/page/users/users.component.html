@@ -1,48 +1,49 @@
 <app-navbar></app-navbar>
-<div class="container d-flex justify-content-center">
-  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 800px;">
-    <h3 class="fw-bold mb-4 text-center">Usuarios</h3>
+<div class="container-rents">
+  <!-- Encabezado -->
+  <div class="header-section">
+    <h1>Usuarios</h1>
+  </div>
 
-    <!-- Filtros -->
-    <div class="filter-section mb-4 p-3 bg-light rounded-3 shadow-sm">
-      <h5 class="fw-bold">Filtros</h5>
-      <div class="row g-3 align-items-center">
-        
-        <!-- Filtro por rol -->
-        <div class="col-md-4">
-          <label for="role" class="form-label"><i class="fas fa-users"></i> Rol</label>
-          <select id="role" class="form-select" [(ngModel)]="selectedRole" (change)="loadUsers()">
-            <option value="Todos">Todos</option>
-            <option value="user">Usuario</option>
-            <option value="bibliotecario">Bibliotecario</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+  <!-- Sección de filtros -->
+  <div class="filter-section">
+    <h5 class="filter-title">Filtros</h5>
+    <div class="row g-3 align-items-center">
+      <!-- Filtro por rol -->
+      <div class="col-md-4">
+        <label for="role" class="form-label">Rol</label>
+        <select id="role" class="form-select" [(ngModel)]="selectedRole" (change)="loadUsers()">
+          <option value="Todos">Todos</option>
+          <option value="user">Usuario</option>
+          <option value="bibliotecario">Bibliotecario</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
 
-        <!-- Filtro por nombre -->
-        <div class="col-md-4">
-          <label for="nombre" class="form-label"><i class="fas fa-user"></i> Nombre</label>
-          <input id="nombre" type="text" class="form-control" [(ngModel)]="selectedNombre" placeholder="Buscar por nombre" (input)="loadUsers()">
-        </div>
+      <!-- Filtro por nombre -->
+      <div class="col-md-4">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input id="nombre" type="text" class="form-control" [(ngModel)]="selectedNombre" placeholder="Buscar por nombre" (input)="loadUsers()">
+      </div>
 
-        <!-- Filtro por apellido -->
-        <div class="col-md-4">
-          <label for="apellido" class="form-label"><i class="fas fa-user"></i> Apellido</label>
-          <input id="apellido" type="text" class="form-control" [(ngModel)]="selectedApellido" placeholder="Buscar por apellido" (input)="loadUsers()">
-        </div>
+      <!-- Filtro por apellido -->
+      <div class="col-md-4">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input id="apellido" type="text" class="form-control" [(ngModel)]="selectedApellido" placeholder="Buscar por apellido" (input)="loadUsers()">
+      </div>
 
-        <!-- Filtro por número de préstamos -->
-        <div class="col-md-4">
-          <label for="nrPrestamos" class="form-label"><i class="fas fa-book"></i> Nº de Préstamos</label>
-          <input id="nrPrestamos" type="number" class="form-control" [(ngModel)]="selectedNrPrestamos" placeholder="0" (input)="loadUsers()">
-        </div>
+      <!-- Filtro por número de préstamos -->
+      <div class="col-md-4">
+        <label for="nrPrestamos" class="form-label">Nº de Préstamos</label>
+        <input id="nrPrestamos" type="number" class="form-control" [(ngModel)]="selectedNrPrestamos" placeholder="0" (input)="loadUsers()">
       </div>
     </div>
+  </div>
 
   <!-- Lista de usuarios filtrados -->
-  <div class="users-list mb-3"> 
-    <div *ngFor="let user of usuarios" class="user-card border rounded-3 p-3 mb-3 d-flex align-items-center bg-white shadow-sm">
-      <app-see-user 
+  <div class="rents-list">
+    <div *ngFor="let user of usuarios">
+      <app-see-user
         [id]="user.usuarioID"
         [nombre]="user.usuario_nombre"
         [apellido]="user.usuario_apellido"
@@ -53,7 +54,8 @@
     </div>
   </div>
 
-    <!-- Componente de paginación -->
+  <!-- Paginación -->
+  <div class="pagination-section">
     <app-paginate 
       [(page)]="page"
       [pages]="pages"

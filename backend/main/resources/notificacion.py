@@ -3,15 +3,55 @@ from flask import request
 from .. import db
 from main.models import NotificacionModel, UsuarioModel
 from flask import jsonify
+from sqlalchemy import func, desc, asc
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from main.auth.decorators import role_required
 
 
+class Notificacion(Resource):
+    @jwt_required()
+    @role_required(roles=["admin", "librarian", "user"])
+    def get(self, id):
+        current_user_id = get_jwt_identity()
+        rol = db.session.query(UsuarioModel).get_or_404(current_user_id).rol
+        if current_user_id != id and rol != "admin":
+            return {"message": "No tienes permiso para ver esta notificacion"}, 403
+        notificacion = db.session.query(NotificacionModel).get_or_404(id)
+        return notificacion.to_json(), 200
 
-NOTIFICACION = {
-    1: {'nombre':'libro_nuevo','Descripcion':'Salio un libro nuevo'}
-    
-}
+
+    @jwt_required()
+    @role_required(roles=["admin", "librarian"])
+    def delete(self, id):
+        notificacion = db.session.query(NotificacionModel).get_or_404(id)
+        try:
+            db.session.delete(notificacion)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"message": "Error al borrar la notificacion", "error": str(e)}), 500
+        return {"message": "Eliminado correctamente", "notificacion": notificacion.to_json()}, 200
+
+    def put(self, id):
+        notificacion = db.session.query(NotificacionModel).get_or_404(id)
+        data = request.get_json()
+        notificacion.titulo = data.get('titulo')
+        notificacion.descripcion = data.get('descripcion')
+        notificacion.vista = data.get('vista')
+        notificacion.categoria = data.get('categoria')
+        
+        try:
+            db.session.add(notificacion)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return {"message": "Error al agregar la notificacion"}, 400
+        return {"message": "Actualizado correctamente", "notificacion": notificacion.to_json()}, 200 
+
 
 class Notificaciones(Resource):
+    @jwt_required()
+    @role_required(roles=["admin", "librarian", "user"])
     def get(self):
         #Página inicial por defecto
         page = 1
@@ -20,6 +60,12 @@ class Notificaciones(Resource):
         
         # Obtener todas las notificaciones
         notificaciones = db.session.query(NotificacionModel)
+        notificaciones = notificaciones.order_by(desc(NotificacionModel.notificacionID))
+
+        current_user_id = get_jwt_identity()
+        rol = db.session.query(UsuarioModel).get_or_404(current_user_id).rol
+        if rol == "user":
+            notificaciones = notificaciones.filter(NotificacionModel.usuarioID == current_user_id)
 
         if request.args.get('page'): ##Existe el parametro "page" en la request?
             page = int(request.args.get('page'))##Si existe, lo cargo
@@ -47,35 +93,47 @@ class Notificaciones(Resource):
 
         notificaciones = notificaciones.paginate(page=page, per_page=per_page, error_out=True)
         # Convertir resultados a JSON y retornar
-        return jsonify({"notificaciones": [notificacion.to_json() for notificacion in notificaciones.items],
+        return jsonify({"notificaciones": [notificacion.to_json_complete() for notificacion in notificaciones.items],
                         'total': notificaciones.total,
                         'pages': notificaciones.pages,
                         'page': page      
         })
 
+
+    @jwt_required()
+    @role_required(roles=["admin", "librarian", "user"])
     def post(self):
         data = request.get_json()
-        notificacion = NotificacionModel.from_json(data) #notificacion = notificacion.from_json(request.get_json()
+        current_user_id = get_jwt_identity()
+        rol = db.session.query(UsuarioModel).get_or_404(current_user_id).rol
+        if rol == "user":
+            librarians = db.session.query(UsuarioModel).filter(UsuarioModel.rol == "librarian").all()
+            if librarians:
+                user_notification = {
+                    'titulo': data.get('titulo'),
+                    'descripcion': data.get('descripcion'),
+                    'categoria': data.get('categoria'),
+                }
+                for librarian in librarians:
+                    user_notification['usuarioID'] = librarian.usuarioID
+                    notificacion = NotificacionModel.from_json(user_notification)
+                    try:
+                        db.session.add(notificacion)
+                        db.session.commit()
+                    except:
+                        db.session.rollback()
 
+                return {"message": "Notificacion enviada correctamente a los bibliotecarios"}, 201
+
+            else:
+                return {"message": "No se encontraron bibliotecarios para enviar la notificacion"}, 400
+
+        db.session.query(UsuarioModel).get_or_404(data.get('usuarioID'))
+        notificacion = NotificacionModel.from_json(data)
         try:
             db.session.add(notificacion)
             db.session.commit()
-        except: # captura cualquier excepción que ocurra durante la ejecución del código en el bloque try,
-            db.session.rollback()  #realiza un rollback de la sesión y luego devuelve el mensaje de error junto con el código de estado 400.      
-            return {"message": "Error al agregar la notificacion"}, 400 # Esto garantiza que cualquier cambio no se guarde en la base de datos si ocurre un error.
-        return notificacion.to_json(), 201
-        
-        
-
-#Cuando ocurre una excepción durante la ejecución del código dentro de un bloque try, 
-#es una buena práctica realizar un rollback de la sesión de la base de datos para 
-#deshacer cualquiercambio realizado desde el inicio de la transacción actual.
-#Esto asegura que la base de datos no quede en un estado inconsistente.
-
-#rollback() se llama para deshacer cualquier cambio realizado en la sesión de la base de datos. 
-#Esto asegura que la base de datos mantenga su integridad en caso de error.
-
-        #notificacion = request.get_json()
-        #id = int(max(NOTIFICACION.keys()))+1
-        #NOTIFICACION[id] = notificacion
-        #return NOTIFICACION[id], 201 
+        except Exception as e: 
+            db.session.rollback() 
+            return {"message": "Error al agregar la notificacion" + str(e)}, 400 
+        return notificacion.to_json_complete(), 201

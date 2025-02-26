@@ -1,14 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from '../../services/book.service';
 import { AuthService } from '../../services/auth.service';
+import { NotificationsService } from '../../services/notifications.service';
+import { UsuariosService } from '../../services/usuarios.service';
+
 
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.css']
 })
-export class BookComponent {
+export class BookComponent implements OnInit {
   @Input() id!: number; 
   @Input() title!: string;
   @Input() author!: any;
@@ -16,6 +19,8 @@ export class BookComponent {
   @Input() quantity: number = 0;
   @Input() image!: string;
   @Input() rating: number = 0;
+  @Input() available_copies:any[] = [];
+  user: any = {};
 
   // Propiedades para el formulario de edición
   isEditing: boolean = false;
@@ -25,7 +30,16 @@ export class BookComponent {
   updatedQuantity: number = 0;
 
 
-  constructor(private router: Router, private bookService: BookService, private authService: AuthService) {}
+  ngOnInit() {
+    if (this.isUser) {
+      this.getUser();
+    }
+  }
+
+  constructor(private router: Router, private bookService: BookService, private authService: AuthService, private notificationService: NotificationsService, private userService: UsuariosService) {}
+  
+
+
   get isAdmin(): boolean {
     return this.authService.isAdmin();
   }
@@ -36,6 +50,46 @@ export class BookComponent {
 
   get isUser(): boolean {
     return this.authService.isUser();
+  }
+
+  getUser() {
+    const userID = this.authService.UserId;
+    this.userService.getUser(userID).subscribe({
+      next: (response) => {
+        this.user = response;
+      },
+      error: (error) => {
+        console.log('Error al obtener el usuario:', error);
+      }
+    })
+  }
+
+  get parseAvailable(): string {
+    let result: string = '';
+    let comma: string = '';
+    for (let copy of this.available_copies) {
+      result += comma + copy.copiaID;
+      comma = ', ';
+    }
+    return result
+  }
+
+  onRentBook() {
+    
+    const data = {
+      "titulo": "Solicitud de préstamo",
+      "descripcion": `El usuario ${this.user?.usuario_email} desea alquilar el libro: ${this.title} (UsuarioID: ${this.user?.usuarioID}, libroID: ${this.id}) copias disponibles: ${this.parseAvailable}.`,
+      "categoria": "info"
+    };
+    
+    this.notificationService.postNotification(data).subscribe({
+      next: (response) => {
+        console.log('Renovar solicitud enviada (broadcast): ', response);
+      },
+      error: (error) => {
+        console.error('Error al enviar la solicitud de renovación del préstamo:', error);
+      }
+    });
   }
 
   get authors():string {
@@ -87,7 +141,5 @@ export class BookComponent {
     });
   }
 
-  onRentBook() {
-    // Lógica para rentar el libro
-  }
+
 }

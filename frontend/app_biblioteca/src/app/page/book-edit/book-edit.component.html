@@ -56,8 +56,9 @@
           </ul>
         </div>
 
+        
         <!-- Género -->
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label for="genreSelect" class="form-label"><i class="bi bi-bookmark"></i> Género:</label>
           <select id="genreSelect" formControlName="genero" class="form-select">
             <option *ngFor="let g of generos" [selected]="g === genero" [value]="g">{{ g }}</option>
@@ -65,7 +66,7 @@
         </div>
 
         <!-- Subir imagen -->
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="uploadImage" class="form-label"><i class="bi bi-image"></i> Portada del libro:</label>
           <div class="input-group">
             <input id="uploadImage" type="file" class="form-control" accept=".jpg" (change)="uploadImage($event)">
@@ -73,10 +74,14 @@
               <i class="bi bi-upload"></i>
             </button>
           </div>
-        </div>
+        </div> -->
+        <app-add-copies
+          [id]="bookId"
+          [copies]="this.copias">
+        </app-add-copies>
 
         <!-- Botón Guardar -->
-        <div class="text-center mt-4">
+        <div class="text-center ">
           <button class="btn btn-upload w-100">
             <i class="bi bi-floppy-fill"></i> Guardar
           </button>

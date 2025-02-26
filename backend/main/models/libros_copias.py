@@ -7,20 +7,23 @@ class LibrosCopias(db.Model):
     copiaID = db.Column(db.Integer, primary_key=True,  autoincrement=True)
     libroID = db.Column(db.Integer, db.ForeignKey('libros.libroID'), nullable=False)
     #relacion 1:M(1 Libro N Copias)
-    libro = db.relationship('Libro', back_populates='copias')   
+    libro = db.relationship('Libro', back_populates='copias', lazy='joined')   
     #relacion 1:1(1 Copia 1 Prestamos)
-    prestamos = db.relationship('Prestamo', back_populates='copias')
+    prestamos = db.relationship('Prestamo', back_populates='copias', cascade='all, delete-orphan')
 
     @property
     def estado(self):
-        if self.prestamos =="disponible":
-            return "Disponible"
-        return "No disponible"    
+        if self.prestamos:
+            return "No disponible"    
+        return "Disponible"
 
 
     def __repr__(self):
         return '<Copia: %r  >' % (self.copiaID)
 
+
+    def to_json_book(self):
+        return {"copiaID": self.copiaID}
 
     def to_json_short(self):
         libros_copias_json = {

@@ -27,6 +27,10 @@ import { StarComponent } from './components/star/star.component';
 import { ReviewComponent } from './components/review/review.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RentsComponent } from './page/rents/rents.component';
+import { SeeNotificationsComponent } from './components/notifications/see-notifications/see-notifications.component';
+import { AddCopiesComponent } from './components/add-copies/add-copies.component';
+import { AddBookComponent } from './components/add-book/add-book.component';
+import { AddRentComponent } from './components/add-rent/add-rent.component';
 
 
 @NgModule({
@@ -51,6 +55,10 @@ import { RentsComponent } from './page/rents/rents.component';
     ReviewComponent,
     BookEditComponent,
     RentsComponent,
+    SeeNotificationsComponent,
+    AddCopiesComponent,
+    AddBookComponent,
+    AddRentComponent,
   ],
   imports: [
     BrowserModule,

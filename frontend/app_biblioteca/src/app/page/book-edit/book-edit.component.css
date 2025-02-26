@@ -64,6 +64,7 @@
 .btn-upload {
   background: #1385ff;
   color: white;
+  border-radius: 7px;
 }
 
 .btn-upload:hover {
