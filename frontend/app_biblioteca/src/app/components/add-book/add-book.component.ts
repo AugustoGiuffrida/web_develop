@@ -38,9 +38,35 @@ export class AddBookComponent {
     });
   }
 
-  addAuthor(author: any) {
-    if (!this.selectedAuthors.includes(author)) {
-      this.selectedAuthors.push(author);
+  repeatedAuthor(test_id: number): boolean {
+    if (test_id === -1){
+      return true
+    }
+    for (let author of this.selectedAuthors) {
+      let id:number = author.autorID 
+      if (id == test_id) {
+        return true
+      }
+    }
+    return false
+  }
+
+  addAuthor() {
+    const author = this.bookForm.get('author')?.value
+    const name: string = author?.split(' ')[0] || '';
+    const lastname: string = author?.split(' ')[1] || '';
+    if (!name || !lastname) {
+      return; 
+    } else {
+      this.authorsService.getAuthor_by_fullname(name + " " + lastname).subscribe((answer:any) => {
+        const new_author = answer.autores[0];
+        const id: number = new_author?.autorID || -1
+        if (new_author && !this.repeatedAuthor(id)) { //No permite añadir autores repetidos
+          this.selectedAuthors.push(new_author);
+          //this.book_authors.push(answer.authors[0]);
+          this.bookForm.controls['author'].setValue('');
+        }
+      })      
     }
     this.bookForm.get('author')?.reset();
   }
@@ -50,25 +76,21 @@ export class AddBookComponent {
   }
 
   save() {
-    if (this.bookForm.invalid || this.selectedAuthors.length === 0) {
+    if (this.bookForm.invalid) {
       this.errorBookCreated.emit('Todos los campos son obligatorios y debe haber al menos un autor.');
       return;
     }
 
     const data = {
+      image: "",
       titulo: this.bookForm.value.title.trim(),
       genero: this.bookForm.value.gender,
       editorial: this.bookForm.value.publisher.trim(),
-      autores: this.selectedAuthors.map(author => author.id)
+      autores: this.selectedAuthors.map(author => author.autorID)
     };
-
-    this.booksService.createBook(data).subscribe(
-      (response) => {
-        this.bookForm.reset();
-        this.selectedAuthors = [];
-        this.bookCreated.emit(`Libro creado con éxito: ID ${response.id}`);
-      },
-      () => this.errorBookCreated.emit('Error al crear el libro. Verifica los datos.')
-    );
+    this.booksService.createBook(data).subscribe((answer)=>{
+      this.bookForm.reset();
+      console.log(answer)
+    })
   }
 }

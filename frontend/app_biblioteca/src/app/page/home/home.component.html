@@ -36,11 +36,12 @@
 </main>
 
 <!-- Modal de Crear Libro -->
-<!-- <app-add-book
+<app-add-book
   (bookCreated)="bookCreated($event)"
   (errorBookCreated)="errorBookCreated($event)">
-</app-add-book> -->
+</app-add-book>
 
 
-
-<app-paginate [page]="page" [pages]="pages" (pageChange)="getBooks($event)"></app-paginate>
+<div class="container pb-5">
+<app-paginate class="mb-5" [page]="page" [pages]="pages" (pageChange)="getBooks($event)"></app-paginate>
+</div> 

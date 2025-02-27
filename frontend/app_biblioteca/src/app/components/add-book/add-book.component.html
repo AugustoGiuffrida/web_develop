@@ -28,22 +28,30 @@
 
           <!-- Autores -->
           <div class="mb-2">
-            <input 
-              formControlName="author"
-              class="form-control"
-              placeholder="Buscar autor"
-              (input)="getAuthors()"
-              list="authorsList"
-            >
+
+            <div class="input-group">
+              <input
+                formControlName="author" 
+                type="text" class="form-control" 
+                placeholder="Buscar autor" 
+                aria-label="Buscar autor" 
+                aria-describedby="button-addon2"
+                (input)="getAuthors()"
+                list="authorsList">
+              <button  class="btn btn-outline-primary" type="button" id="button-addon2" (click)="addAuthor()">
+                <i class="bi bi-plus-circle"></i>
+              </button>
+            </div>
+            
             <datalist id="authorsList">
-              <option *ngFor="let author of authors" [value]="author.name + ' ' + author.lastname"></option>
+              <option *ngFor="let author of authors" [value]="author.autor_nombre + ' ' + author.autor_apellido"></option>
             </datalist>
             <ul class="list-group mt-2">
               <li 
                 class="list-group-item d-flex justify-content-between align-items-center"
                 *ngFor="let author of selectedAuthors"
               >
-                {{ author.name }} {{ author.lastname }}
+                {{ author.autor_nombre }} {{ author.autor_apellido }}
                 <button type="button" class="btn btn-sm btn-danger" (click)="removeAuthor(author)">
                   <i class="bi bi-trash"></i>
                 </button>
