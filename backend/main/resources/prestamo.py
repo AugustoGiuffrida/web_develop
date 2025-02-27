@@ -62,7 +62,7 @@ class Prestamos(Resource):
         #Página inicial por defecto
         page = 1
         #Cantidad de elementos por página por defecto
-        per_page = 8
+        per_page = 4
         
         #no ejecuto el .all()
         prestamos = db.session.query(PrestamoModel)
