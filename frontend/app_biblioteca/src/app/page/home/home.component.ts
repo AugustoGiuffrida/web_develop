@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BooksService } from '../../services/books.service';
 
@@ -7,7 +7,7 @@ import { BooksService } from '../../services/books.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   books: any[] = [];
   searchQuery = '';
   filteredBooks = this.books;
@@ -37,7 +37,7 @@ export class HomeComponent {
     this.booksService.getBooks(page).subscribe((answer: any) => {
       this.books = answer.libros || [];
       this.filteredBooks = [...this.books];
-      this.pages = answer.pages || 1; // Cambia aquí para obtener el número de páginas
+      this.pages = answer.pages || 1; 
     });
   }
   

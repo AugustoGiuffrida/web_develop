@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { inject } from '@angular/core';
+import { inject } from '@angular/core'; //permite inyectar dependencias fuera del constructor
+//garantiza que los controles no retornen valores nulos.
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RentsService } from '../../services/rents.service';
 
@@ -12,7 +13,7 @@ export class AddRentComponent {
   @Output() rentCreated = new EventEmitter()
   @Output() errorRentCreated = new EventEmitter()
 
-  private fb = inject(NonNullableFormBuilder)
+  private fb = inject(NonNullableFormBuilder) //permite construir el formulario reactivo sin declararlo en el constructor
 
   rentForm = this.fb.group({
     usuarioID: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -26,11 +27,11 @@ export class AddRentComponent {
   createRent() {
     console.log(this.rentForm.value)
     this.rentsService.createLoan(this.rentForm.value).subscribe({
-      next: (res) => {
+      next: (res) => { //se ejecuta cada vez que el Observable emite un valor.
         console.log(res);
-        this.rentCreated.emit()
+        this.rentCreated.emit() //se emite el evento rentCreated para notificar que la operación fue exitosa.
       },
-      error: (err) => {
+      error: (err) => { //se ejecuta si hay algún error en la emisión de valores por el Observable
         console.log(err);
         this.errorRentCreated.emit()
       }

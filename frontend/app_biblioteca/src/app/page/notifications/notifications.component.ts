@@ -19,7 +19,6 @@ export class NotificationsComponent {
     return item.notificacionID;
   }
   
-
   getNotifications() {
     this.notificationsService.getNotifications().subscribe(
       (answer: any) => {
@@ -36,7 +35,5 @@ export class NotificationsComponent {
     );
   }
   
-  
-
 
 }

@@ -22,11 +22,9 @@ export class AddCopiesComponent {
 
   constructor(private copiesService: CopiesService, private route: ActivatedRoute) {}
 
-  ngOnInit() {
-    this.libroID = Number(this.route.snapshot.paramMap.get('id'));
+  ngOnInit() { //Extrae el parametro id de la ruta
+    this.libroID = Number(this.route.snapshot.paramMap.get('id')); 
   }
-
-  
 
   get addQuantityInvalid(): boolean {
     return this.addQuantity.invalid && (this.addQuantity.touched || this.addQuantity.dirty);

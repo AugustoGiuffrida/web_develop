@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
   templateUrl: './see-user.component.html',
   styleUrls: ['./see-user.component.css'],
 })
-export class SeeUserComponent {
+export class SeeUserComponent implements OnInit{//cambio
   @Input() id: number = 0;
   @Input() nombre: string = '';
   @Input() apellido: string = '';
@@ -22,7 +22,7 @@ export class SeeUserComponent {
 
   constructor(private usuariosService: UsuariosService) {}
 
-  ngOnInit() {
+  ngOnInit() { //se ejecuta al iniciar el componente.
     this.usuariosService.getUser(this.id).subscribe(user => {
     this.user = user;
   });
@@ -47,7 +47,7 @@ export class SeeUserComponent {
       return;
     }
 
-    const updatedData = { rol: this.editedRole };
+    const updatedData = { rol: this.editedRole }; //datos que se enviarán al backend 
     this.usuariosService.updateUser(this.id, updatedData).subscribe(
       () => {
         this.rol = this.editedRole; // Actualizar el rol en la vista

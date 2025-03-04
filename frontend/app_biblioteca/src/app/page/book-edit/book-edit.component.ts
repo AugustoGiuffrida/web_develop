@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthorsService } from '../../services/authors.service';
@@ -17,10 +17,10 @@ export class BookEditComponent implements OnInit {
   image: string = ''; 
   editorial: string = '';
   genero: string = '';
-  autores: any[] = [];            // Ya están en el libro
-  new_autores: any[] = [];        // id de nuevos autores
-  lista_autores: any[] = [];      // Lista de autores dinámica (input)
-  libros_autores: any[] = [];
+  autores: any[] = [];        // Ya están en el libro
+  new_autores: any[] = [];    // id de nuevos autores
+  lista_autores: any[] = [];  // Lista de autores Sugerencia
+  libros_autores: any[] = []; //Interfaz
   copias: any[] = [];
   isLoading = false;
   errors: any = {};
@@ -49,7 +49,7 @@ export class BookEditComponent implements OnInit {
 
   }
 
-  get str_autores(): string {
+  get str_autores(): string { //cadena de texto que almacena el nombre completo de cada autor
     let str_authors: string = '';
     let comma: string = '';
     if (this.autores.length == 0) {
@@ -77,10 +77,10 @@ export class BookEditComponent implements OnInit {
       return;
     } else {
       this.authorsService.getAuthor_by_fullname(fullname).subscribe((answer:any) => {
-        const id = answer.autores[0].autorID;
+        const id = answer.autores[0].autorID; // ID del primer autor encontrado
         if (id && !(this.repeatedAuthor(id))) {
-          this.new_autores.push(id);
-          this.libros_autores.push(answer.autores[0]);
+          this.new_autores.push(id); //Guardo solo el id porque la tabla de libros recibe solo el id del autor
+          this.libros_autores.push(answer.autores[0]); //Visualizar autores en la interfaz
           this.editBookForm.controls['author'].setValue('');
         }
       })
@@ -113,7 +113,7 @@ export class BookEditComponent implements OnInit {
     }
   }
   
-  getBook(id: number) {
+  getBook(id: number) { //obtener la información de un libro desde el backend
     this.bookService.getBook(id).subscribe((data: any) => {
       this.bookId = id;
       this.titulo = data.titulo;
@@ -122,22 +122,11 @@ export class BookEditComponent implements OnInit {
       this.genero = data.genero;
       this.copias = data.copias || [];
       this.autores = data.autores;
-      for (let author of this.autores) {
+      for (let author of this.autores) {//separar la información
         this.new_autores.push(author.autorID);
         this.libros_autores.push(author);
       }
     });
-  }
-  
-  uploadImage(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.image = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
   }
   
   submit() {
