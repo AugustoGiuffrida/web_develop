@@ -37,6 +37,13 @@ Es una interfaz importada desde @angular/core que Angular utiliza para identific
 ## ngOnInit()
 Metodo que se llama una vez que Angular ha inicializado las propiedades de entrada (inputs) del componente
 
+## FormGroup
+Representar el formulario en su conjunto. Este objeto agrupa varios controles (campos) y gestiona su estado
+
+## FormBuilder
+FormBuilder es una clase que Angular proporciona para facilitar la creación y configuración de formularios reactivos.
+Permite construir un FormGroup de manera más sencilla y legible, en lugar de tener que instanciar manualmente cada control.
+
 ## Señales
 Las señales (signals) son una forma de gestionar el estado reactivo en las aplicaciones. Permiten la lectura y actualización de datos. Angular detecta automáticamente cuándo cambia el valor de una señal y actualiza los componentes que la usan, optimizando el rendimiento.
 

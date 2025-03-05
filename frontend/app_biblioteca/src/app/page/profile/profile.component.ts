@@ -16,12 +16,12 @@ export class ProfileComponent implements OnInit {
   usuario_telefono: string = '0';
   rol: string = '';
 
-  editForm!: FormGroup;
+  editForm!: FormGroup; //representar el formulario en su conjunto
   isModalOpen = false;
 
   constructor(
     private usuariosService: UsuariosService,
-    private fb: FormBuilder,
+    private fb: FormBuilder, // FormBuilder uso  crear y configurar el formulario reactivo
     private authService: AuthService
   ) {}
 
