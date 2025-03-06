@@ -89,9 +89,11 @@ export class SeeRentsComponent {
   
     this.notificationService.postNotification(data).subscribe({
       next: (response) => {
+        alert('¡Tu solicitud de renovación ha sido enviada con éxito!');
         console.log('Renovar solicitud enviada (broadcast): ', response);
       },
       error: (error) => {
+        alert('Error al enviar la solicitud de renovación del préstamo');
         console.error('Error al enviar la solicitud de renovación del préstamo:', error);
       }
     });
@@ -107,12 +109,13 @@ export class SeeRentsComponent {
     const data = {
       "titulo": "Aviso de vencimiento de préstamo",
       "descripcion": `Estimado usuario ${this.rent.usuario?.usuario_email}, su préstamo del libro: ${this.rent.copias?.titulo} está vencido.`,
-      "categoria": "warning",
+      "categoria": "danger",
       "usuarioID": this.rent.usuario?.usuarioID // Asegurar que se envía la notificación al usuario correcto
     };
   
     this.notificationService.postNotification(data).subscribe({
       next: (response) => {
+        alert('¡Notificacion enviada con éxito!');
         console.log('Aviso enviado: ', response);
       },
       error: (error) => {

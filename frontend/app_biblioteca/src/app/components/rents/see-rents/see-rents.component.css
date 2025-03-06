@@ -3,6 +3,15 @@ body {
   background-color: #f5f5f5; /* Fondo suave para toda la página */
 }
 
+.notify-button {
+  border-radius: 5px;  /* Bordes redondeados */
+  font-weight: bold;  /* Texto en negrita */
+  font-size: 0.70rem;  /* Tamaño de fuente más pequeño */
+  height: 23px; /* Altura fija */
+  padding-bottom: 10px;
+}
+
+
 .loan-card {
   border: 1px solid #e0e0e0; /* Borde claro */
   border-radius: 10px; /* Esquinas ligeramente redondeadas */

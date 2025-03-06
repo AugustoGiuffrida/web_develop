@@ -9,10 +9,10 @@
           <p class="card-text mb-2"><strong>Estado: </strong> 
             <span class="badge bg-{{ statusColor }} text-bg-{{ statusColor }}">{{ status }}</span>
             @if(statusColor == "danger" && isLibrarian){
-            <button (click)="sendWarning()">
-              notificar
-            </button>
-          }
+              <button class="btn btn-warning btn-sm notify-button ms-2" (click)="sendWarning()">
+                <i class="bi bi-bell-fill"></i> Notificar
+              </button>
+            }            
           </p>
           <div *ngIf="isAdmin || isLibrarian" class="mt-2">
             <p class="text-muted small">Alquilado por: {{ userEmail }}</p>

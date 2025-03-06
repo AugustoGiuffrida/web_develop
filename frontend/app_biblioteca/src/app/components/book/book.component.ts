@@ -88,10 +88,12 @@ export class BookComponent implements OnInit {
     
     this.notificationService.postNotification(data).subscribe({
       next: (response) => {
-        console.log('Renovar solicitud enviada (broadcast): ', response);
+        console.log('Renovar solicitud enviada: ', response);
+        alert('¡Tu solicitud de préstamo ha sido enviada con éxito!');
       },
       error: (error) => {
-        console.error('Error al enviar la solicitud de renovación del préstamo:', error);
+        console.error('Error al enviar la solicitud de préstamo:', error);
+        alert('Error al enviar la solicitud. Intenta nuevamente.');
       }
     });
   }
