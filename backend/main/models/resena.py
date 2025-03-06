@@ -16,6 +16,10 @@ class Resena(db.Model):
     libro = db.relationship("Libro", back_populates="resenas")
     #libro = db.relationship("Libro", back_populates="resenas", uselist=False, single_parent=True)
 
+    __table_args__ = (
+        db.UniqueConstraint('usuarioID', 'libroID', name='unique_user_book_comment'),
+    ) #no puede existir más de una reseña para un mismo libro hecha por un mismo usuario
+
     def __repr__(self):
         return '<Resena: %r >' % self.resenaID
 

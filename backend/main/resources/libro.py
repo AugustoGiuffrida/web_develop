@@ -102,6 +102,34 @@ class Libros(Resource):
         })
 
 
+        # # Filtro y ordenación por rating
+        # if request.args.get('sortby_rating'):
+        #     sort_order = request.args.get('sortby_rating')
+            
+        #     # Subconsulta para obtener el rating
+        #     rating_subquery = db.session.query(
+        #         LibroModel.libroID,
+        #         func.avg(ResenaModel.valoracion).label('avg_rating')
+        #     ).join(ResenaModel).group_by(LibroModel.libroID).subquery()
+            
+        #     libros = libros.join(rating_subquery, LibroModel.libroID == rating_subquery.c.libroID)
+            
+        #     # Ordenar según la valoración
+        #     if sort_order == "desc":
+        #         libros = libros.order_by(rating_subquery.c.avg_rating.desc())
+        #     elif sort_order == "asc":
+        #         libros = libros.order_by(rating_subquery.c.avg_rating.asc())
+
+        # # Paginar los libros
+        # libros = libros.paginate(page=page, per_page=per_page, error_out=True)
+
+        # return jsonify({
+        #     'libros': [libro.to_json_complete() for libro in libros.items],
+        #     'total': libros.total,
+        #     'pages': libros.pages,
+        #     'page': page
+        # })
+
 
     @jwt_required()
     @role_required(roles=['admin', 'librarian'])
