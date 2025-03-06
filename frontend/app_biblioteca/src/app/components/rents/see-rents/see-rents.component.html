@@ -8,6 +8,11 @@
           <p class="mb-1"><span class="badge bg-primary">Días restantes: {{ daysLeft }}</span></p>
           <p class="card-text mb-2"><strong>Estado: </strong> 
             <span class="badge bg-{{ statusColor }} text-bg-{{ statusColor }}">{{ status }}</span>
+            @if(statusColor == "danger"){
+            <button>
+              notificar
+            </button>
+          }
           </p>
           <div *ngIf="isAdmin || isLibrarian" class="mt-2">
             <p class="text-muted small">Alquilado por: {{ userEmail }}</p>

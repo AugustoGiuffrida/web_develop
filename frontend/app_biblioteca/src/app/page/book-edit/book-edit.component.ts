@@ -135,8 +135,9 @@ export class BookEditComponent implements OnInit {
     data.editorial = this.editBookForm.controls['editorial'].value;
     data.genero = this.editBookForm.controls['genero'].value;
     data.autores = this.new_autores;
-    this.bookService.updateBook(this.bookId, data).subscribe(() => {})
-    window.location.reload();
+    this.bookService.updateBook(this.bookId, data).subscribe(() => {
+      window.location.reload();
+    })
   }
 
 }

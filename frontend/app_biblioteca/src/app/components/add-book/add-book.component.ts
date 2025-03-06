@@ -82,7 +82,7 @@ export class AddBookComponent {
     }
 
     const data = {
-      image: "",
+      image: "default-book-cover.jpg",
       titulo: this.bookForm.value.title.trim(),
       genero: this.bookForm.value.gender,
       editorial: this.bookForm.value.publisher.trim(),
@@ -90,7 +90,6 @@ export class AddBookComponent {
     };
     this.booksService.createBook(data).subscribe((answer)=>{
       this.bookForm.reset();
-      console.log(answer)
     })
   }
 }
