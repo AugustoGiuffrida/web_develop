@@ -8,8 +8,8 @@
           <p class="mb-1"><span class="badge bg-primary">Días restantes: {{ daysLeft }}</span></p>
           <p class="card-text mb-2"><strong>Estado: </strong> 
             <span class="badge bg-{{ statusColor }} text-bg-{{ statusColor }}">{{ status }}</span>
-            @if(statusColor == "danger"){
-            <button>
+            @if(statusColor == "danger" && isLibrarian){
+            <button (click)="sendWarning()">
               notificar
             </button>
           }

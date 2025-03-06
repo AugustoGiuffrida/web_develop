@@ -24,6 +24,11 @@ export class SeeRentsComponent {
   editedFechaEntrega: string = '';
   editedFechaDevolucion: string = '';
 
+  ngOnInit() {
+    console.log('Préstamo recibido en SeeRentsComponent:', this.rent);
+  }
+  
+
   constructor(
     private rentsService: RentsService, 
     private authService: AuthService, 
@@ -76,8 +81,6 @@ export class SeeRentsComponent {
   }
   
   sendRenewalRequest() {
-    console.log('Rent data:', this.rent);
-
     const data = {
       "titulo": "Solicitud de renovación de préstamo",
       "descripcion": `El usuario ${this.rent.usuario?.usuario_email} desea renovar el préstamo del libro: ${this.rent.copias?.titulo} (copiaID: ${this.rent.copias?.copiaID}, UsuarioID: ${this.rent.usuario?.usuarioID}).`,
@@ -94,7 +97,30 @@ export class SeeRentsComponent {
     });
   }
   
-
+  sendWarning() {
+    console.log('Datos del préstamo:', this.rent);
+    if (!this.rent.usuario?.usuarioID) {
+      console.error('No se encontró el usuario para enviar la notificación.');
+      return;
+    }
+  
+    const data = {
+      "titulo": "Aviso de vencimiento de préstamo",
+      "descripcion": `Estimado usuario ${this.rent.usuario?.usuario_email}, su préstamo del libro: ${this.rent.copias?.titulo} está vencido.`,
+      "categoria": "warning",
+      "usuarioID": this.rent.usuario?.usuarioID // Asegurar que se envía la notificación al usuario correcto
+    };
+  
+    this.notificationService.postNotification(data).subscribe({
+      next: (response) => {
+        console.log('Aviso enviado: ', response);
+      },
+      error: (error) => {
+        console.error('Error al enviar el aviso', error);
+      }
+    });
+  }
+  
 
   closeModal(): void {
     this.isModalOpen = false;
