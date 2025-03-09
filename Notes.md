@@ -1,3 +1,69 @@
+# Flask
+
+## API
+Una API (Application Programming Interface) es un conjunto de reglas y definiciones que permiten que dos sistemas o aplicaciones se comuniquen entre sí.
+
+## API-RESTS
+REST: arquitectura de software para aplicaciones web.
+
+1. Cliente-Servidor: El cliente está separado del servidor. 
+2. Sin estado: No se almacena la información del cliente entre las solicitudes. Cada una de ellas es independiente y está desconectada del resto. 
+3. Cache: Datos que pueden almacenarse en caché y optimizan las interacciones entre el cliente y el servidor.
+4. HTTP: Protocolo por el cual el cliente accede a los recursos.
+
+## Recursos
+Un recurso es cualquier entidad que la API maneja y expone a través de sus endpoints.
+
+- Cada recurso tiene una URL única que lo identifique. Los servicios web RESTful se basan en la idea de que todo en la aplicación es un recurso, y que cada recurso puede ser identificado de forma única mediante una URL.
+- El cliente puede manipular los recursos a través de la representación que recibe, ya que esta contiene suficiente información para permitirlo. 
+- Una colección de todos los recursos debe tener asignada una URL.
+
+## MÉTODOS DE REQUEST
+- GET para obtener un recurso del servidor 
+- POST para crear un recurso del servidor 
+- PUT para actualizar un recurso del servidor 
+- DELETE para eliminar un recurso del servidor
+
+## FLASK RESTful
+Módulo que brinda soporte para la construcción rápida de APIS REST. Flask-RESTful se encarga de manejar las solicitudes HTTP (GET, POST, PUT, DELETE, etc.) y generar respuestas en formato JSON, XML u otros formatos.
+
+## Recursos Flask-RESTful
+Los recursos son clases que definen la lógica de negocio para cada solicitud HTTP que se maneja en una API RESTful. Los recursos se encargan de procesar las solicitudes y generar las respuestas correspondientes.
+
+## ORM (mapeo objeto-relacional)
+Permite que en lugar de realizar un código en sql para acceder y manipular a los datos, se trabaja con objetos de programación que representan los datos en la DB (Traduce las operaciones entre los objetos de programación a instrucciones en sql).
+
+## Flask-SQLAlchemy
+Extensión de Flask que permite una integración facil de la biblioteca SQLAlchemy a Flask. Es una herramienta de mapeo objeto-relacional (ORM).
+
+## Paginacion
+Técnica usada en APIs para dividir grandes conjuntos de datos en páginas más pequeñas, facilitando su consumo y mejorando el rendimiento del servidor y la aplicación cliente.
+
+- Paginación con Offset: Este método usa los parámetros limit y offset para obtener un subconjunto de registros.
+- Paginación basada en Keyset: Se basa en una clave única y ordenada (como id o created_at).
+
+## JWT
+- Es un estándar abierto de internet para la creación de tokens de acceso, definiendo así un formato seguro para transmitir información de manera digital entre partes. Son tokens basados en JSON.
+- Evita la necesidad de guardar datos se sesión del lado del servidor en las API.
+- Permite que un usuario se autentique y acceda a recursos o servicios protegidos.
+
+### JWT - LOGIN
+Cómo sería un proceso de login:
+- El cliente (front) envía las credenciales.
+- El servidor genera un JWT y se lo devuelve al cliente
+- El cliente guarda ese token para utilizarlo en las diferentes consultas.
+
+### JWT - ESTRUCTURA
+- Cabecera: describe el tipo de token y el algoritmo de cifrado utilizado para firmar y verificar la integridad del token.
+- Contenido o payload: contiene la información del usuario o la entidad que está siendo autenticada o autorizada.
+- Firma o Signature: es un hash criptográfico generado a partir de la combinación de la primera y la segunda sección, y se utiliza para verificar la integridad del token.
+
+### JWT - ACCESO AL RECURSO
+- El cliente envía con su solicitud (GET, POST, etc) el token.
+- La API verifica que dicho token no está vencido y que es válido.
+- La API verifica que el rol del cliente tiene permisos para acceder al recurso que está intentando consumir.
+- El servidor responde con el recurso solicitado.
+
 # Angular
 
 ## Enrutamiento
@@ -5,7 +71,7 @@ Permite navegar entre diferentes vistas de la aplicación sin necesidad de recar
 
 Angular es una SPA (Single Page Application), lo que significa que carga una sola página HTML (index.html) y usa el enrutador para mostrar diferentes vistas sin necesidad de recargar la página completa.
 
-En lugar de que el navegador haga una petición al servidor cada vez que cambias de vista, Angular cambia los componentes dinámicamente en el <router-outlet>. Esto mejora el rendimiento y la experiencia del usuario porque la navegación es mucho más rápida.
+En lugar de que el navegador haga una petición al servidor cada vez que cambias de vista, Angular cambia los componentes dinámicamente en el `<router-outlet>`. Esto mejora el rendimiento y la experiencia del usuario porque la navegación es mucho más rápida.
 
 ## Componentes
 Los componentes son los principales bloques de construcción de aplicaciones en angular. Cada componente representa una parte de una página web más grande. Organizar una aplicación en componentes ayuda a proporcionar estructura a su proyecto, separando el código en partes que son fáciles de mantener y crecer con el tiempo.
