@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthorsService } from '../../services/authors.service';
@@ -17,6 +17,7 @@ export class BookEditComponent implements OnInit {
   image: string = ''; 
   editorial: string = '';
   genero: string = '';
+  cantidad: number = 0;
   autores: any[] = [];        // Ya están en el libro
   new_autores: any[] = [];    // id de nuevos autores
   lista_autores: any[] = [];  // Lista de autores Sugerencia
@@ -25,14 +26,16 @@ export class BookEditComponent implements OnInit {
   isLoading = false;
   errors: any = {};
 
+  private fb = inject(FormBuilder);
 
   generos = ['Fiction', 'Non-fiction', 'Mystery', 'Science Fiction', 'Fantasy'];
-  editBookForm = new FormGroup({
-    title: new FormControl(''),
-    author: new FormControl(''),
-    editorial: new FormControl(''),
-    genero: new FormControl(''),
-  })
+
+  editBookForm: FormGroup = this.fb.group({
+    title: ['', [Validators.maxLength(40)]],
+    author: [''],
+    editorial: ['', [Validators.required, Validators.maxLength(100)]],
+    genero: ['', [Validators.required]]
+  });
 
   constructor(
     private authorsService: AuthorsService,
@@ -120,6 +123,7 @@ export class BookEditComponent implements OnInit {
       this.image = data.image;
       this.editorial = data.editorial;
       this.genero = data.genero;
+      this.cantidad = data.cantidad;
       this.copias = data.copias || [];
       this.autores = data.autores;
       for (let author of this.autores) {//separar la información
