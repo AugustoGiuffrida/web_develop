@@ -77,7 +77,7 @@ export class BookDetailsComponent implements OnInit {
       next: () => window.location.reload(),
       error: (err) => {
         console.error("Error al enviar la reseña:", err);
-        this.errorMessage = "No puedes comentar este libro más de una vez.";
+        this.errorMessage = "No puedes comentar este libro.";
       }
     });
   }

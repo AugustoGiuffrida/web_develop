@@ -69,14 +69,19 @@ class Resenas(Resource):
     @jwt_required()
     @role_required(roles=['user'])
     def post(self):
-            resena_json = request.get_json()
-            db.session.query(UsuarioModel).get_or_404(resena_json.get('usuarioID'))
-            db.session.query(LibroModel).get_or_404(resena_json.get('libroID'))
-            resena= ResenaModel.from_json(request.get_json())
-            try:
-                db.session.add(resena)  # Agregar la resena a la sesión
-                db.session.commit()  # Guardar la resena en la base de datos
-            except:
-                db.session.rollback()  # Deshacer cualquier cambio en la sesión de la base de datos
-                return {"message": "Error al mostrar la resena"}, 500  # Devolver un mensaje de error genérico
-            return resena.to_json(), 201  # Devolver la resena como JSON con código de estado 201 (creado)
+        resena_json = request.get_json()
+        usuario = db.session.query(UsuarioModel).get_or_404(resena_json.get('usuarioID'))
+
+        #Verificar el rol actualizado del usuario en la BD
+        if usuario.rol != 'user':
+            return {"message": "No tienes permiso para crear una reseña"}, 403
+        
+        db.session.query(LibroModel).get_or_404(resena_json.get('libroID'))
+        resena = ResenaModel.from_json(resena_json)
+        try:
+            db.session.add(resena)
+            db.session.commit()
+        except:
+            db.session.rollback()
+            return {"message": "Error al mostrar la resena"}, 500
+        return resena.to_json(), 201
