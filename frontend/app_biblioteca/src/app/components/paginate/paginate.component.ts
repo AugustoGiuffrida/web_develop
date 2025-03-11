@@ -17,8 +17,22 @@ export class PaginateComponent implements OnChanges { // interceptar cambios en 
     }
   }
 
-  get range(): number[] { //arreglo de números que representa las páginas
-    return Array.from({ length: this.pages }, (_, i) => i + 1);
+  get range(): number[] {
+    const rangeSize = 5;
+    const halfRange = Math.floor(rangeSize / 2);
+
+    let start = Math.max(1, this.page - halfRange);
+    let end = Math.min(this.pages, this.page + halfRange);
+
+    if (end - start + 1 < rangeSize) {
+      if (start === 1) {
+        end = Math.min(start + rangeSize - 1, this.pages);
+      } else if (end === this.pages) {
+        start = Math.max(end - rangeSize + 1, 1);
+      }
+    }
+
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
   goToPage(pageNumber: number) { //Cambiar la página actual
