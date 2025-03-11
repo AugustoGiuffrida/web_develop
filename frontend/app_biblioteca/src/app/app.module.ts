@@ -31,6 +31,7 @@ import { SeeNotificationsComponent } from './components/notifications/see-notifi
 import { AddCopiesComponent } from './components/add-copies/add-copies.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { AddRentComponent } from './components/add-rent/add-rent.component';
+import { NewAuthorComponent } from './components/new-author/new-author.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { AddRentComponent } from './components/add-rent/add-rent.component';
     AddCopiesComponent,
     AddBookComponent,
     AddRentComponent,
+    NewAuthorComponent,
   ],
   imports: [
     BrowserModule,
