@@ -2,11 +2,13 @@
 <button
   type="button"
   class="btn btn-secondary mb-3 w-100 w-md-50 rounded-3 bg-light-purple"
+  (click)="openModal()"
   data-bs-toggle="modal"
   data-bs-target="#addCopiesModal"
 >
   <i class="bi bi-journal"></i> Editar Copias
 </button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="addCopiesModal" tabindex="-1" aria-labelledby="addCopiesModalLabel" aria-hidden="true">

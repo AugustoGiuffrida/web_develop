@@ -17,7 +17,7 @@ export class PaginateComponent implements OnChanges { // interceptar cambios en 
     }
   }
 
-  get range(): number[] {
+  get range(): number[] { //arreglo de números que representa las páginas
     const rangeSize = 5;
     const halfRange = Math.floor(rangeSize / 2);
 

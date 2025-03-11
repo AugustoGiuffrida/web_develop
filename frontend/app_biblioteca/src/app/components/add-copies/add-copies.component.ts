@@ -28,6 +28,11 @@ export class AddCopiesComponent implements OnInit {
     this.getCopies();
   }
 
+  openModal(): void {
+    this.getCopies(); // Actualiza las copias antes de abrir el modal
+  }
+  
+
   get addQuantityInvalid(): boolean {
     return this.addQuantity.invalid && (this.addQuantity.touched || this.addQuantity.dirty);
   }
