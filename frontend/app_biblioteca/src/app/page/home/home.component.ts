@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
   }
   
   
-
   getBooks(page: number) {
     this.page = page; // Actualiza la página actual
     this.booksService.getBooks(page).subscribe((answer: any) => {
@@ -42,12 +41,12 @@ export class HomeComponent implements OnInit {
   }
   
   filterBooks() {
-    this.filteredBooks = this.books.filter(book =>
-      book.titulo.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-      book.autores?.some((autor: any) =>
-        (autor.autor_nombre + ' ' + autor.autor_apellidos).toLowerCase().includes(this.searchQuery.toLowerCase())
-      )
-    );
+    const query = this.searchQuery
+    this.booksService.getBooks(1,query).subscribe((answer: any) => {
+      this.books = answer.libros || [];
+      this.filteredBooks = [...this.books];
+      this.pages = answer.pages || 1; 
+    });
   }
 }
 

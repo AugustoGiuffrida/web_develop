@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorsService } from '../../services/authors.service';
 import { BooksService } from '../../services/books.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-add-book',
@@ -21,7 +22,8 @@ export class AddBookComponent {
   constructor(
     private fb: FormBuilder,
     private authorsService: AuthorsService,
-    private booksService: BooksService
+    private booksService: BooksService,
+    private authService:AuthService
   ) {
     this.bookForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(4)]],
@@ -29,6 +31,14 @@ export class AddBookComponent {
       author: [''],
       gender: ['', Validators.required]
     });
+  }
+
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  get isLibrarian(): boolean {
+    return this.authService.isLibrarian();
   }
 
   getAuthors() {

@@ -83,7 +83,7 @@
 </div>
 
 <!-- Botón flotante para abrir el modal -->
-<div class="fixed-bottom text-end mb-3 me-3">
+<div *ngIf="isAdmin || isLibrarian" class="fixed-bottom text-end mb-3 me-3">
   <button class="btn btn-info text-white shadow rounded-4" data-bs-toggle="modal" data-bs-target="#createBook">
     <i class="bi bi-plus-circle-fill fs-3"></i>
   </button>

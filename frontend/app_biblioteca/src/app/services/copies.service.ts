@@ -16,7 +16,7 @@ export class CopiesService {
   addCopy(libroID: number, cantidad: number): Observable<any> {
     const data = {
       libroID: libroID,
-      quantity: Number(cantidad)
+      cantidad: Number(cantidad)
     }
     return this.httpClient.post(`${this.url}/libros_copias`, data).pipe(take(1))
   }
