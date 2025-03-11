@@ -7,8 +7,6 @@ import { take } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CopiesService {
-
-
   url = '/api';
 
   constructor(private httpClient: HttpClient) { }
@@ -17,12 +15,16 @@ export class CopiesService {
     const data = {
       libroID: libroID,
       cantidad: Number(cantidad)
-    }
-    return this.httpClient.post(`${this.url}/libros_copias`, data).pipe(take(1))
+    };
+    return this.httpClient.post(`${this.url}/libros_copias`, data).pipe(take(1));
   }
 
   deleteCopy(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.url}/libros_copia/${id}`).pipe(take(1))
+    return this.httpClient.delete(`${this.url}/libro_copia/${id}`).pipe(take(1));
   }
 
+  // Nuevo método para obtener las copias de un libro
+  getCopies(libroID: number): Observable<any> {
+    return this.httpClient.get(`${this.url}/libros_copias?libroID=${libroID}`).pipe(take(1));
+  }
 }

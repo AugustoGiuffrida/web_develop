@@ -1,15 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { CopiesService } from '../../services/copies.service';
 import { ActivatedRoute } from '@angular/router';
-
 
 @Component({
   selector: 'app-add-copies',
   templateUrl: './add-copies.component.html',
   styleUrls: ['./add-copies.component.css'],
 })
-export class AddCopiesComponent {
+export class AddCopiesComponent implements OnInit {
   @Input() libroID!: number; // ID del libro para asociar las copias
   @Input() copies: any[] = []; // Lista de copias actuales
 
@@ -22,8 +21,11 @@ export class AddCopiesComponent {
 
   constructor(private copiesService: CopiesService, private route: ActivatedRoute) {}
 
-  ngOnInit() { //Extrae el parametro id de la ruta
-    this.libroID = Number(this.route.snapshot.paramMap.get('id')); 
+  ngOnInit() {
+    // Extrae el parámetro id de la ruta (si no se pasa desde el padre)
+    this.libroID = Number(this.route.snapshot.paramMap.get('id'));
+    // Obtener las copias actuales del libro
+    this.getCopies();
   }
 
   get addQuantityInvalid(): boolean {
@@ -34,17 +36,29 @@ export class AddCopiesComponent {
     return this.copies.length;
   }
 
+  getCopies(): void {
+    this.copiesService.getCopies(this.libroID).subscribe(
+      (response: any) => {
+        this.copies = response.libros_copias || [];
+      },
+      (error) => {
+        console.error('Error al obtener copias:', error);
+      }
+    );
+  }
+
   addCopies(): void {
     if (this.addQuantity.valid && this.addQuantity.value) {
       const cantidad = this.addQuantity.value;
-      console.log(this.libroID,cantidad);
+      console.log('Agregar copias:', this.libroID, cantidad);
       this.copiesService.addCopy(this.libroID, cantidad).subscribe(
         (response) => {
-          this.showAlert('Copias agregadas exitosamente.', 'success');
+          // En vez de usar response.book_copies, refrescamos la lista
+          this.getCopies();
           this.addQuantity.reset();
         },
         () => {
-          this.showAlert('Error al agregar copias.', 'danger');
+          alert('Error al agregar copias.');
         }
       );
     }
@@ -53,25 +67,16 @@ export class AddCopiesComponent {
   deleteCopy(copyId: number): void {
     this.copiesService.deleteCopy(copyId).subscribe(
       () => {
-        this.copies = this.copies.filter((copy) => copy.id !== copyId);
-        this.showAlert('Copia eliminada exitosamente.', 'success');
+        this.copies = this.copies.filter((copy) => copy.copiaID !== copyId);
       },
       () => {
-        this.showAlert('Error al eliminar la copia. Puede estar asociada a un préstamo.', 'danger');
+        alert('Error al eliminar la copia. Puede estar asociada a un préstamo.');
       }
     );
+  } 
+
+  trackByCopyId(index: number, copy: any): number {
+    return copy.copiaID;
   }
 
-  private showAlert(message: string, type: string): void {
-    const alertPlaceholder = document.getElementById('alertPlaceholder');
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>`;
-    alertPlaceholder?.append(wrapper);
-
-    setTimeout(() => wrapper.remove(), 5000);
-  }
 }
