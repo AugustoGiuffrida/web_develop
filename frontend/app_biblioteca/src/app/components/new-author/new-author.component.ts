@@ -44,8 +44,8 @@ export class NewAuthorComponent {
     if (!nombre || !apellido) return false;
   
     const fullname = `${nombre} ${apellido}`;
-    const response = await this.authorService.getAuthor_by_fullname(fullname).toPromise();
-    return response.autores.length > 0;
+    const response = await this.authorService.getAuthor_by_fullname(fullname).toPromise();//espera la respuesta antes de continuar.
+    return response.autores.length > 0;                                                   //Sino, es undefined
   }
   
 

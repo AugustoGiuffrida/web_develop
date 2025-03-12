@@ -103,6 +103,19 @@ Es una interfaz importada desde @angular/core que Angular utiliza para identific
 ## ngOnInit()
 Metodo que se llama una vez que Angular ha inicializado las propiedades de entrada (inputs) del componente
 
+## async	
+Convierte automáticamente una función en una que devuelve una promesa.
+
+## await	
+Pausa la ejecución de la función hasta que la promesa se resuelva. Solo se puede usar dentro de async.
+
+## Promesas 
+son objetos en JavaScript/TypeScript que representan una operación asíncrona que puede estar en uno de estos tres estados:
+
+  - Pendiente (pending) → Aún no se ha completado ni rechazado.
+  - Resuelta (fulfilled) → Se completó exitosamente y devuelve un resultado.
+  - Rechazada (rejected) → Ocurrió un error.
+
 ## FormGroup
 Representar el formulario en su conjunto. Este objeto agrupa varios controles (campos) y gestiona su estado
 

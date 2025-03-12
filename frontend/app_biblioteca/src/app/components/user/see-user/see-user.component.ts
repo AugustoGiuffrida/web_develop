@@ -6,7 +6,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
   templateUrl: './see-user.component.html',
   styleUrls: ['./see-user.component.css'],
 })
-export class SeeUserComponent implements OnInit{//cambio
+export class SeeUserComponent implements OnInit{
   @Input() id: number = 0;
   @Input() nombre: string = '';
   @Input() apellido: string = '';
