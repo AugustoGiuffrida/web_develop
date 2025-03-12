@@ -3,7 +3,7 @@
     <div class="information">
       <div class="info-childs">
         <h2>Bienvenido</h2>
-        <p>Para unirte a nuestra comunidad por favor Registrate con tus datos</p>
+        <p>Para unirte a nuestra comunidad por favor regístrate con tus datos</p>
         <input type="button" value="Iniciar Sesión" routerLink="/login">
       </div>
     </div>
@@ -16,8 +16,8 @@
           Por favor, corrige los errores antes de continuar.
         </div>
         <form [formGroup]="registerForm" class="form form-register" (ngSubmit)="submit()">
-          <div>
-            <!-- Nombre -->
+          <!-- Campo Nombre -->
+          <div class="input-container">
             <label for="nombre">
               <i class="bi bi-person form-control-icon"></i>
               <input
@@ -29,12 +29,12 @@
                 required
               />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_nombre')" class="alerta alerta-error">
+            <div *ngIf="isFieldInvalid('usuario_nombre')" class="error-overlay">
               {{ getFieldError('usuario_nombre') }}
             </div>
           </div>
-          <!-- Apellido -->
-          <div>
+          <!-- Campo Apellido -->
+          <div class="input-container">
             <label for="apellido">
               <i class="bi bi-person form-control-icon"></i>
               <input
@@ -46,12 +46,12 @@
                 required
               />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_apellido')" class="alerta alerta-error">
+            <div *ngIf="isFieldInvalid('usuario_apellido')" class="error-overlay">
               {{ getFieldError('usuario_apellido') }}
             </div>
           </div>
-          <!-- Email -->
-          <div>
+          <!-- Campo Email -->
+          <div class="input-container">
             <label for="email">
               <i class="bi bi-envelope form-control-icon"></i>
               <input
@@ -63,44 +63,46 @@
                 required
               />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_email')" class="alerta alerta-error">
+            <div *ngIf="isFieldInvalid('usuario_email')" class="error-overlay">
               {{ getFieldError('usuario_email') }}
             </div>
           </div>
-          <!-- Contrasena -->
-          <div>
+          <!-- Campo Contraseña -->
+          <div class="input-container">
             <label for="password">
               <i class="bi bi-lock form-control-icon"></i>
               <input
                 type="password"
                 formControlName="usuario_contrasena"
                 id="password"
-                placeholder="Contrasena"
+                placeholder="Contraseña"
                 [ngClass]="{ error: isFieldInvalid('usuario_contrasena') }"
                 required
               />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_contrasena')" class="alerta alerta-error">
+            <div *ngIf="isFieldInvalid('usuario_contrasena')" class="error-overlay">
               {{ getFieldError('usuario_contrasena') }}
             </div>
           </div>
-          <!-- Confirmar Contrasena -->
-          <div>
+          <!-- Campo Confirmar Contraseña -->
+          <div class="input-container">
             <label for="confirm-password">
               <i class="bi bi-lock form-control-icon"></i>
               <input
                 type="password"
                 formControlName="confirmPassword"
                 id="confirm-password"
-                placeholder="Confirma tu contrasena"
+                placeholder="Confirma tu contraseña"
                 [ngClass]="{ error: registerForm.hasError('mismatch') }"
                 required
               />
             </label>
-            <div *ngIf="registerForm.hasError('mismatch')" class="alerta alerta-error">
-              Las contrasenas no coinciden.
+            <div *ngIf="registerForm.hasError('mismatch')" class="error-overlay">
+              Las contraseñas no coinciden.
             </div>
-            <!-- Telefono -->
+          </div>
+          <!-- Campo Teléfono -->
+          <div class="input-container">
             <label for="telefono">
               <i class="bi bi-telephone form-control-icon"></i>
               <input
@@ -112,10 +114,9 @@
                 required
               />
             </label>
-            <div *ngIf="isFieldInvalid('usuario_telefono')" class="alerta alerta-error">
+            <div *ngIf="isFieldInvalid('usuario_telefono')" class="error-overlay">
               {{ getFieldError('usuario_telefono') }}
             </div>
-
           </div>
           <div class="text-center">
             <input type="submit" [disabled]="isLoading" value="Registrarse" />
@@ -123,7 +124,7 @@
           </div>
           <div>
             <a routerLink="/home" class="volver-inicio">Volver al inicio</a>
-        </div>
+          </div>
         </form>
       </div>
     </div>      
