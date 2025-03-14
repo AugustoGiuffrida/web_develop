@@ -1,0 +1,78 @@
+<!-- Botón para abrir el modal -->
+@if (!createBook) {
+  <div class="my-2">
+    <button type="button" class="btn btn-secondary w-100 w-md-50 rounded-3 bg-light-purple" data-bs-toggle="modal" data-bs-target="#newAuthorModal">
+      <i class="bi bi-person-plus"></i> Nuevo Autor
+    </button>
+  </div>
+}
+
+<!-- Modal para agregar autor -->
+<div class="modal fade" id="newAuthorModal" tabindex="-1" aria-labelledby="newAuthorModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-light-purple">
+        <h1 class="modal-title fs-3" id="newAuthorModalLabel">Nuevo Autor</h1>
+        @if (!createBook) {
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        }
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+          <!-- Nombre -->
+          <div class="form-group">
+            <label for="autor_nombre">Nombre:</label>
+            <input 
+              type="text" 
+              formControlName="autor_nombre" 
+              class="form-control"
+              id="autor_nombre" 
+              placeholder="Nombre del autor"
+              [class.is-invalid]="nameInvalid"
+            >
+            @if (nameInvalid) {
+              @if (authorForm.controls.autor_nombre.errors?.['required']) {
+                <div class="invalid-feedback">Este campo es obligatorio.</div>   
+              }
+              @if (authorForm.controls.autor_nombre.errors?.['minlength']) {
+                <div class="invalid-feedback">El nombre debe contener al menos 4 caracteres.</div>   
+              }
+            }         
+          </div>
+
+          <!-- Apellido -->
+          <div class="form-group">
+            <label for="autor_apellido">Apellido:</label>
+            <input
+              type="text"
+              formControlName="autor_apellido" 
+              class="form-control"
+              id="autor_apellido"
+              placeholder="Apellido del autor"
+              [class.is-invalid]="lastnameInvalid"
+            >
+            @if (lastnameInvalid) {
+              @if (authorForm.controls.autor_apellido.errors?.['required']) {
+                <div class="invalid-feedback">Este campo es obligatorio.</div>   
+              }
+              @if (authorForm.controls.autor_apellido.errors?.['minlength']) {
+                <div class="invalid-feedback">El apellido debe contener al menos 4 caracteres.</div>   
+              }
+            }    
+          </div>
+
+          <!-- Footer del modal -->
+          <div class="modal-footer">
+            @if (createBook) {
+              <button type="button" class="btn btn-secondary bg-light-purple" data-bs-target="#createBook" data-bs-toggle="modal">Volver</button>
+              <button type="submit" class="btn btn-primary bg-light-purple" data-bs-target="#createBook" data-bs-toggle="modal" [disabled]="!authorForm.valid">Crear</button>
+            } @else {
+              <button type="button" class="btn btn-secondary bg-light-purple" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary bg-light-purple" data-bs-dismiss="modal" [disabled]="!authorForm.valid">Crear</button>
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

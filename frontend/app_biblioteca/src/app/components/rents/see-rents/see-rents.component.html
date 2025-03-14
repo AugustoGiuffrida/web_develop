@@ -4,16 +4,22 @@
       <!-- Encabezado -->
       <div class="book-header d-flex align-items-center">
         <div class="book-info ms-3">
-          <h5 class="fw-bold mb-1 pt-2">Titulo: {{ title }}</h5>
+          <h5 class="fw-bold mb-1 pt-2">Título: {{ title }}</h5>
           <p class="mb-1"><span class="badge bg-primary">Días restantes: {{ daysLeft }}</span></p>
           <p class="card-text mb-2"><strong>Estado: </strong> 
             <span class="badge bg-{{ statusColor }} text-bg-{{ statusColor }}">{{ status }}</span>
-          </p>
-          <div *ngIf="isAdmin || isLibrarian" class="mt-2">
-            <p class="text-muted small">Alquilado por: {{ userEmail }}</p>
-          </div>
 
-          
+            @if (statusColor == "danger" && isLibrarian) {
+              <button class="btn btn-warning btn-sm notify-button ms-2" (click)="sendWarning()">
+                <i class="bi bi-bell-fill"></i> Notificar
+              </button>
+            }
+          </p>
+
+          @if (isAdmin || isLibrarian) {
+            <p class="text-muted small">Alquilado por: {{ userEmail }}</p>
+          }
+
           <p class="text-muted small">Copia: {{ copyID }}</p>
           <ul class="loan-details list-unstyled mt-2 small">
             <li><strong>📅 Entrega:</strong> {{ fecha_entrega | date: 'yyyy-MM-dd' }}</li>
@@ -22,20 +28,23 @@
         </div>
       </div>
       
-      
-      <div *ngIf="isUser" class="d-grid mb-3 px-3">
-        <button class="btn btn-outline-primary" (click)="sendRenewalRequest()">Renovar</button>
-      </div>  
-      
+      @if (isUser) {
+        <div class="d-grid mb-3 px-3">
+          <button class="btn btn-outline-primary" (click)="sendRenewalRequest()">Renovar</button>
+        </div>  
+      }
+
       <!-- Botones de acción -->
-      <div *ngIf="isAdmin || isLibrarian" class="button-group mt-3">
-        <button class="btn delete-button " (click)="deleteLoan()">
-          <i class="bi bi-trash"></i> Eliminar
-        </button>
-        <button class="btn edit-button" (click)="openModal()">
-          <i class="bi bi-pencil"></i> Editar
-        </button>
-      </div>
+      @if (isAdmin || isLibrarian) {
+        <div class="button-group mt-3">
+          <button class="btn delete-button" (click)="deleteLoan()">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
+          <button class="btn edit-button" (click)="openModal()">
+            <i class="bi bi-pencil"></i> Editar
+          </button>
+        </div>
+      }
     </div>
   </div>
 </div>

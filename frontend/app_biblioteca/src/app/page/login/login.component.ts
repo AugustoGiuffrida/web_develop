@@ -5,8 +5,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms"
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'], 
 })
+
 export class LoginComponent {
   loginForm!: FormGroup;
   constructor(
@@ -42,7 +43,7 @@ export class LoginComponent {
   }
   
 
-  sumbit(){
+  submit(){
     if(this.loginForm.valid){
       console.log("Datos del formulario: ",this.loginForm.value);
       this.irLogin(this.loginForm.value);

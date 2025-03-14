@@ -9,8 +9,6 @@ export const roleGuard: CanActivateFn = (route, state) => {
   if (token) {
     try {
       const decoded: any = jwtDecode(token);
-      console.log('Decoded Token:', decoded);  // Verifica el contenido del token
-
       // Verifica si el rol es 'admin' o 'librarian'
       if (decoded && (decoded.rol === 'admin' || decoded.rol === 'librarian')) {
         return true;

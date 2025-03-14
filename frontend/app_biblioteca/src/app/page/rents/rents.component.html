@@ -35,4 +35,10 @@
       </div>
     </div>
   </div>
+
+  <!-- Paginación -->
+  <div class="pagination-section">
+    <app-paginate [page]="page" [pages]="pages" (pageChange)="getUserRents($event)"></app-paginate>
+  </div>
+
 </div>

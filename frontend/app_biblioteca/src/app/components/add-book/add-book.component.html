@@ -1,67 +1,78 @@
-<!-- Modal -->
+<!-- Modal para agregar libro -->
 <div class="modal fade" id="createBook" data-bs-backdrop="static" tabindex="-1" aria-labelledby="newBook" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-light-purple text-white">
-        <h1 class="modal-title fs-5" id="newBook">Nuevo Libro</h1>
+        <h3 class="modal-title fs-5" id="newBook">Nuevo Libro</h3>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
+        
         <form [formGroup]="bookForm" (ngSubmit)="save()">
-          <!-- Título -->
-          <input 
-            formControlName="title"
-            class="form-control mb-2"
-            placeholder="Título del libro"
-            [ngClass]="{'is-invalid': bookForm.get('title')?.invalid && bookForm.get('title')?.touched}"
-          >
-          <div class="invalid-feedback">Campo obligatorio (mínimo 4 caracteres)</div>
-
-          <!-- Editorial -->
-          <input 
-            formControlName="publisher"
-            class="form-control mb-2"
-            placeholder="Editorial"
-            [ngClass]="{'is-invalid': bookForm.get('publisher')?.invalid && bookForm.get('publisher')?.touched}"
-          >
-          <div class="invalid-feedback">Campo obligatorio (mínimo 4 caracteres)</div>
-
-          <!-- Autores -->
-          <div class="mb-2">
-            <input 
-              formControlName="author"
+          <!-- Campo Título -->
+          <div>
+            <label for="title">Título</label>
+            <input
+              type="text"
+              id="title"
+              formControlName="title"
               class="form-control"
-              placeholder="Buscar autor"
-              (input)="getAuthors()"
-              list="authorsList"
-            >
+              [ngClass]="{'is-invalid': bookForm.get('title')?.invalid && bookForm.get('title')?.touched}">
+            <div class="invalid-feedback">Campo obligatorio (mínimo 4 caracteres)</div>
+          </div>
+          <!-- Campo Editorial -->
+          <div>
+            <label for="publisher">Editorial</label>
+            <input
+              type="text"
+              id="publisher"
+              formControlName="publisher"
+              class="form-control"
+              [ngClass]="{'is-invalid': bookForm.get('publisher')?.invalid && bookForm.get('publisher')?.touched}">
+            <div class="invalid-feedback">Campo obligatorio (mínimo 4 caracteres)</div>
+          </div>
+
+          <!-- Campo Autores -->
+          <div>
+            <label for="author">Autores</label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                id="author" 
+                formControlName="author" 
+                class="form-control" 
+                placeholder="Buscar autor" 
+                (input)="getAuthors()"
+                list="authorsList">
+              <button type="button" class="btn btn-outline-success" (click)="addAuthor()">
+                <i class="bi bi-plus-circle"></i>
+              </button>
+            </div>
             <datalist id="authorsList">
-              <option *ngFor="let author of authors" [value]="author.name + ' ' + author.lastname"></option>
+              <option *ngFor="let author of authors" [value]="author.autor_nombre + ' ' + author.autor_apellido"></option>
             </datalist>
             <ul class="list-group mt-2">
-              <li 
-                class="list-group-item d-flex justify-content-between align-items-center"
-                *ngFor="let author of selectedAuthors"
-              >
-                {{ author.name }} {{ author.lastname }}
+              <li class="list-group-item d-flex justify-content-between align-items-center" 
+                  *ngFor="let author of selectedAuthors">
+                {{ author.autor_nombre }} {{ author.autor_apellido }}
                 <button type="button" class="btn btn-sm btn-danger" (click)="removeAuthor(author)">
-                  <i class="bi bi-trash"></i>
+                  <i class="bi bi-trash-fill"></i>
                 </button>
               </li>
             </ul>
           </div>
 
-          <!-- Género -->
-          <select 
-            formControlName="gender"
-            class="form-select mb-3"
-          >
-            <option value="">Seleccionar género...</option>
-            <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
-          </select>
+          <!-- Campo Género -->
+          <div>
+            <label for="gender">Género</label>
+            <select id="gender" formControlName="gender" class="form-select">
+              <option value="">Seleccionar género...</option>
+              <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+            </select>
+          </div>
 
-          <!-- Botones -->
-          <div class="modal-footer">
+          <!-- Botones del modal -->
+          <div class="modal-actions">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             <button type="submit" class="btn btn-success" [disabled]="bookForm.invalid">Crear</button>
           </div>
@@ -71,9 +82,9 @@
   </div>
 </div>
 
-<!-- Botón flotante -->
-<div class="fixed-bottom text-end mb-3 me-3">
-  <button class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#createBook">
+<!-- Botón flotante para abrir el modal -->
+<div *ngIf="isAdmin || isLibrarian" class="fixed-bottom text-end mb-3 me-3">
+  <button class="btn btn-info text-white shadow rounded-4" data-bs-toggle="modal" data-bs-target="#createBook">
     <i class="bi bi-plus-circle-fill fs-3"></i>
   </button>
 </div>

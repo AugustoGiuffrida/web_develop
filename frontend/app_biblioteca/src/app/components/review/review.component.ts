@@ -17,12 +17,14 @@ export class ReviewComponent {
   @Input() self_comment: any = null;
   @Input() user: any = null;
 
-  constructor(private usuariosService: UsuariosService, private authService: AuthService, private reviewService: ReviewsService) {}
+  constructor(
+    private usuariosService: UsuariosService, 
+    private authService: AuthService, 
+    private reviewService: ReviewsService) {}
 
   get isAdmin(): boolean {
     return this.authService.isAdmin();
   }
-
 
   getUserImage(user: any) {
     if (!user?.image || user?.image === '') {

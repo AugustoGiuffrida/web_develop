@@ -25,17 +25,23 @@
 
   <!-- Sección de resenas -->
   <div class="reviews-section">
+    <!-- Mensaje de error si el usuario ya ha comentado -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
     <div class="reviews-header">
       <h3>Reseñas</h3>
+      <!-- Botón para añadir una reseña (deshabilitado si ya comentó) -->
       <div class="add-review-btn">
-        <button *ngIf="isLogged && isUser" class="btn btn-info text-white" type="button" data-bs-toggle="collapse" data-bs-target="#reviewForm">
-          <i class="bi bi-chat"></i> Anadir reseña
+        <button *ngIf="isLogged && isUser" class="btn btn-info text-white" type="button" data-bs-toggle="collapse"
+          data-bs-target="#reviewForm" [disabled]="self_comment">
+          <i class="bi bi-chat"></i> Añadir reseña
         </button>
       </div>
     </div>
 
     <!-- Formulario para anadir una resena -->
-    <div *ngIf="isLogged" class="collapse" id="reviewForm">
+    <div *ngIf="isUser" class="collapse" id="reviewForm">
       <div class="card review-card">
         <div class="card-body">
           <div class="rating-dropdown">

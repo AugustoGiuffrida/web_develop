@@ -21,7 +21,7 @@ class Notificacion(Resource):
 
 
     @jwt_required()
-    @role_required(roles=["admin", "librarian"])
+    @role_required(roles=["admin", "librarian", "user"])
     def delete(self, id):
         notificacion = db.session.query(NotificacionModel).get_or_404(id)
         try:

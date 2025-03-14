@@ -9,7 +9,7 @@
         <i class="bi bi-search"></i>
       </span>
       <input type="text" class="form-control border border-secondary border-start-0 search-bar" 
-             placeholder="Buscar por título, autor, etc." 
+             placeholder="Buscar por título" 
              [(ngModel)]="searchQuery" 
              (input)="filterBooks()" 
              style="border-radius: 0 20px 20px 0;">
@@ -36,11 +36,12 @@
 </main>
 
 <!-- Modal de Crear Libro -->
-<!-- <app-add-book
+<app-add-book
   (bookCreated)="bookCreated($event)"
   (errorBookCreated)="errorBookCreated($event)">
-</app-add-book> -->
+</app-add-book>
 
 
-
-<app-paginate [page]="page" [pages]="pages" (pageChange)="getBooks($event)"></app-paginate>
+<div class="container pb-5">
+<app-paginate class="mb-5" [page]="page" [pages]="pages" (pageChange)="getBooks($event)"></app-paginate>
+</div> 

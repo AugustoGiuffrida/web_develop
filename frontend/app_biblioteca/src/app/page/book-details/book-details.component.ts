@@ -26,6 +26,7 @@ export class BookDetailsComponent implements OnInit {
   self_comment: any = null;
   userRating: number = 1;
   userReview: string = '';
+  errorMessage: string = '';
   
 
   constructor(
@@ -60,15 +61,25 @@ export class BookDetailsComponent implements OnInit {
   }
 
   postReview() {
+    if (this.self_comment) {
+      this.errorMessage = "Ya has comentado este libro.";
+      return;
+    }
+
     const reviewData = {
-      "libroID": this.bookId,
-      "usuarioID": this.authService.UserId,
-      "valoracion": this.userRating,
-      "comentario": this.userReview,
+      libroID: this.bookId,
+      usuarioID: this.authService.UserId,
+      valoracion: this.userRating,
+      comentario: this.userReview,
     };
-    this.reviewService.postReview(reviewData).subscribe ((response) => {
-      window.location.reload();
-    })
+
+    this.reviewService.postReview(reviewData).subscribe({
+      next: () => window.location.reload(),
+      error: (err) => {
+        console.error("Error al enviar la reseña:", err);
+        this.errorMessage = "No puedes comentar este libro.";
+      }
+    });
   }
 
   get isLogged() {

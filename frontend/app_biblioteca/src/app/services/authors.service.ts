@@ -25,5 +25,8 @@ export class AuthorsService {
     return this.httpClient.get('/api/autores?nombre='+autor_nombre+'&apellido='+autor_apellido);
   }
 
+  addAuthor(authorData: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.url}/autores`, authorData);
+  }
 
 }

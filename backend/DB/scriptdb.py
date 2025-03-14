@@ -8,7 +8,7 @@ import random
 fake = Faker()
 
 # Conectarse a la base de datos existente
-conn = sqlite3.connect('/home/augusto/Documentos/programacion1/backend/DB/biblioteca.db')
+conn = sqlite3.connect('/home/altair/Documentos/Desarrollo/wep_develop2/backend/DB/biblioteca.db')
 cur = conn.cursor()
 
 # Crear un archivo de log para registrar los datos
@@ -90,13 +90,21 @@ with open(log_file, 'w') as log:
     # Generar datos para la tabla "resenas"
     datos_resenas = []
     resenaID = 1  
+    resenas_existentes = set()  # Usamos un conjunto para evitar duplicados
+
     for libroID in range(1001, 1031):  
-        num_resenas = random.randint(1, 6)  # Determinar cuántas resenas generar para cada libro
+        usuarios_disponibles = list(range(1, 31))  # Lista de usuarios disponibles para reseñar
+        random.shuffle(usuarios_disponibles)  # Mezclamos los usuarios para mayor aleatoriedad
+        num_resenas = random.randint(1, min(6, len(usuarios_disponibles)))  # Número de reseñas por libro
+
         for _ in range(num_resenas):
-            usuarioID = random.randint(1, 30)  # Seleccionar un usuario aleatorio
+            usuarioID = usuarios_disponibles.pop()  # Tomamos un usuario único para este libro
+            
             valoracion = fake.random_int(min=1, max=5)
             comentario = fake.text(max_nb_chars=100)
+            
             datos_resenas.append((resenaID, usuarioID, libroID, valoracion, comentario))
+            resenas_existentes.add((usuarioID, libroID))  # Guardamos la combinación en el set
             resenaID += 1  
 
     # Insertar datos en la tabla "resenas"

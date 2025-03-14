@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
-from main.models import LibroModel, AutorModel, PrestamoModel
+from main.models import LibroModel, AutorModel, PrestamoModel, ResenaModel
 from sqlalchemy import func, desc, asc
 from main.auth.decorators import role_required
 from flask_jwt_extended import jwt_required
@@ -52,16 +52,15 @@ class Libro(Resource):
         return libro.to_json(), 201
 
 
+
+
 class Libros(Resource): 
-    #obtener lista de los libros
     def get(self):
-        #Página inicial por defecto
+        # Página inicial por defecto
         page = 1
-        #Cantidad de elementos por página por defecto
         per_page = 9
         
         libros = db.session.query(LibroModel)
-
 
         if request.args.get('page'):
             page = int(request.args.get('page'))
@@ -71,41 +70,66 @@ class Libros(Resource):
 
         ### FILTROS ### 
 
-        #Filtrar por titulo
+        # Filtrar por titulo
         if request.args.get('titulo'):
             libros = libros.filter(LibroModel.titulo.like('%' + request.args.get('titulo') + '%'))
-        if 'sortby_titulo' in params:
-            # Ordenar por título de forma descendente
-            libros = libros.order_by(LibroModel.titulo.desc())
 
-        #Filtrar por editorial
-        if request.args.get('editorial'):
-            libros = libros.filter(LibroModel.editorial == request.args.get('editorial'))
-        if 'sortby_editorial' in params:
-            libros = libros.order_by(LibroModel.editorial.desc())
+        # Traemos todos los libros sin paginación para ordenarlos después
+        libros = libros.all()
 
-        #Filtrar por id
-        if request.args.get('id'):
-            libros = libros.filter(LibroModel.libroID.like('%' + request.args.get('id') + '%'))
-        
-        #Sortby_prestamos
-        if request.args.get('sortby_prestamos'):
-            if request.args.get('sortby_prestamos') == "asc":
-                libros=libros.outerjoin(LibroModel.prestamos).group_by(LibroModel.libroID).order_by(func.count(PrestamoModel.prestamoID).asc())
-            if request.args.get('sortby_prestamos') == "desc":
-                libros=libros.outerjoin(LibroModel.prestamos).group_by(LibroModel.libroID).order_by(func.count(PrestamoModel.prestamoID).desc())  
-        ### FIN FILTROS ####     
-          
-        #Obtener valor paginado(evita que se traigan todos los registros)
-        libros = libros.paginate(page=page, per_page=per_page, error_out=True)
-                                                                #Si no existe la pag
-                                                                #devuelve un error
+        # Si hay un parámetro para ordenar por rating
+        if request.args.get('sortby_rating'):
+            sort_order = request.args.get('sortby_rating')
+            
+            # Ordenar los libros en memoria según su rating (si rating es un decorador, 
+            # asegúrate de que este decorador esté accediendo al valor correcto del rating)
+            if sort_order == "asc":
+                libros = sorted(libros, key=lambda libro: libro.rating)  # Ordenar ascendente
+            elif sort_order == "desc":
+                libros = sorted(libros, key=lambda libro: libro.rating, reverse=True)  # Ordenar descendente
 
-        return jsonify({'libros': [libro.to_json_complete() for libro in libros],
-                  'total': libros.total, #
-                  'pages': libros.pages, # Esto se tiene que enviar al backend para paginar
-                  'page': page           #
-                })
+        # Paginación manual de los libros después de ordenarlos
+        start = (page - 1) * per_page
+        end = start + per_page
+        paginated_libros = libros[start:end]
+
+        # Devolver los libros paginados
+        return jsonify({
+            'libros': [libro.to_json_complete() for libro in paginated_libros],
+            'total': len(libros),  # Total de libros sin paginación
+            'pages': (len(libros) + per_page - 1) // per_page,  # Cálculo de número total de páginas
+            'page': page
+        })
+
+
+        # # Filtro y ordenación por rating
+        # if request.args.get('sortby_rating'):
+        #     sort_order = request.args.get('sortby_rating')
+            
+        #     # Subconsulta para obtener el rating
+        #     rating_subquery = db.session.query(
+        #         LibroModel.libroID,
+        #         func.avg(ResenaModel.valoracion).label('avg_rating')
+        #     ).join(ResenaModel).group_by(LibroModel.libroID).subquery()
+            
+        #     libros = libros.join(rating_subquery, LibroModel.libroID == rating_subquery.c.libroID)
+            
+        #     # Ordenar según la valoración
+        #     if sort_order == "desc":
+        #         libros = libros.order_by(rating_subquery.c.avg_rating.desc())
+        #     elif sort_order == "asc":
+        #         libros = libros.order_by(rating_subquery.c.avg_rating.asc())
+
+        # # Paginar los libros
+        # libros = libros.paginate(page=page, per_page=per_page, error_out=True)
+
+        # return jsonify({
+        #     'libros': [libro.to_json_complete() for libro in libros.items],
+        #     'total': libros.total,
+        #     'pages': libros.pages,
+        #     'page': page
+        # })
+
 
     @jwt_required()
     @role_required(roles=['admin', 'librarian'])

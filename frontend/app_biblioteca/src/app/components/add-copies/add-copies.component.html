@@ -1,27 +1,49 @@
 <!-- Botón para abrir el modal -->
 <button
   type="button"
-  class="btn btn-secondary mb-3 w-100 w-md-50 rounded-3 bg-light-purple"
+  class="btn btn-secondary mb-1 w-100 w-md-50 rounded-3 bg-light-purple"
+  (click)="openModal()"
   data-bs-toggle="modal"
   data-bs-target="#addCopiesModal"
 >
   <i class="bi bi-journal"></i> Editar Copias
 </button>
 
+
 <!-- Modal -->
 <div class="modal fade" id="addCopiesModal" tabindex="-1" aria-labelledby="addCopiesModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addCopiesModalLabel">Agregar Copias</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="addCopiesModalLabel">Copias actuales: {{ copiesQuantity }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
 
       <div class="modal-body">
         <div id="alertPlaceholder"></div>
 
+        <!-- Lista de copias actuales -->
+        <div class="card mb-3">
+          <div class="card-header">Identificador único de copia</div>
+          <ul class="list-group list-group-flush">
+            <li *ngFor="let copy of copies; trackBy: trackByCopyId" class="list-group-item d-flex justify-content-between">
+              <p><strong>Copia ID:</strong> {{ copy.copiaID }}</p>
+              <button type="button" class="btn btn-outline-danger" (click)="deleteCopy(copy.copiaID)">
+                <i class="bi bi-file-earmark-x"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+
         <!-- Agregar copias -->
-        <div >
+        <div class="accordion accordion-flush my-2" id="addCopiesAccordionContainer">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#addCopiesAccordion" aria-expanded="false" aria-controls="addCopiesAccordion">
+                <i class="bi bi-file-earmark-plus"></i> Agregar copias
+              </button>
+            </h2>
+            <div id="addCopiesAccordion" class="accordion-collapse collapse" data-bs-parent="#addCopiesAccordionContainer">
               <div class="input-group my-3">
                 <input
                   type="number"
@@ -32,14 +54,14 @@
                   aria-label="Cantidad de copias"
                   [formControl]="addQuantity"
                 />
-                <button
-                  class="btn btn-success"
-                  type="button"
-                  (click)="addCopies()">
-                  <i class="bi bi-plus-circle-fill"></i> 
+                <button class="btn btn-success" type="button" (click)="addCopies()">
+                  <i class="bi bi-plus-circle-fill"></i>
                 </button>
               </div>
+            </div>
+          </div>
         </div>
+
       </div>
 
       <div class="modal-footer">

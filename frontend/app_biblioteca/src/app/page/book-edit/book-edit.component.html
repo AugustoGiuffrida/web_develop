@@ -12,6 +12,7 @@
         <p class="book-meta"><strong>Género:</strong> {{ genero }}</p>
         <p class="book-meta"><strong>Autor:</strong> {{ str_autores }}</p>
         <p class="book-meta"><strong>Editorial:</strong> {{ editorial }}</p>
+        <p class="book-meta"><strong>Cantidad:</strong> {{ cantidad }}</p>
       </div>
     </div>
 
@@ -39,11 +40,13 @@
               <i class="bi bi-plus-circle"></i>
             </button>
           </div>
+
           <datalist id="authorsList">
             @for (author of lista_autores; track author.id) {
-              <option value="{{author.autor_nombre}} {{author.autor_apellido}}"></option>
+              <option value="{{ author.autor_nombre }} {{ author.autor_apellido }}"></option>
             }
           </datalist>
+
           <ul class="list-group list-group-flush">
             @for (libro_autor of libros_autores; track libro_autor.autorID) {
               <li class="list-group-item d-flex justify-content-between">
@@ -56,33 +59,26 @@
           </ul>
         </div>
 
-        
         <!-- Género -->
         <div class="form-group mb-3">
           <label for="genreSelect" class="form-label"><i class="bi bi-bookmark"></i> Género:</label>
           <select id="genreSelect" formControlName="genero" class="form-select">
-            <option *ngFor="let g of generos" [selected]="g === genero" [value]="g">{{ g }}</option>
+            @for (g of generos; track g) {
+              <option [selected]="g === genero" [value]="g">{{ g }}</option>
+            }
           </select>
         </div>
 
-        <!-- Subir imagen -->
-        <!-- <div class="form-group">
-          <label for="uploadImage" class="form-label"><i class="bi bi-image"></i> Portada del libro:</label>
-          <div class="input-group">
-            <input id="uploadImage" type="file" class="form-control" accept=".jpg" (change)="uploadImage($event)">
-            <button class="btn btn-save" type="button" (click)="uploadImage($event)">
-              <i class="bi bi-upload"></i>
-            </button>
-          </div>
-        </div> -->
         <app-add-copies
           [id]="bookId"
           [copies]="this.copias">
         </app-add-copies>
 
+        <app-new-author></app-new-author> 
+
         <!-- Botón Guardar -->
         <div class="text-center ">
-          <button class="btn btn-upload w-100">
+          <button class="btn btn-upload w-100 my-1">
             <i class="bi bi-floppy-fill"></i> Guardar
           </button>
         </div>

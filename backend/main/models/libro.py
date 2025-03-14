@@ -92,12 +92,11 @@ class Libro(db.Model):
     # Convertir JSON a objeto
     @staticmethod
     def from_json(libro_json):
-        libroID = libro_json.get('libroID')
         titulo = libro_json.get('titulo')
         editorial = libro_json.get('editorial')
         genero = libro_json.get('genero')
         image = libro_json.get('image')
-        return Libro(libroID=libroID,
+        return Libro(
                     titulo=titulo,
                     editorial=editorial,
                     genero=genero,

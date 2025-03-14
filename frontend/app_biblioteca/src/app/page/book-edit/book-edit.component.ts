@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,22 +17,25 @@ export class BookEditComponent implements OnInit {
   image: string = ''; 
   editorial: string = '';
   genero: string = '';
-  autores: any[] = [];            // Ya están en el libro
-  new_autores: any[] = [];        // id de nuevos autores
-  lista_autores: any[] = [];      // Lista de autores dinámica (input)
-  libros_autores: any[] = [];
+  cantidad: number = 0;
+  autores: any[] = [];        // Ya están en el libro
+  new_autores: any[] = [];    // id de nuevos autores
+  lista_autores: any[] = [];  // Lista de autores Sugerencia
+  libros_autores: any[] = []; //Interfaz
   copias: any[] = [];
   isLoading = false;
   errors: any = {};
 
+  private fb = inject(FormBuilder);
 
   generos = ['Fiction', 'Non-fiction', 'Mystery', 'Science Fiction', 'Fantasy'];
-  editBookForm = new FormGroup({
-    title: new FormControl(''),
-    author: new FormControl(''),
-    editorial: new FormControl(''),
-    genero: new FormControl(''),
-  })
+
+  editBookForm: FormGroup = this.fb.group({
+    title: ['', [Validators.maxLength(40)]],
+    author: [''],
+    editorial: ['', [Validators.required, Validators.maxLength(100)]],
+    genero: ['', [Validators.required]]
+  });
 
   constructor(
     private authorsService: AuthorsService,
@@ -49,7 +52,7 @@ export class BookEditComponent implements OnInit {
 
   }
 
-  get str_autores(): string {
+  get str_autores(): string { //cadena de texto que almacena el nombre completo de cada autor
     let str_authors: string = '';
     let comma: string = '';
     if (this.autores.length == 0) {
@@ -77,10 +80,10 @@ export class BookEditComponent implements OnInit {
       return;
     } else {
       this.authorsService.getAuthor_by_fullname(fullname).subscribe((answer:any) => {
-        const id = answer.autores[0].autorID;
+        const id = answer.autores[0].autorID; // ID del primer autor encontrado
         if (id && !(this.repeatedAuthor(id))) {
-          this.new_autores.push(id);
-          this.libros_autores.push(answer.autores[0]);
+          this.new_autores.push(id); //Guardo solo el id porque la tabla de libros recibe solo el id del autor
+          this.libros_autores.push(answer.autores[0]); //Visualizar autores en la interfaz
           this.editBookForm.controls['author'].setValue('');
         }
       })
@@ -113,31 +116,21 @@ export class BookEditComponent implements OnInit {
     }
   }
   
-  getBook(id: number) {
+  getBook(id: number) { //obtener la información de un libro desde el backend
     this.bookService.getBook(id).subscribe((data: any) => {
       this.bookId = id;
       this.titulo = data.titulo;
       this.image = data.image;
       this.editorial = data.editorial;
       this.genero = data.genero;
+      this.cantidad = data.cantidad;
       this.copias = data.copias || [];
       this.autores = data.autores;
-      for (let author of this.autores) {
+      for (let author of this.autores) {//separar la información
         this.new_autores.push(author.autorID);
         this.libros_autores.push(author);
       }
     });
-  }
-  
-  uploadImage(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.image = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
   }
   
   submit() {
@@ -146,8 +139,9 @@ export class BookEditComponent implements OnInit {
     data.editorial = this.editBookForm.controls['editorial'].value;
     data.genero = this.editBookForm.controls['genero'].value;
     data.autores = this.new_autores;
-    this.bookService.updateBook(this.bookId, data).subscribe(() => {})
-    window.location.reload();
+    this.bookService.updateBook(this.bookId, data).subscribe(() => {
+      window.location.reload();
+    })
   }
 
 }

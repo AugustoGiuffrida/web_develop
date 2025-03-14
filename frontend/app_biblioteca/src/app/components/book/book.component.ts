@@ -30,14 +30,18 @@ export class BookComponent implements OnInit {
   updatedQuantity: number = 0;
 
 
-  ngOnInit() {
+  ngOnInit() { //se ejecuta al iniciar el componente.
     if (this.isUser) {
       this.getUser();
     }
   }
 
-  constructor(private router: Router, private bookService: BookService, private authService: AuthService, private notificationService: NotificationsService, private userService: UsuariosService) {}
-  
+  constructor(
+    private router: Router, 
+    private bookService: BookService, 
+    private authService: AuthService, 
+    private notificationService: NotificationsService, 
+    private userService: UsuariosService) {}
 
 
   get isAdmin(): boolean {
@@ -53,10 +57,10 @@ export class BookComponent implements OnInit {
   }
 
   getUser() {
-    const userID = this.authService.UserId;
-    this.userService.getUser(userID).subscribe({
+    const userID = this.authService.UserId; //Obtener el ID del usuario
+    this.userService.getUser(userID).subscribe({ //Obtengo datos del usuario
       next: (response) => {
-        this.user = response;
+        this.user = response;//Guardo respuesta en la propiedad user
       },
       error: (error) => {
         console.log('Error al obtener el usuario:', error);
@@ -84,10 +88,12 @@ export class BookComponent implements OnInit {
     
     this.notificationService.postNotification(data).subscribe({
       next: (response) => {
-        console.log('Renovar solicitud enviada (broadcast): ', response);
+        console.log('Renovar solicitud enviada: ', response);
+        alert('¡Tu solicitud de préstamo ha sido enviada con éxito!');
       },
       error: (error) => {
-        console.error('Error al enviar la solicitud de renovación del préstamo:', error);
+        console.error('Error al enviar la solicitud de préstamo:', error);
+        alert('Error al enviar la solicitud. Intenta nuevamente.');
       }
     });
   }

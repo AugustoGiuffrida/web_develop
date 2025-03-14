@@ -16,12 +16,12 @@ export class ProfileComponent implements OnInit {
   usuario_telefono: string = '0';
   rol: string = '';
 
-  editForm!: FormGroup;
+  editForm!: FormGroup; //representar el formulario en su conjunto
   isModalOpen = false;
 
   constructor(
     private usuariosService: UsuariosService,
-    private fb: FormBuilder,
+    private fb: FormBuilder, // FormBuilder uso  crear y configurar el formulario reactivo
     private authService: AuthService
   ) {}
 
@@ -62,29 +62,6 @@ export class ProfileComponent implements OnInit {
   }
   
   
-  
-  initForm(): void {
-    // Inicializa el formulario con los valores actuales
-    this.editForm = this.fb.group({
-      usuario_nombre: ["XD", [
-        Validators.required, 
-        Validators.minLength(4),
-        Validators.pattern('^[a-zA-Z ]*$') 
-      ]],
-      usuario_apellido: [this.usuario_apellido, [
-        Validators.required, 
-        Validators.minLength(4), 
-        Validators.pattern('^[a-zA-Z ]*$')
-      ]],
-      usuario_email: [this.usuario_email, [Validators.required, Validators.email]],
-      usuario_telefono: [this.usuario_telefono, [
-        Validators.required, 
-        Validators.pattern(/^[0-9]*$/)
-      ]],
-    });
-  }
-  
-
   isFieldInvalid(fieldName: string): boolean {
     const field = this.editForm.get(fieldName);
     return !!(field?.touched && field.invalid); 
